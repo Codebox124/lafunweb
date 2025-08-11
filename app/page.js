@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Plus, Minus, MessageCircle, Star, Clock, Award, Users, ChefHat, Truck, Heart, Phone, Bell, CheckCircle } from 'lucide-react';
@@ -22,26 +23,20 @@ const LafunWebsite = () => {
       items: [
         {
           id: 1,
-          name: "LÀFÙN & GBÈGÌRÌ COMBO",
-          price: 85.00,
-          description: "Traditional Lafun served with rich Gbegiri soup and your choice of protein: Beef, Titus fish, Goat meat, Ponmon, Snail",
-          image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400&h=300&fit=crop&crop=center",
+          name: "LÀFÙN & ABÙLÁ COMBO",
+          price: 8500,
+          description:
+            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
+          image: "/abula.JPG",
           currency: "₦"
         },
         {
           id: 2,
-          name: "LÀFÙN SOLO",
-          price: 70.00,
-          description: "Pure Lafun served with your choice of protein: Beef, Titus fish, Goat meat, Ponmon, Snail",
-          image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop&crop=center",
-          currency: "₦"
-        },
-        {
-          id: 3,
-          name: "GBÈGÌRÌ SOUP BOWL",
-          price: 60.00,
-          description: "Rich, traditional bean soup served with your choice of protein",
-          image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop&crop=center",
+          name: "LÀFÙN WITHOUT GBÈGÌRÌ",
+          price: 8000,
+          description:
+            "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
+          image: "/ewedu.JPG",
           currency: "₦"
         }
       ]
@@ -50,86 +45,43 @@ const LafunWebsite = () => {
       name: "Protein Options",
       items: [
         {
-          id: 4,
+          id: 3,
           name: "Beef (Ẹran)",
-          price: 30.00,
+          price: 2500,
           description: "Premium tender beef pieces, perfectly seasoned",
-          image: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&h=300&fit=crop&crop=center",
+          image: "/asorted.JPG",
+          currency: "₦"
+        },
+        {
+          id: 4,
+          name: "Titus Fish",
+          price: 3000,
+          description: "Fresh Titus fish, grilled to perfection",
+          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&auto=format",
           currency: "₦"
         },
         {
           id: 5,
-          name: "Titus Fish",
-          price: 25.00,
-          description: "Fresh Titus fish, grilled to perfection",
-          image: "https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=400&h=300&fit=crop&crop=center",
+          name: "Goat Meat (Ògúnfẹ)",
+          price: 4000,
+          description: "Succulent goat meat with authentic Nigerian spices",
+          image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop&auto=format",
           currency: "₦"
         },
         {
           id: 6,
-          name: "Goat Meat (Ògúnfẹ)",
-          price: 40.00,
-          description: "Succulent goat meat with authentic Nigerian spices",
-          image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop&crop=center",
+          name: "Ponmon",
+          price: 2000,
+          description: "Deliciously cooked cow skin, tender and seasoned",
+          image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format",
           currency: "₦"
         },
         {
           id: 7,
-          name: "Cow Skin (Pònmọ́n)",
-          price: 20.00,
-          description: "Soft, well-prepared cow skin with traditional seasoning",
-          image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&crop=center",
-          currency: "₦"
-        },
-        
-      ]
-    },
-    {
-      name: "Extra Soup",
-      items: [
-        {
-          id: 9,
-          name: "Extra Gbègìrì",
-          price: 15.00,
-          description: "Additional portion of our traditional bean soup",
-          image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop&crop=center",
-          currency: "₦"
-        },
-        {
-          id: 10,
-          name: "Extra Làfùn",
-          price: 20.00,
-          description: "Additional portion of our signature Lafun",
-          image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400&h=300&fit=crop&crop=center",
-          currency: "₦"
-        }
-      ]
-    },
-    {
-      name: "Beverages",
-      items: [
-        {
-          id: 12,
-          name: "Zobo Drink",
-          price: 10.00,
-          description: "Refreshing hibiscus drink with natural spices",
-          image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&h=300&fit=crop&crop=center",
-          currency: "₦"
-        },
-        {
-          id: 13,
-          name: "Palm Wine",
-          price: 15.00,
-          description: "Fresh palm wine, naturally fermented",
-          image: "https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=400&h=300&fit=crop&crop=center",
-          currency: "₦"
-        },
-        {
-          id: 14,
-          name: "Soft Drinks",
-          price: 5.00,
-          description: "Cold soft drinks - Coke, Sprite, Fanta",
-          image: "https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=400&h=300&fit=crop&crop=center",
+          name: "Snail",
+          price: 3500,
+          description: "Juicy and perfectly spiced African snail",
+          image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&auto=format",
           currency: "₦"
         }
       ]
@@ -161,13 +113,13 @@ const LafunWebsite = () => {
         menu.items?.find(item => item.id === parseInt(itemId))
       )?.items?.find(item => item.id === parseInt(itemId));
 
-      if (item) {
+      if (item && item.price) {
         total += item.price * quantity;
         itemCount += quantity;
       }
     });
 
-    return { total: total * 100, itemCount }; // Convert to actual Naira
+    return { total, itemCount }; // Remove the * 100 multiplication
   };
 
   const generateWhatsAppMessage = () => {
@@ -179,8 +131,8 @@ const LafunWebsite = () => {
         menu.items?.find(item => item.id === parseInt(itemId))
       )?.items?.find(item => item.id === parseInt(itemId));
 
-      if (item) {
-        const subtotal = item.price * quantity * 100; // Convert to Naira
+      if (item && item.price) {
+        const subtotal = item.price * quantity; // Remove * 100
         message += `🍽️ ${item.name} x${quantity} - ₦${subtotal.toLocaleString()}\n`;
         total += subtotal;
       }
@@ -227,7 +179,7 @@ const LafunWebsite = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             <div>
-              <img className='w-auto h-[60px] sm:h-[70px] md:h-[90px]' src='/logo.png' alt="LÀFÙN Logo" />
+              <img className='md:w-[150px] w-[90px]' src='/logo.png' alt="LÀFÙN Logo" />
             </div>
             <div className="flex items-center gap-3 sm:gap-6">
               <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-gray-300">
@@ -365,7 +317,7 @@ const LafunWebsite = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <div className="text-center group hover:scale-105 transition-all duration-300">
               <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50 transition-all">
                 <ChefHat className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
@@ -468,11 +420,16 @@ const LafunWebsite = () => {
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      e.target.src = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&auto=format";
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-red-600 text-white px-2 py-1 sm:px-3 rounded-full text-xs sm:text-sm font-bold">
-                    ₦{(item.price * 100).toLocaleString()}
-                  </div>
+                  {item.price && (
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-red-600 text-white px-2 py-1 sm:px-3 rounded-full text-xs sm:text-sm font-bold">
+                      ₦{item.price.toLocaleString()}
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-6 sm:p-8">
@@ -483,29 +440,31 @@ const LafunWebsite = () => {
                     <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">{item.description}</p>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <button
-                        onClick={() => updateQuantity(item.id, -1)}
-                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 flex items-center justify-center transition-all duration-300 disabled:opacity-50 hover:scale-110"
-                        disabled={!cart[item.id]}
-                      >
-                        <Minus className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </button>
-                      <span className="text-xl sm:text-2xl font-bold w-8 sm:w-12 text-center text-red-400">
-                        {cart[item.id] || 0}
-                      </span>
-                      <button
-                        onClick={() => updateQuantity(item.id, 1)}
-                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 flex items-center justify-center transition-all duration-300 hover:scale-110"
-                      >
-                        <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </button>
+                  {item.price && (
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <button
+                          onClick={() => updateQuantity(item.id, -1)}
+                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 flex items-center justify-center transition-all duration-300 disabled:opacity-50 hover:scale-110"
+                          disabled={!cart[item.id]}
+                        >
+                          <Minus className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </button>
+                        <span className="text-xl sm:text-2xl font-bold w-8 sm:w-12 text-center text-red-400">
+                          {cart[item.id] || 0}
+                        </span>
+                        <button
+                          onClick={() => updateQuantity(item.id, 1)}
+                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                        >
+                          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </button>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-red-400">₦{item.price.toLocaleString()}</div>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-xl sm:text-2xl lg:text-3xl font-black text-red-400">₦{(item.price * 100).toLocaleString()}</div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -525,7 +484,7 @@ const LafunWebsite = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center group hover:scale-105 transition-all duration-300">
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50">
                 <Phone className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
@@ -582,7 +541,7 @@ const LafunWebsite = () => {
             LÀFÙN
           </div>
           <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">PROUDLY ÌBÍLÈ. PURELY LÀFÚN.</p>
-          <p className="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base">houseoflafun.co@gmail.com</p>
+          <p className="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base">Houseoflafun.co@gmail.com</p>
           <p className="text-gray-500 text-xs sm:text-sm">© 2025 LÀFÙN. All rights reserved. E se! 🙏</p>
         </div>
       </footer>
