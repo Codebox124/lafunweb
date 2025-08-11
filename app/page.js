@@ -1,7 +1,7 @@
-
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Plus, Minus, MessageCircle, Star, Clock, Award, Users, ChefHat, Truck, Heart, Phone, Bell, CheckCircle } from 'lucide-react';
+import './App.css';
 
 const LafunWebsite = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -119,7 +119,7 @@ const LafunWebsite = () => {
       }
     });
 
-    return { total, itemCount }; // Remove the * 100 multiplication
+    return { total, itemCount };
   };
 
   const generateWhatsAppMessage = () => {
@@ -132,7 +132,7 @@ const LafunWebsite = () => {
       )?.items?.find(item => item.id === parseInt(itemId));
 
       if (item && item.price) {
-        const subtotal = item.price * quantity; // Remove * 100
+        const subtotal = item.price * quantity;
         message += `🍽️ ${item.name} x${quantity} - ₦${subtotal.toLocaleString()}\n`;
         total += subtotal;
       }
@@ -151,7 +151,7 @@ const LafunWebsite = () => {
     }
 
     const whatsappMessage = generateWhatsAppMessage();
-    const phoneNumber = "2349055797913"; // Your WhatsApp number from the PDF
+    const phoneNumber = "2349055797913";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
 
     window.open(whatsappUrl, '_blank');
@@ -161,7 +161,6 @@ const LafunWebsite = () => {
     e.preventDefault();
     if (!waitlistEmail) return;
 
-    // Here you would normally send to your backend
     setWaitlistSubmitted(true);
     setTimeout(() => {
       setShowWaitlist(false);
@@ -174,7 +173,7 @@ const LafunWebsite = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-black/95 backdrop-blur-xl shadow-2xl shadow-red-600/20' : 'bg-transparent'
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 enhanced-nav ${scrollY > 50 ? 'bg-black/95 backdrop-blur-xl shadow-2xl shadow-red-600/20' : 'bg-transparent'}
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
@@ -275,28 +274,28 @@ const LafunWebsite = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="relative h-screen flex items-center justify-center overflow-hidden enhanced-hero"
       >
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-3 sm:mb-4 leading-none">
-            <span className="bg-gradient-to-r from-red-500 via-red-400 to-orange-400 bg-clip-text text-transparent animate-pulse drop-shadow-2xl">
+            <span className="enhanced-gradient-text enhanced-text-shadow drop-shadow-2xl">
               LÀFÙN
             </span>
           </h1>
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold mb-6 sm:mb-8 text-white drop-shadow-2xl">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold mb-6 sm:mb-8 text-white enhanced-text-shadow">
             PROUDLY ÌBÍLÈ. PURELY LÀFÚN.
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed drop-shadow-lg">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed enhanced-text-shadow">
             "Babes, If your dream is steamy, stretchy, and smells like gbęgìrì...it's not real! wake up!. it's hunger"
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-            <a href="#menu" className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-full text-base sm:text-lg lg:text-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-red-600/50 backdrop-blur-sm">
+            <a href="#menu" className="enhanced-button bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-full text-base sm:text-lg lg:text-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-red-600/50 backdrop-blur-sm">
               Order Now 🍲
             </a>
             <button
               onClick={() => setShowWaitlist(true)}
-              className="bg-transparent border-2 border-white hover:bg-white hover:text-black text-white px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-full text-base sm:text-lg lg:text-xl font-bold transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center gap-3"
+              className="enhanced-button bg-transparent border-2 border-white hover:bg-white hover:text-black text-white px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-full text-base sm:text-lg lg:text-xl font-bold transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center gap-3"
             >
               <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
               Join Waitlist
@@ -309,7 +308,7 @@ const LafunWebsite = () => {
       <section id="about" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 enhanced-gradient-text">
               Why Choose LÀFÙN?
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
@@ -319,7 +318,7 @@ const LafunWebsite = () => {
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50 transition-all">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 enhanced-icon-container rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
                 <ChefHat className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">Authentic Nigerian</h3>
@@ -327,7 +326,7 @@ const LafunWebsite = () => {
             </div>
 
             <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50 transition-all">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 enhanced-icon-container rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
                 <Truck className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">We Deliver</h3>
@@ -335,7 +334,7 @@ const LafunWebsite = () => {
             </div>
 
             <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50 transition-all">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 enhanced-icon-container rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
                 <Award className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">Premium Quality</h3>
@@ -343,208 +342,260 @@ const LafunWebsite = () => {
             </div>
 
             <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50 transition-all">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 enhanced-icon-container rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
                 <Heart className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
               </div>
               <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">Made with Love</h3>
-              <p className="text-sm sm:text-base text-gray-400">Every dish prepared with passion and care</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-r from-red-600 to-red-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-2 sm:mb-4">10+</div>
-              <div className="text-sm sm:text-base lg:text-xl text-red-100">Happy Customers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-2 sm:mb-4">10+</div>
-              <div className="text-sm sm:text-base lg:text-xl text-red-100">Orders Delivered</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-2 sm:mb-4">4.9</div>
-              <div className="text-sm sm:text-base lg:text-xl text-red-100 flex items-center justify-center gap-2">
-                Rating <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-2 sm:mb-4">24/7</div>
-              <div className="text-sm sm:text-base lg:text-xl text-red-100">Available</div>
+              <p className="text-sm sm:text-base text-gray-400">Every dish crafted with passion and care</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Menu Section */}
-      <section id="menu" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-gray-900 to-black">
+      <section id="menu" className="py-16 sm:py-20 lg:py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
-              Our Menu
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 enhanced-gradient-text">
+              Our Delicious Menu
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto">
-              Authentic Nigerian dishes that will transport you home with every bite
+            <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
+              Explore our authentic Nigerian dishes, prepared with fresh ingredients and traditional recipes.
             </p>
           </div>
 
-          {/* Menu Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12 sm:mb-16">
-            {menus.map((menu, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTab(index)}
-                className={`px-4 py-3 sm:px-6 sm:py-4 lg:px-8 rounded-full font-bold text-sm sm:text-base lg:text-lg transition-all duration-300 ${activeTab === index
-                  ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-xl shadow-red-600/30 scale-105'
-                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/70 hover:text-white border border-gray-700'
-                  }`}
-              >
-                {menu.name}
-              </button>
-            ))}
+          <div className="flex justify-center mb-8 sm:mb-12">
+            <div className="glass-morphism rounded-full p-1 flex space-x-2">
+              {menus.map((menu, index) => (
+                <button
+                  key={menu.name}
+                  onClick={() => setActiveTab(index)}
+                  className={`enhanced-tab px-6 py-3 rounded-full text-sm sm:text-base font-semibold transition-all duration-300 ${activeTab === index
+                      ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-600/30 active'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                    }`}
+                >
+                  {menu.name}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Menu Items Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {menus[activeTab].items.map((item) => (
-              <div
-                key={item.id}
-                className="group bg-gradient-to-br from-gray-800/30 to-gray-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-gray-700/30 hover:border-red-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-red-600/20 hover:scale-105"
-              >
-                {/* Food Image */}
-                <div className="relative overflow-hidden h-40 sm:h-48">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      e.target.src = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&auto=format";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  {item.price && (
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-red-600 text-white px-2 py-1 sm:px-3 rounded-full text-xs sm:text-sm font-bold">
-                      ₦{item.price.toLocaleString()}
-                    </div>
-                  )}
-                </div>
-
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {menus[activeTab].items.map(item => (
+              <div key={item.id} className="enhanced-card rounded-3xl overflow-hidden shadow-xl shadow-black/30 border border-gray-700">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-48 sm:h-56 object-cover object-center enhanced-image"
+                />
                 <div className="p-6 sm:p-8">
-                  <div className="mb-4 sm:mb-6">
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-red-400 transition-colors">
-                      {item.name}
-                    </h3>
-                    <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">{item.description}</p>
-                  </div>
-
-                  {item.price && (
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 sm:gap-3">
-                        <button
-                          onClick={() => updateQuantity(item.id, -1)}
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 flex items-center justify-center transition-all duration-300 disabled:opacity-50 hover:scale-110"
-                          disabled={!cart[item.id]}
-                        >
-                          <Minus className="w-4 h-4 sm:w-5 sm:h-5" />
-                        </button>
-                        <span className="text-xl sm:text-2xl font-bold w-8 sm:w-12 text-center text-red-400">
-                          {cart[item.id] || 0}
-                        </span>
-                        <button
-                          onClick={() => updateQuantity(item.id, 1)}
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 flex items-center justify-center transition-all duration-300 hover:scale-110"
-                        >
-                          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
-                        </button>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-red-400">₦{item.price.toLocaleString()}</div>
-                      </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">{item.name}</h3>
+                  <p className="text-gray-400 text-sm sm:text-base mb-4">{item.description}</p>
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-2xl sm:text-3xl font-bold text-red-400">{item.currency}{item.price.toLocaleString()}</span>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => updateQuantity(item.id, -1)}
+                        className="enhanced-button bg-gray-700 text-white rounded-full p-2 hover:bg-red-600 transition-colors"
+                      >
+                        <Minus className="w-5 h-5" />
+                      </button>
+                      <span className="text-lg font-bold text-white w-8 text-center">
+                        {cart[item.id] || 0}
+                      </span>
+                      <button
+                        onClick={() => updateQuantity(item.id, 1)}
+                        className="enhanced-button bg-red-600 text-white rounded-full p-2 hover:bg-red-500 transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
                     </div>
-                  )}
+                  </div>
+                  <button
+                    onClick={() => updateQuantity(item.id, 1)}
+                    className="enhanced-button w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 enhanced-gradient-text">
+              What Our Customers Say
+            </h2>
+            <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
+              Hear from our happy customers who love the authentic taste of LÀFÙN.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            <div className="enhanced-testimonial rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/30 border border-gray-700">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/68.jpg"
+                  alt="Customer 1"
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-4 border-2 border-red-500"
+                />
+                <div>
+                  <p className="font-bold text-white text-lg sm:text-xl">Aisha B.</p>
+                  <div className="flex text-yellow-400 text-sm sm:text-base">
+                    <Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} />
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+                "LÀFÙN is simply the best! The taste takes me right back to Nigeria. The Abula combo is a must-try!"
+              </p>
+            </div>
+
+            <div className="enhanced-testimonial rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/30 border border-gray-700">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/men/44.jpg"
+                  alt="Customer 2"
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-4 border-2 border-red-500"
+                />
+                <div>
+                  <p className="font-bold text-white text-lg sm:text-xl">Kunle A.</p>
+                  <div className="flex text-yellow-400 text-sm sm:text-base">
+                    <Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star size={16} />
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+                "I've tried many Nigerian restaurants, but LÀFÙN stands out. The goat meat is incredibly tender and flavorful."
+              </p>
+            </div>
+
+            <div className="enhanced-testimonial rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/30 border border-gray-700">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/79.jpg"
+                  alt="Customer 3"
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-4 border-2 border-red-500"
+                />
+                <div>
+                  <p className="font-bold text-white text-lg sm:text-xl">Chidinma O.</p>
+                  <div className="flex text-yellow-400 text-sm sm:text-base">
+                    <Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} />
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+                "The delivery was fast, and the food was still hot! The LÀFÙN without Gbègìrì is my new favorite. Highly recommend!"
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-black to-red-900/20">
+      <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
-              Get In Touch
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 enhanced-gradient-text">
+              Get in Touch
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto">
-              Ready for authentic LÀFÙN? Contact us now and satisfy that craving!
+            <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
+              Have questions or want to place a custom order? Reach out to us!
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-            <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50">
-                <Phone className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
+            <div className="glass-morphism rounded-3xl p-8 shadow-xl shadow-black/30 border border-gray-700">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Contact Information</h3>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <Phone className="w-6 h-6 text-red-500" />
+                  <p className="text-white text-lg sm:text-xl">+234 905 579 7913</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <MessageCircle className="w-6 h-6 text-red-500" />
+                  <p className="text-white text-lg sm:text-xl">hello@lafun.com</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Clock className="w-6 h-6 text-red-500" />
+                  <p className="text-white text-lg sm:text-xl">Mon - Sat: 9:00 AM - 8:00 PM</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Users className="w-6 h-6 text-red-500" />
+                  <p className="text-white text-lg sm:text-xl">Follow us on social media!</p>
+                </div>
               </div>
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">Call Us</h3>
-              <p className="text-sm sm:text-base text-gray-400">+234 905 579 7913</p>
-              <p className="text-sm sm:text-base text-gray-400">+234 916 936 0999</p>
             </div>
 
-            <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50">
-                <MessageCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-              </div>
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">WhatsApp</h3>
-              <p className="text-sm sm:text-base text-gray-400">Quick orders & support</p>
-            </div>
-
-            <div className="text-center group hover:scale-105 transition-all duration-300">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:shadow-2xl group-hover:shadow-red-600/50">
-                <Truck className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-              </div>
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-white">We Deliver</h3>
-              <p className="text-sm sm:text-base text-gray-400">Osogbo & surrounding areas</p>
+            <div className="glass-morphism rounded-3xl p-8 shadow-xl shadow-black/30 border border-gray-700">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Send Us a Message</h3>
+              <form className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-gray-300 text-lg font-semibold mb-2">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-gray-300 text-lg font-semibold mb-2">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
+                    placeholder="Your Email"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-gray-300 text-lg font-semibold mb-2">Message</label>
+                  <textarea
+                    id="message"
+                    rows="5"
+                    className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
+                    placeholder="Your Message"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="enhanced-button w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Send Message
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Order Summary & WhatsApp Button */}
-      {itemCount > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-red-600 via-red-500 to-red-600 p-4 sm:p-6 shadow-2xl backdrop-blur-xl z-40">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <div className="text-center sm:text-left">
-              <p className="text-white text-base sm:text-lg">
-                <span className="font-bold text-lg sm:text-2xl">{itemCount}</span> items •
-                <span className="font-black text-xl sm:text-3xl ml-2">₦{total.toLocaleString()}</span>
-              </p>
-            </div>
-            <button
-              onClick={handlePlaceOrder}
-              className="bg-white text-red-600 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-sm sm:text-base lg:text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-2 sm:gap-3 group"
-            >
-              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 group-hover:animate-pulse" />
-              🍲 Order via WhatsApp
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Footer */}
-      <footer className="bg-black py-8 sm:py-12 border-t border-red-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <div className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
-            LÀFÙN
-          </div>
-          <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">PROUDLY ÌBÍLÈ. PURELY LÀFÚN.</p>
-          <p className="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base">Houseoflafun.co@gmail.com</p>
-          <p className="text-gray-500 text-xs sm:text-sm">© 2025 LÀFÙN. All rights reserved. E se! 🙏</p>
+      <footer className="bg-black py-8 sm:py-10 border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center text-gray-500 text-sm sm:text-base">
+          <p>&copy; {new Date().getFullYear()} LÀFÙN. All rights reserved.</p>
+         
         </div>
       </footer>
+
+      {/* Fixed Order Button */}
+      {itemCount > 0 && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <button
+            onClick={handlePlaceOrder}
+            className="enhanced-floating-button enhanced-button bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white px-6 py-4 rounded-full font-bold shadow-2xl shadow-red-600/50 transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
+          >
+            <ShoppingCart className="w-6 h-6" />
+            Order Now (₦{total.toLocaleString()})
+          </button>
+        </div>
+      )}
     </div>
   );
 };
