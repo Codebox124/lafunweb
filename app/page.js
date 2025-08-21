@@ -12,16 +12,29 @@ import Contact from './components/home/Contact';
 import Footer from './components/Footer';
 import FixedOrderButton from './components/FixedOrderButton';
 import PickADrinkModal from './components/PickADrinkModal';
+import Cart from './components/Cart';
 
 const LafunWebsite = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState([/*{
+          id: 1,
+          name: "LÀFÙN & ABÙLÁ COMBO",
+          price: 8500,
+          description:
+            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
+          image: "/abula.JPG",
+          currency: "₦",
+          quantity:2
+        }*/]);
   const [scrollY, setScrollY] = useState(0);
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [waitlistEmail, setWaitlistEmail] = useState('');
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
   const [showDrinkModal, setShowDrinkModal] = useState(false)
-
+  const [showCart, setShowCart] = useState(false)
+  const [quantites, setQuantites] = useState({})
+  const [total, setTotal] = useState(0)
+  const [interest, setInterest] = useState(false)
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
@@ -33,31 +46,34 @@ const LafunWebsite = () => {
       name: "LÀFÙN Signature",
       items: [
         {
-          id: 1,
+          //id: 1,
           name: "LÀFÙN & ABÙLÁ COMBO",
           price: 8500,
           description:
             "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
           image: "/abula.JPG",
-          currency: "₦"
+          currency: "₦",
+          total:8500
         },
         {
-          id: 2,
+          //id: 2,
           name: "LÀFÙN WITHOUT GBÈGÌRÌ",
           price: 8000,
           description:
             "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
           image: "/ewedu.JPG",
-          currency: "₦"
+          currency: "₦",
+          total:8000
         },
         {
-          id: 3,
+          //id: 3,
           name: "Láfún mini abula combo",
           price: 6500,
           description:
             "“Proteins are fixed” small sizes of ponmon and small sizes of beef",
           image: "/ewedu.JPG",
-          currency: "₦"
+          currency: "₦",
+          total:6500
         }
       ]
     },
@@ -108,7 +124,7 @@ const LafunWebsite = () => {
     }
   ];
 
-  const updateQuantity = (itemId, change) => {
+  /*const updateQuantity = (itemId, change) => {
     setCart(prev => {
       const newCart = { ...prev };
       const currentQty = newCart[itemId] || 0;
@@ -119,12 +135,139 @@ const LafunWebsite = () => {
       } else {
         newCart[itemId] = newQty;
       }
-
+      console.log(newCart)
       return newCart;
+      
     });
-  };
+    
+  };*/
 
-  const getCartTotal = () => {
+  function addToCart(item){
+    let newQuantities = quantites
+    const itemName = item.name
+    setCart([...cart, {...item, quantity:1}])
+    newQuantities[itemName] = 1
+    setQuantites(newQuantities)
+    computeTotal("add",item.price)
+  }
+
+  function addQuantity(passedItem){
+    let isIn = false
+    cart.forEach(item=>{
+      if(item.name===passedItem.name){
+        isIn = true
+      }
+    })
+    if(isIn){
+      let newQuantities = quantites
+    let newQuant
+    const newCart = cart.map(item=>{
+      if(item.name===passedItem.name){
+        const itemQuant = item.quantity
+        newQuant = itemQuant+1
+        return {...item, quantity: newQuant, total:(itemQuant * (item.price))}
+      }else{
+        return item
+      }
+    })
+
+    newQuantities[passedItem.name] = newQuant
+    setCart(newCart)
+    setQuantites(newQuantities)
+    computeTotal("add", passedItem.price)
+    }
+  }
+
+  function subQuantity(passedItem){
+     let isIn = false
+    cart.forEach(item=>{
+      if(item.name===passedItem.name){
+        isIn = true
+      }
+    })
+    if(isIn){
+      let newQuantities = quantites
+    let newQuant
+    const newCart = cart.map(item=>{
+      if(item.name===passedItem.name){
+        const itemQuant = item.quantity
+        newQuant = itemQuant-1
+        return {...item, quantity: newQuant, total:(itemQuant * (item.price))}
+      }else{
+        return item
+      }
+    })
+
+    newQuantities[passedItem.name] = newQuant
+    setCart(newCart)
+    setQuantites(newQuantities)
+    computeTotal("sub", passedItem.price)
+    }
+  }
+
+  function removeItem(passedItem){
+    quantites[passedItem.name] = null
+    const newCart = cart.filter(item=>item.name!=passedItem.name)
+    setCart(newCart)
+    computeTotal("sub", passedItem.price)
+  }
+
+
+  function computeTotal(type, price){
+    console.log(price)
+    if(type==="add"){
+      setTotal(total + price)
+    }else{
+      setTotal(total - price)
+    }
+  }
+
+  /*function updateQuantity(passedItem, change){
+    const itemName = passedItem.name
+    let isIn = false
+    let newCart
+    cart.forEach(item=>{
+      if(item.name===itemName){
+        isIn=true
+      }
+    })
+
+    if(isIn && change===1){
+
+      newCart = cart.map(item=>{
+        if(item.name===itemName){
+          setQuantites({...quantites, itemName:(item.quantity)+1})
+          return {...item, quantity:(item.quantity)+1}
+        }else{
+          return item
+        }
+      })
+      
+       setCart(newCart)
+
+    }else if(!isIn && change===1){
+      setQuantites({...quantites, itemName:1})
+      setCart([...cart, {...passedItem, quantity:1}])
+
+    }else if(isIn && change===-1){
+
+      newCart = cart.map(item=>{
+        if(item.name===itemName){
+          setQuantites({...quantites, itemName:(item.quantity)-1})
+          return {...item, quantity:(item.quantity)-1}
+        }else{
+          return item
+        }
+      })
+       setCart(newCart)
+
+    }else{
+      newCart = cart.filter(item=>item.name!=itemName)
+      setCart(newCart)
+    }
+  }*/
+
+  /*const getCartTotal = () => {
     let total = 0;
     let itemCount = 0;
 
@@ -140,7 +283,7 @@ const LafunWebsite = () => {
     });
 
     return { total, itemCount };
-  };
+  };*/
 
   const generateWhatsAppMessage = () => {
     let message = "🍲 *New Order from LÀFÙN Website!*\n\n";
@@ -189,12 +332,12 @@ const LafunWebsite = () => {
     }, 3000);
   };
 
-  const { total, itemCount } = getCartTotal();
+  //const { total, itemCount } = getCartTotal();
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <NavBar scrollY={scrollY} setShowWaitlist={setShowWaitlist} itemCount={itemCount} total={total} />
-
+      <NavBar cart={cart} setShowCart={setShowCart} showCart={showCart} scrollY={scrollY} setShowWaitlist={setShowWaitlist} /*itemCount={itemCount}*/ total={total} />
+      {showCart && <Cart addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} setCart={setCart} />}
       {/* Waitlist Modal */}
       {showWaitlist && (
         <WaitList waitlistSubmitted={waitlistSubmitted} waitlistEmail={waitlistEmail} setShowWaitlist={setShowWaitlist} setWaitlistEmail={setWaitlistEmail} handleWaitlistSubmit={handleWaitlistSubmit} />
@@ -202,7 +345,7 @@ const LafunWebsite = () => {
 
       {/*Drink Modal */}
       {
-        showDrinkModal && <PickADrinkModal cart={cart} updateQuantity={updateQuantity} setShowDrinkModal={setShowDrinkModal} />
+        showDrinkModal && <PickADrinkModal interest={interest} setInterest={setInterest} quantities={quantites} cart={cart} addToCart={addToCart} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem}  setShowDrinkModal={setShowDrinkModal} />
       }
       {/* Hero Section */}
      <Hero setShowWaitlist={setShowWaitlist} />
@@ -210,7 +353,7 @@ const LafunWebsite = () => {
      <About />
 
       {/* Menu Section */}
-      <Menu menus={menus} setActiveTab={setActiveTab} activeTab={activeTab} updateQuantity={updateQuantity} cart={cart} />
+      <Menu addToCart={addToCart} quantities={quantites} menus={menus} setActiveTab={setActiveTab} activeTab={activeTab} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} />
 
       {/* Testimonials Section */}
       <Testimonials />
@@ -221,9 +364,12 @@ const LafunWebsite = () => {
       <Footer />
 
       {/* Fixed Order Button */}
-      {itemCount > 0 && (
+      {/*itemCount > 0 && (
         <FixedOrderButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
-      )}
+      )*/}
+      {
+        cart.length>0 && <FixedOrderButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
+      }
     </div>
   );
 };

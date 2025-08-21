@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { CgClose } from "react-icons/cg";
 import Drinks from './Drinks';
-function PickADrinkModal({setShowDrinkModal, cart, updateQuantity}) {
-  const [interest, setInterest] = useState(false)
+function PickADrinkModal({setShowDrinkModal, cart, addToCart, addQuantity, subQuantity, removeItem, quantities, interest, setInterest}) {
+ 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-70 flex items-center justify-center p-4">
       <div className={`relative flex flex-col items-center text-center bg-gradient-to-br from-gray-900 to-black rounded-3xl p-6 sm:p-8 ${!interest?"w-full md:w-[448px]":"w-full h-full"} overflow-y-hidden transition-w duration-300 ease-in-out border  border-red-500/30 shadow-2xl shadow-red-600/20`}>
       {
         !interest?<>
@@ -17,7 +17,7 @@ function PickADrinkModal({setShowDrinkModal, cart, updateQuantity}) {
         </button>
         
       </div>
-      </>:<Drinks setInterest={setInterest} cart={cart} updateQuantity={updateQuantity} />
+      </>:<Drinks setInterest={setInterest} setShowDrinkModal={setShowDrinkModal} quantities={quantities} cart={cart} addToCart={addToCart} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} />
       }
       </div>
     </div>

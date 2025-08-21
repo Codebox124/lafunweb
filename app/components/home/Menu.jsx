@@ -1,7 +1,7 @@
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import React from 'react'
 
-function Menu({menus, setActiveTab, activeTab, updateQuantity, cart}) {
+function Menu({menus, setActiveTab, activeTab, addQuantity, subQuantity, removeItem, cart, quantities, addToCart}) {
   return (
     <section id="menu" className="py-16 sm:py-20 lg:py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -32,8 +32,8 @@ function Menu({menus, setActiveTab, activeTab, updateQuantity, cart}) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {menus[activeTab].items.map(item => (
-              <div key={item.id} className="enhanced-card rounded-3xl overflow-hidden shadow-xl shadow-black/30 border border-gray-700">
+            {menus[activeTab].items.map((item, index) => (
+              <div key={index} className="enhanced-card rounded-3xl overflow-hidden shadow-xl shadow-black/30 border border-gray-700">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -46,16 +46,23 @@ function Menu({menus, setActiveTab, activeTab, updateQuantity, cart}) {
                     <span className="text-2xl sm:text-3xl font-bold text-red-400">{item.currency}{item.price.toLocaleString()}</span>
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => updateQuantity(item.id, -1)}
+                        onClick={() =>{
+                          if(quantities[item.name]===1){
+                            removeItem(item)
+                          }else{
+                            subQuantity(item)
+                          }
+                        } }
                         className="enhanced-button bg-gray-700 text-white rounded-full p-2 hover:bg-red-600 transition-colors"
                       >
                         <Minus className="w-5 h-5" />
                       </button>
                       <span className="text-lg font-bold text-white w-8 text-center">
-                        {cart[item.id] || 0}
+                        {/*cart[item.id] || 0*/}
+                        {quantities[item.name]?quantities[item.name]:0}
                       </span>
                       <button
-                        onClick={() => updateQuantity(item.id, 1)}
+                        onClick={() => addQuantity(item)}
                         className="enhanced-button bg-red-600 text-white rounded-full p-2 hover:bg-red-500 transition-colors"
                       >
                         <Plus className="w-5 h-5" />
@@ -63,8 +70,9 @@ function Menu({menus, setActiveTab, activeTab, updateQuantity, cart}) {
                     </div>
                   </div>
                   <button
-                    onClick={() => updateQuantity(item.id, 1)}
-                    className="enhanced-button w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                    onClick={() => addToCart(item)}
+                    disabled={quantities[item.name]}
+                    className="enhanced-button cursor-pointer  w-full bg-gradient-to-r from-red-600 to-red-500 disabled:bg-gray-600 disabled:bg-none hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <ShoppingCart className="w-5 h-5" />
                     Add to Cart

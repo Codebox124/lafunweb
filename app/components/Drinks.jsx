@@ -1,7 +1,8 @@
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
 import React, { useState } from 'react'
+import { CgClose } from 'react-icons/cg';
 
-function Drinks({setInterest, updateQuantity, cart}) {  
+function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuantity, removeItem, setShowDrinkModal}) {  
     const [drinksCart, setDrinksCart] = useState({})
     const menus = [
     {
@@ -321,8 +322,9 @@ function Drinks({setInterest, updateQuantity, cart}) {
   ];
     const [activeTab, setActiveTab] = useState(0);
   return (
-    <div>
-        <div className="flex justify-center mb-8 sm:mb-6">
+    <div className='h-full'>
+      <CgClose onClick={()=>{setShowDrinkModal(false)}} className='w-[20px] h-[20px] mt-[-20px] ml-auto cursor-pointer mb-5' />
+        <div className="flex h-[10%] overflow-h-auto justify-center mb-8 sm:mb-6">
             <div className="glass-morphism rounded-full p-1 flex flex-wrap space-x-2">
               {menus.map((menu, index) => (
                 <button
@@ -338,9 +340,10 @@ function Drinks({setInterest, updateQuantity, cart}) {
               ))}
             </div>
           </div>
-          <div className="h-[75%] max-h-[500px] p-2 w-[95%] mx-auto overflow-y-auto flex  gap-5 flex-wrap">
-            {menus[activeTab].items.map(item => (
-              <div key={item.id} className="enhanced-card w-[32%] rounded-3xl h-[fit-content] /*overflow-hidden*/ shadow-xl shadow-black/30 border border-gray-700">
+          <div className="h-[75%] p-2 w-[95%] mx-auto overflow-y-auto ">
+            <div className='w-full h-[fit-content] flex  gap-5 flex-wrap'>
+              {menus[activeTab].items.map(item => (
+              <div key={item.id} className="enhanced-card w-full md:w-[32%] rounded-3xl h-[fit-content] /*overflow-hidden*/ shadow-xl shadow-black/30 border border-gray-700">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -353,25 +356,32 @@ function Drinks({setInterest, updateQuantity, cart}) {
                     <span className="text-2xl sm:text-3xl font-bold text-red-400">{item.currency}{item.price.toLocaleString()}</span>
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => updateQuantity(item.id, -1)}
+                        onClick={() =>{
+                          if(quantities[item.name]===1){
+                            removeItem(item)
+                          }else{
+                            subQuantity(item)
+                          }
+                        } }
                         className="enhanced-button bg-gray-700 text-white rounded-full p-2 hover:bg-red-600 transition-colors"
                       >
                         <Minus className="w-5 h-5" />
                       </button>
                       <span className="text-lg font-bold text-white w-8 text-center">
-                        {cart[item.id] || 0}
+                        {quantities[item.name]?quantities[item.name]:0}
                       </span>
                       <button
-                        onClick={() => updateQuantity(item.id, 1)}
+                        onClick={() => addQuantity(item)}
                         className="enhanced-button bg-red-600 text-white rounded-full p-2 hover:bg-red-500 transition-colors"
                       >
-                        <Plus className="w-5 h-5" />
+                        <Plus  className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
                   <button
-                    onClick={() => updateQuantity(item.id, 1)}
-                    className="enhanced-button w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                    onClick={() => addToCart(item)}
+                    disabled={quantities[item.name]}
+                    className="enhanced-button w-full bg-gradient-to-r from-red-600 to-red-500 disabled:bg-gray-600 disabled:bg-none hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <ShoppingCart className="w-5 h-5" />
                     Add to Cart
@@ -379,6 +389,7 @@ function Drinks({setInterest, updateQuantity, cart}) {
                 </div>
               </div>
             ))}
+            </div>
           </div>
        
     </div>

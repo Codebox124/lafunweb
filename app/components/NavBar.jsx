@@ -1,9 +1,9 @@
 import { Bell, ShoppingCart } from 'lucide-react'
 import React from 'react'
 
-function NavBar({setShowWaitlist, itemCount, total, scrollY}) {
+function NavBar({setShowWaitlist, itemCount, total, scrollY, setShowCart, showCart, cart}) {
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 enhanced-nav ${scrollY > 50 ? 'bg-black/95 backdrop-blur-xl shadow-2xl shadow-red-600/20' : 'bg-transparent'}
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 enhanced-nav ${((scrollY > 50) || showCart) ? 'bg-black/95 backdrop-blur-xl shadow-2xl shadow-red-600/20' : 'bg-transparent'}
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
@@ -24,15 +24,15 @@ function NavBar({setShowWaitlist, itemCount, total, scrollY}) {
                 </button>
               </div>
               <div className="flex items-center gap-2 sm:gap-4">
-                <div className="relative">
+                <div onClick={()=>{setShowCart(!showCart)}} className="relative cursor-pointer">
                   <ShoppingCart className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
-                  {itemCount > 0 && (
+                  {cart.length > 0 && (
                     <span className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center animate-pulse">
-                      {itemCount}
+                      {cart.length}
                     </span>
                   )}
                 </div>
-                <span className="text-sm sm:text-lg md:text-xl font-bold text-red-400">₦{total.toLocaleString()}</span>
+                <span className="text-sm sm:text-lg md:text-xl font-bold text-red-400">₦{total/*.toLocaleString()*/}</span>
               </div>
             </div>
           </div>
