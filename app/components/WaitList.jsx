@@ -1,10 +1,14 @@
 import { Bell, CheckCircle } from 'lucide-react'
 import React from 'react'
+import { MdClose } from "react-icons/md";
+import { useOverContext } from '../OverContext';
 
-function WaitList({waitlistSubmitted, waitlistEmail, setShowWaitlist, setWaitlistEmail, handleWaitlistSubmit, }) {
+function WaitList({waitlistSubmitted, /*waitlistEmail,*/ setShowWaitlist, setWaitlistEmail, handleWaitlistSubmit, }) {
+  const {formData, setFormData} = useOverContext()
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-gray-900 to-black rounded-3xl p-6 sm:p-8 max-w-md w-full border border-red-500/30 shadow-2xl shadow-red-600/20">
+          <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl p-6 sm:p-8 max-w-md w-full border border-red-500/30 shadow-2xl shadow-red-600/20">
+            <MdClose className='absolute right-6 w-[25px] h-[25px] cursor-pointer' onClick={()=>{setShowWaitlist(false)}} />
             <div className="text-center">
               {!waitlistSubmitted ? (
                 <>
@@ -19,8 +23,8 @@ function WaitList({waitlistSubmitted, waitlistEmail, setShowWaitlist, setWaitlis
                     <input
                       type="email"
                       placeholder="Enter your email"
-                      value={waitlistEmail}
-                      onChange={(e) => setWaitlistEmail(e.target.value)}
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email:e.target.value}) /*setWaitlistEmail(e.target.value)*/}
                       className="w-full px-4 py-3 sm:px-6 sm:py-4 bg-gray-800/50 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:border-red-500 focus:outline-none transition-all text-sm sm:text-base"
                       required
                     />
@@ -48,7 +52,7 @@ function WaitList({waitlistSubmitted, waitlistEmail, setShowWaitlist, setWaitlis
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">You're In!</h3>
                   <p className="text-gray-400 mb-4 text-sm sm:text-base">
-                    Welcome to the LÀFÙN family! We'll keep you updated on all the delicious happenings.
+                    Welcome to the LÀFÙN family! Kindly place an order to finalise your registration. {/*We'll keep you updated on all the delicious happenings.*/}
                   </p>
                   <p className="text-red-400 font-bold">E se! 🙏</p>
                 </>

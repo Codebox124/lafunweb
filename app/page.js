@@ -13,28 +13,31 @@ import Footer from './components/Footer';
 import FixedOrderButton from './components/FixedOrderButton';
 import PickADrinkModal from './components/PickADrinkModal';
 import Cart from './components/Cart';
+import { useOverContext } from './OverContext';
 
 const LafunWebsite = () => {
+  const {cart,
+     setCart,
+      total,
+      setTotal,
+      quantites,
+      setQuantites,
+      interest,
+      setInterest,
+      waitlistSubmitted,
+      setWaitlistSubmitted,
+      formData
+    } = useOverContext()
   const [activeTab, setActiveTab] = useState(0);
-  const [cart, setCart] = useState([/*{
-          id: 1,
-          name: "LÀFÙN & ABÙLÁ COMBO",
-          price: 8500,
-          description:
-            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
-          image: "/abula.JPG",
-          currency: "₦",
-          quantity:2
-        }*/]);
   const [scrollY, setScrollY] = useState(0);
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [waitlistEmail, setWaitlistEmail] = useState('');
-  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+
   const [showDrinkModal, setShowDrinkModal] = useState(false)
   const [showCart, setShowCart] = useState(false)
-  const [quantites, setQuantites] = useState({})
-  const [total, setTotal] = useState(0)
-  const [interest, setInterest] = useState(false)
+ 
+  
+ 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
@@ -322,14 +325,14 @@ const LafunWebsite = () => {
 
   const handleWaitlistSubmit = (e) => {
     e.preventDefault();
-    if (!waitlistEmail) return;
+    if (!formData.email/*waitlistEmail*/) return;
 
     setWaitlistSubmitted(true);
-    setTimeout(() => {
+    /*setTimeout(() => {
       setShowWaitlist(false);
       setWaitlistSubmitted(false);
       setWaitlistEmail('');
-    }, 3000);
+    }, 3000);*/
   };
 
   //const { total, itemCount } = getCartTotal();

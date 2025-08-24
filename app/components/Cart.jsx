@@ -32,7 +32,7 @@ function Cart({cart, setCart, addQuantity, subQuantity, removeItem}) {
             </div>
         }): <div className='w-full h-full flex flex-col items-center justify-center text-gray-500'>
             <MdOutlineShoppingCart className='w-[30px] h-[30px] mb-3' />
-            <p className='text-xl'>Order something first</p>
+            <p className='text-xl'>Add something first</p>
         </div>
         }
     </div>
