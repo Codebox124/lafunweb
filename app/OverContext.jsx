@@ -9,24 +9,35 @@ export default function OverContextProvider({ children }) {
     const [quantites, setQuantites] = useState({})
     const [interest, setInterest] = useState(false)
     const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
-    const [formData, setFormData] = useState(() => {
-        const gotten = JSON.parse(localStorage.getItem("lafun-formData"))
+    
+    // Initialize with default values first
+    const [formData, setFormData] = useState({
+        first_name: "",
+        last_name: "",
+        phone: "",
+        email: "",
+        location: "",
+        customAddress: "",
+    });
+
+    // Load from localStorage after component mounts (client-side only)
+    useEffect(() => {
+        const gotten = localStorage.getItem("lafun-formData");
         if (gotten) {
-            return gotten
-        } else {
-            return {
-                first_name: "",
-                last_name: "",
-                phone: "",
-                email: "",
-                location: "",
-                customAddress: "",
+            try {
+                const parsedData = JSON.parse(gotten);
+                setFormData(parsedData);
+            } catch (error) {
+                console.error("Error parsing localStorage data:", error);
             }
         }
-    });
+    }, []);
+
+    // Save to localStorage whenever formData changes
     useEffect(() => {
         localStorage.setItem("lafun-formData", JSON.stringify(formData))
     }, [formData])
+
     const values = {
         cart,
         setCart,
