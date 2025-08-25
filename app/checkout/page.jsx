@@ -3,9 +3,22 @@
 import { useState } from "react";
 import { useOverContext } from "../OverContext";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { PaystackButton } from 'react-paystack';
+import dynamic from 'next/dynamic';
 import Link from "next/link";
 import { FaCircleCheck } from "react-icons/fa6";
+
+// Dynamically import PaystackButton to avoid SSR issues
+const PaystackButton = dynamic(
+  () => import('react-paystack').then(mod => ({ default: mod.PaystackButton })),
+  { 
+    ssr: false,
+    loading: () => (
+      <button className="w-full cursor-pointer bg-gray-400 text-white font-semibold py-3 rounded-xl">
+        Loading Payment...
+      </button>
+    )
+  }
+);
 
 export default function Page() {
   const { cart, formData, setFormData, total } = useOverContext();
@@ -46,7 +59,7 @@ export default function Page() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", { ...formData, cart });
-    // Later you’ll integrate Paystack/Flutterwave here
+    // Later you'll integrate Paystack/Flutterwave here
   };
 
   const locations = [
@@ -176,12 +189,12 @@ export default function Page() {
                 Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Enter your full name"
+                placeholder="Enter your email"
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-black focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all duration-200 ease-in-out"
                 required
               />
