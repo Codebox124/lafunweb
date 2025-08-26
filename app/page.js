@@ -14,6 +14,8 @@ import FixedOrderButton from './components/FixedOrderButton';
 import PickADrinkModal from './components/PickADrinkModal';
 import Cart from './components/Cart';
 import { useOverContext } from './OverContext';
+import FixedPickADrinkButton from './components/FixedPickADrinkButton';
+import { AnimatePresence } from 'framer-motion';
 
 const LafunWebsite = () => {
   const {cart,
@@ -53,7 +55,7 @@ const LafunWebsite = () => {
           name: "LÁFÚN  & ABÙLÁ COMBO",
           price: 8500,
           description:
-            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
+            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon ",
           image: "/abula.JPG",
           currency: "₦",
           total:8500
@@ -63,7 +65,7 @@ const LafunWebsite = () => {
           name: "LÁFÚN  WITHOUT GBÈGÌRÌ",
           price: 8000,
           description:
-            "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
+            "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon ",
           image: "/ewedu.JPG",
           currency: "₦",
           total:8000
@@ -333,7 +335,9 @@ const LafunWebsite = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <NavBar cart={cart} setShowCart={setShowCart} showCart={showCart} scrollY={scrollY} setShowWaitlist={setShowWaitlist} /*itemCount={itemCount}*/ total={total} />
-      {showCart && <Cart addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} setCart={setCart} />}
+     <AnimatePresence>
+       {showCart && <Cart setShowCart={setShowCart} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} setCart={setCart} />}
+     </AnimatePresence>
       {/* Waitlist Modal */}
       {showWaitlist && (
         <WaitList waitlistSubmitted={waitlistSubmitted} waitlistEmail={waitlistEmail} setShowWaitlist={setShowWaitlist} setWaitlistEmail={setWaitlistEmail} handleWaitlistSubmit={handleWaitlistSubmit} />
@@ -363,9 +367,16 @@ const LafunWebsite = () => {
       {/*itemCount > 0 && (
         <FixedOrderButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
       )*/}
-      {
+      <AnimatePresence>
+        {
+        cart.length>0 && <FixedPickADrinkButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
+      }
+      </AnimatePresence>
+      <AnimatePresence>
+        {
         cart.length>0 && <FixedOrderButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
       }
+      </AnimatePresence>
     </div>
   );
 };

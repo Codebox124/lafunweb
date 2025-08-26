@@ -298,7 +298,7 @@ export default function Page() {
       (
         <div className="w-full text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
           <MdOutlineShoppingCart className="w-[30px] h-[30px] mb-3" />
-          <p className="text-xl">Add something first</p>
+          <p className="text-xl">Your cart is empty</p>
           <Link
             href="/#menu"
             className="w-full flex items-center justify-center mt-5 cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
