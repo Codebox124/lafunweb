@@ -8,7 +8,7 @@ function NavBar({setShowWaitlist, itemCount, total, scrollY, setShowCart, showCa
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             <div>
-              <img className='md:w-[150px] w-[90px]' src='/logo.png' alt="LÀFÙN Logo" />
+              <img className='md:w-[150px] w-[90px]' src='/logo.png' alt="LÁFÚN  Logo" />
             </div>
             <div className="flex items-center gap-3 sm:gap-6">
               <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-gray-300">

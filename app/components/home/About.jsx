@@ -7,10 +7,10 @@ function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 enhanced-gradient-text">
-              Why Choose LÀFÙN?
+              Why Choose LÁFÚN ?
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
-              Authentic Nigerian cuisine delivered with love and tradition
+              LÁFÚN brings you the true taste of tradition, crafted from the most authentic roots. (The slogan shoud be In italics) Proudly ÌbÍlè, Purely LÁFÚN, loved for its nostalgic flavor and unforgettable experience. NA WHEN YOU CHOP AM, YOU GO KNOW!
             </p>
           </div>
 

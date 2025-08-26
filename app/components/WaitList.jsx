@@ -17,7 +17,7 @@ function WaitList({waitlistSubmitted, /*waitlistEmail,*/ setShowWaitlist, setWai
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">Join Our Waitlist</h3>
                   <p className="text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base">
-                    Be the first to know about new menu items, special offers, and exclusive LÀFÙN experiences!
+                    Be the first to know about new menu items, special offers, and exclusive LÁFÚN  experiences!
                   </p>
                   <form onSubmit={handleWaitlistSubmit} className="space-y-4 sm:space-y-6">
                     <input
@@ -52,7 +52,7 @@ function WaitList({waitlistSubmitted, /*waitlistEmail,*/ setShowWaitlist, setWai
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">You're In!</h3>
                   <p className="text-gray-400 mb-4 text-sm sm:text-base">
-                    Welcome to the LÀFÙN family! Kindly place an order to finalise your registration. {/*We'll keep you updated on all the delicious happenings.*/}
+                    Welcome to the LÁFÚN  family! Kindly place an order to finalise your registration. {/*We'll keep you updated on all the delicious happenings.*/}
                   </p>
                   <p className="text-red-400 font-bold">E se! 🙏</p>
                 </>

@@ -10,7 +10,7 @@ function Testimonials() {
               What Our Customers Say
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
-              Hear from our happy customers who love the authentic taste of LÀFÙN.
+              Hear from our happy customers who love the authentic taste of LÁFÚN .
             </p>
           </div>
 
@@ -30,7 +30,7 @@ function Testimonials() {
                 </div>
               </div>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                "LÀFÙN is simply the best! The taste takes me right back to Nigeria. The Abula combo is a must-try!"
+                "LÁFÚN  is simply the best! The taste takes me right back to Nigeria. The Abula combo is a must-try!"
               </p>
             </div>
 
@@ -49,7 +49,7 @@ function Testimonials() {
                 </div>
               </div>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                "I've tried many Nigerian restaurants, but LÀFÙN stands out. The goat meat is incredibly tender and flavorful."
+                "I've tried many Nigerian restaurants, but LÁFÚN  stands out. The goat meat is incredibly tender and flavorful."
               </p>
             </div>
 
@@ -68,7 +68,7 @@ function Testimonials() {
                 </div>
               </div>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                "The delivery was fast, and the food was still hot! The LÀFÙN without Gbègìrì is my new favorite. Highly recommend!"
+                "The delivery was fast, and the food was still hot! The LÁFÚN  without Gbègìrì is my new favorite. Highly recommend!"
               </p>
             </div>
           </div>

@@ -16,7 +16,7 @@ function Hero({setShowWaitlist}) {
         <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-3 sm:mb-4 leading-none">
             <span className="enhanced-gradient-text enhanced-text-shadow drop-shadow-2xl">
-              LÀFÙN
+              LÁFÚN 
             </span>
           </h1>
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold mb-6 sm:mb-8 text-white enhanced-text-shadow">

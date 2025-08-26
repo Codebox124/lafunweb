@@ -46,11 +46,11 @@ const LafunWebsite = () => {
 
   const menus = [
     {
-      name: "LÀFÙN Signature",
+      name: "LÁFÚN  Signature",
       items: [
         {
           //id: 1,
-          name: "LÀFÙN & ABÙLÁ COMBO",
+          name: "LÁFÚN  & ABÙLÁ COMBO",
           price: 8500,
           description:
             "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
@@ -60,7 +60,7 @@ const LafunWebsite = () => {
         },
         {
           //id: 2,
-          name: "LÀFÙN WITHOUT GBÈGÌRÌ",
+          name: "LÁFÚN  WITHOUT GBÈGÌRÌ",
           price: 8000,
           description:
             "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
@@ -289,7 +289,7 @@ const LafunWebsite = () => {
   };*/
 
   const generateWhatsAppMessage = () => {
-    let message = "🍲 *New Order from LÀFÙN Website!*\n\n";
+    let message = "🍲 *New Order from LÁFÚN  Website!*\n\n";
     let total = 0;
 
     Object.entries(cart).forEach(([itemId, quantity]) => {
@@ -312,7 +312,7 @@ const LafunWebsite = () => {
 
   const handlePlaceOrder = () => {
     if (Object.keys(cart).length === 0) {
-      alert("🛒 Babes, add some delicious LÀFÙN to your cart first! 😋");
+      alert("🛒 Babes, add some delicious LÁFÚN  to your cart first! 😋");
       return;
     }
 
