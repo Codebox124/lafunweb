@@ -1,20 +1,32 @@
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import React from 'react'
+import { motion } from 'framer-motion'
+import { fadeIn, fromBottomToTop, others } from '../animations'
 
 function Menu({menus, setActiveTab, activeTab, addQuantity, subQuantity, removeItem, cart, quantities, addToCart}) {
   return (
     <section id="menu" className="py-16 sm:py-20 lg:py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <motion.div
+          initial={fromBottomToTop.initial}
+                        whileInView={fromBottomToTop.whileInView}
+                        transition={others.transition}
+                        viewport={others.viewport}
+          className="text-center mb-12 sm:mb-16 lg:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 enhanced-gradient-text">
               Our Delicious Menu
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
               Explore our authentic Nigerian dishes, prepared with fresh ingredients and traditional recipes.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex justify-center mb-8 sm:mb-12">
+          <motion.div
+          initial={fadeIn.initial}
+                        whileInView={fadeIn.whileInView}
+                        transition={others.fadeInTransition}
+                        viewport={others.viewport}
+          className="flex justify-center mb-8 sm:mb-12">
             <div className="glass-morphism rounded-full p-1 flex space-x-2">
               {menus.map((menu, index) => (
                 <button
@@ -29,11 +41,16 @@ function Menu({menus, setActiveTab, activeTab, addQuantity, subQuantity, removeI
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {menus[activeTab].items.map((item, index) => (
-              <div key={index} className="enhanced-card rounded-3xl overflow-hidden shadow-xl shadow-black/30 border border-gray-700">
+              <motion.div
+              initial={fromBottomToTop.initial}
+              whileInView={fromBottomToTop.whileInView}
+              transition={{...others.transition, delay:0.05*index}}
+              viewport={others.viewport}
+              key={index} className="enhanced-card rounded-3xl overflow-hidden shadow-xl shadow-black/30 border border-gray-700">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -78,7 +95,7 @@ function Menu({menus, setActiveTab, activeTab, addQuantity, subQuantity, removeI
                     Add to Cart
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

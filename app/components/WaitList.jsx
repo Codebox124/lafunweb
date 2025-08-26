@@ -2,6 +2,7 @@ import { Bell, CheckCircle } from 'lucide-react'
 import React from 'react'
 import { MdClose } from "react-icons/md";
 import { useOverContext } from '../OverContext';
+import Link from 'next/link';
 
 function WaitList({waitlistSubmitted, /*waitlistEmail,*/ setShowWaitlist, setWaitlistEmail, handleWaitlistSubmit, }) {
   const {formData, setFormData} = useOverContext()
@@ -54,7 +55,14 @@ function WaitList({waitlistSubmitted, /*waitlistEmail,*/ setShowWaitlist, setWai
                   <p className="text-gray-400 mb-4 text-sm sm:text-base">
                     Welcome to the LÁFÚN  family! Kindly place an order to finalise your registration. {/*We'll keep you updated on all the delicious happenings.*/}
                   </p>
-                  <p className="text-red-400 font-bold">E se! 🙏</p>
+                  {/*<p className="text-red-400 font-bold">E se! 🙏</p>*/}
+                   <Link
+                   onClick={()=>{setShowWaitlist(false)}}
+            href="/#menu"
+            className="mt-4 bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:from-red-700 hover:to-red-600 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-black"
+          >
+            Browse Menu
+          </Link>
                 </>
               )}
             </div>

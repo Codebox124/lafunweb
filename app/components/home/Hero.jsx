@@ -1,6 +1,7 @@
 import { Bell } from 'lucide-react'
 import React from 'react'
-
+import { motion } from 'framer-motion'
+import { fromBottomToTop, others } from '../animations'
 function Hero({setShowWaitlist}) {
   return (
      <section
@@ -13,14 +14,19 @@ function Hero({setShowWaitlist}) {
         className="relative h-screen flex items-center justify-center overflow-hidden enhanced-hero"
       >
         {/* Hero Content */}
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6">
+        <motion.div 
+        initial={fromBottomToTop.initial}
+        whileInView={fromBottomToTop.whileInView}
+        transition={others.transition}
+        viewport={others.viewport}
+        className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-3 sm:mb-4 leading-none">
             <span className="enhanced-gradient-text enhanced-text-shadow drop-shadow-2xl">
               LÁFÚN 
             </span>
           </h1>
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold mb-6 sm:mb-8 text-white enhanced-text-shadow">
-            PROUDLY ÌBÍLÈ. PURELY LÀFÚN.
+            PROUDLY ÌBÍLÈ. PURELY LÁFÚN.
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed enhanced-text-shadow">
             "Babes, If your dream is steamy, stretchy, and smells like gbęgìrì...it's not real! wake up!. it's hunger"
@@ -37,7 +43,7 @@ function Hero({setShowWaitlist}) {
               Join Waitlist
             </button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
   )
