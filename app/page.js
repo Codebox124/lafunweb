@@ -74,7 +74,7 @@ const LafunWebsite = () => {
           price: 6500,
           description:
             "“Proteins are fixed” small sizes of ponmon and small sizes of beef",
-          image: "/ewedu.JPG",
+          image: "/mini.png",
           currency: "₦",
           total:6500
         }
@@ -115,14 +115,7 @@ const LafunWebsite = () => {
           image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format",
           currency: "₦"
         },
-        {
-          id: 7,
-          name: "Snail",
-          price: 3500,
-          description: "Juicy and perfectly spiced African snail",
-          image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&auto=format",
-          currency: "₦"
-        }
+      
       ]
     }
   ];
