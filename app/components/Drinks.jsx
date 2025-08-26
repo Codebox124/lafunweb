@@ -241,11 +241,11 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
         ]
     },
     {
-        name:"CAN COCTAIL",
+        name:"CAN COCKTAIL",
         items:[
              {
           id: 1,
-          name: "Lord’s gin coctail 8%",
+          name: "Lord's gin cocktail 8%",
           price: 1000,
           description:
             "33cl",
@@ -254,7 +254,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
         },
         {
           id: 2,
-          name: "Calypso coctail can 5% ",
+          name: "Calypso cocktail can 5% ",
           price: 1000,
           description:
             "33cl",
@@ -321,77 +321,104 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
     },
   ];
     const [activeTab, setActiveTab] = useState(0);
+    
   return (
-    <div className='h-full'>
-      <CgClose onClick={()=>{setShowDrinkModal(false)}} className='w-[20px] h-[20px] mt-[-20px] ml-auto cursor-pointer mb-5' />
-        <div className="flex h-[10%] overflow-h-auto justify-center mb-8 sm:mb-6">
-            <div className="glass-morphism rounded-full p-1 flex flex-wrap space-x-2">
-              {menus.map((menu, index) => (
-                <button
-                  key={menu.name}
-                  onClick={() => setActiveTab(index)}
-                  className={`cursor-pointer enhanced-tab px-6 py-3 rounded-full text-sm sm:text-base font-semibold transition-all duration-300 ${activeTab === index
-                      ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-600/30 active'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-700'
-                    }`}
-                >
-                  {menu.name}
-                </button>
-              ))}
-            </div>
+    <div className='flex flex-col h-full'>
+      {/* Header with close button */}
+      <div className="flex justify-between items-center mb-4 flex-shrink-0">
+        <h2 className="text-xl sm:text-2xl font-bold text-white">Choose Your Drinks</h2>
+        <button 
+          onClick={() => setShowDrinkModal(false)}
+          className="p-2 hover:bg-white/10 rounded-full transition-colors"
+        >
+          <CgClose className='w-5 h-5 sm:w-6 sm:h-6 text-white' />
+        </button>
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="flex-shrink-0 mb-4 sm:mb-6">
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-800">
+          <div className="flex space-x-2 pb-2 min-w-max">
+            {menus.map((menu, index) => (
+              <button
+                key={menu.name}
+                onClick={() => setActiveTab(index)}
+                className={`cursor-pointer px-4 py-2 sm:px-6 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
+                  activeTab === index
+                    ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-600/30'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-700 bg-gray-800'
+                }`}
+              >
+                {menu.name}
+              </button>
+            ))}
           </div>
-          <div className="h-[75%] p-2 w-[95%] mx-auto overflow-y-auto ">
-            <div className='w-full h-[fit-content] flex  gap-5 flex-wrap'>
-              {menus[activeTab].items.map(item => (
-              <div key={item.id} className="enhanced-card w-full md:w-[32%] rounded-3xl h-[fit-content] /*overflow-hidden*/ shadow-xl shadow-black/30 border border-gray-700">
+        </div>
+      </div>
+
+      {/* Content Area */}
+      <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-800">
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-4'>
+          {menus[activeTab].items.map(item => (
+            <div key={item.id} className="bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:border-red-500/30 transition-all duration-300">
+              <div className="aspect-square bg-white/90 relative overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="bg-white/90 w-full h-48 sm:h-56 object-cover rounded-tl-3xl rounded-tr-3xl object-center enhanced-image"
+                  className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
                 />
-                <div className="p-6 sm:p-8">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">{item.name}</h3>
-                  <p className="text-gray-400 text-sm sm:text-base mb-4">{item.description}</p>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-2xl sm:text-3xl font-bold text-red-400">{item.currency}{item.price.toLocaleString()}</span>
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() =>{
-                          if(quantities[item.name]===1){
-                            removeItem(item)
-                          }else{
-                            subQuantity(item)
-                          }
-                        } }
-                        className="enhanced-button bg-gray-700 text-white rounded-full p-2 hover:bg-red-600 transition-colors"
-                      >
-                        <Minus className="w-5 h-5" />
-                      </button>
-                      <span className="text-lg font-bold text-white w-8 text-center">
-                        {quantities[item.name]?quantities[item.name]:0}
-                      </span>
-                      <button
-                        onClick={() => addQuantity(item)}
-                        className="enhanced-button bg-red-600 text-white rounded-full p-2 hover:bg-red-500 transition-colors"
-                      >
-                        <Plus  className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => addToCart(item)}
-                    disabled={quantities[item.name]}
-                    className="enhanced-button w-full bg-gradient-to-r from-red-600 to-red-500 disabled:bg-gray-600 disabled:bg-none hover:from-red-500 hover:to-red-400 text-white py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    <ShoppingCart className="w-5 h-5" />
-                    Add to Cart
-                  </button>
-                </div>
               </div>
-            ))}
+              
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold mb-2 text-white line-clamp-2">{item.name}</h3>
+                <p className="text-gray-400 text-sm mb-3">{item.description}</p>
+                
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-xl sm:text-2xl font-bold text-red-400">
+                    {item.currency}{item.price.toLocaleString()}
+                  </span>
+                  
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => {
+                        if(quantities[item.name] === 1) {
+                          removeItem(item)
+                        } else {
+                          subQuantity(item)
+                        }
+                      }}
+                      className="bg-gray-700 text-white rounded-full p-1.5 sm:p-2 hover:bg-red-600 transition-colors disabled:opacity-50"
+                      disabled={!quantities[item.name]}
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    
+                    <span className="text-base sm:text-lg font-bold text-white w-6 sm:w-8 text-center">
+                      {quantities[item.name] || 0}
+                    </span>
+                    
+                    <button
+                      onClick={() => addQuantity(item)}
+                      className="bg-red-600 text-white rounded-full p-1.5 sm:p-2 hover:bg-red-500 transition-colors"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => addToCart(item)}
+                  disabled={quantities[item.name]}
+                  className="w-full bg-gradient-to-r from-red-600 to-red-500 disabled:from-gray-600 disabled:to-gray-600 hover:from-red-500 hover:to-red-400 text-white py-2.5 sm:py-3 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  Add to Cart
+                </button>
+              </div>
             </div>
-          </div>
-       
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
