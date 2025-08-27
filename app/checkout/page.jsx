@@ -125,7 +125,7 @@ export default function Page() {
             <ul className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-2">
               {cart.map((item, index) => (
                 <li key={index} className="text-black text-sm">
-                  {item.quantity}x {item.name} with {item.selectedProtein} @{item.currency}{item.price * item.quantity}
+                  {item.quantity}x {item.name} with {`${item.selectedProtein? item.selectedProtein:"no protein"}`} @{item.currency}{item.price * item.quantity}
                 </li>
               ))}
             </ul>

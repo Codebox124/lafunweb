@@ -125,7 +125,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2500,
           description:
             "1ltr",
-          image: "/chivita100juice.WEBP",
+          image: "/chivita100juice.webp",
           currency: "₦"
         },
         {

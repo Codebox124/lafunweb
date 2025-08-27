@@ -42,10 +42,10 @@ function Contact() {
                   <Clock className="w-6 h-6 text-red-500" />
                   <p className="text-white text-lg sm:text-xl">24/7</p>
                 </div>
-                <div className="flex items-center gap-4">
+                <a href='https://www.instagram.com/lafunofficial?igsh=MWJjZ2t1NnJhNmhiOA==' target='_blank' className="flex items-center gap-4 cursor-pointer">
                   <Users className="w-6 h-6 text-red-500" />
-                  <p className="text-white text-lg sm:text-xl">Follow us on social media!</p>
-                </div>
+                  <p className="text-white text-lg sm:text-xl">Follow us on <u>social media!</u></p>
+                </a>
               </div>
             </motion.div>
 
@@ -56,10 +56,11 @@ function Contact() {
                     viewport={others.viewport}
             className="glass-morphism rounded-3xl p-8 shadow-xl shadow-black/30 border border-gray-700">
               <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Send Us a Message</h3>
-              <form className="space-y-6">
+              <form action="https://formsubmit.co/houseoflafun.co@gmail.com" method="POST" className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-300 text-lg font-semibold mb-2">Name</label>
                   <input
+                  required
                     type="text"
                     id="name"
                     className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
@@ -69,6 +70,7 @@ function Contact() {
                 <div>
                   <label htmlFor="email" className="block text-gray-300 text-lg font-semibold mb-2">Email</label>
                   <input
+                  required
                     type="email"
                     id="email"
                     className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
@@ -78,6 +80,7 @@ function Contact() {
                 <div>
                   <label htmlFor="message" className="block text-gray-300 text-lg font-semibold mb-2">Message</label>
                   <textarea
+                  required
                     id="message"
                     rows="5"
                     className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
