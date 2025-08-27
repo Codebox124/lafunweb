@@ -46,7 +46,7 @@ const LafunWebsite = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menus = [
+  const [menus, setMenus] = useState([
     {
       name: "LÁFÚN  Signature",
       items: [
@@ -55,8 +55,10 @@ const LafunWebsite = () => {
           name: "LÁFÚN  & ABÙLÁ COMBO",
           price: 8500,
           description:
-            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon ",
-          image: "/abula.JPG",
+            "Lafun, Gbegiri and Ewedu.",
+          proteinOptions:["Beef", "Titus fish", "Goat meat", "Ponmon"],
+          selectedProtein:"",
+            image: "/abula.JPG",
           currency: "₦",
           total:8500
         },
@@ -65,17 +67,19 @@ const LafunWebsite = () => {
           name: "LÁFÚN  WITHOUT GBÈGÌRÌ",
           price: 8000,
           description:
-            "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon ",
+            "Lafun with Ewedu and Pepper Stew.",
+          proteinOptions:[ "Beef", "Titus fish", "Goat meat", "Ponmon"],
+          selectedProtein:"",
           image: "/ewedu.JPG",
           currency: "₦",
           total:8000
         },
         {
           //id: 3,
-          name: "Láfún mini abula combo",
+          name: "LÁFÚN MINI ABÙLÁ COMBO",
           price: 6500,
           description:
-            "“Proteins are fixed” small sizes of ponmon and small sizes of beef",
+            "Proteins are fixed-small sizes of ponmon and small sizes of beef",
           image: "/mini.png",
           currency: "₦",
           total:6500
@@ -98,7 +102,7 @@ const LafunWebsite = () => {
           name: "Titus Fish",
           price: 3000,
           description: "Fresh Titus fish, grilled to perfection",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&auto=format",
+          image: "https://images.unsplash.com/photo-1700760933848-194ad3408fc4?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           currency: "₦"
         },
         {
@@ -114,13 +118,13 @@ const LafunWebsite = () => {
           name: "Ponmon",
           price: 2000,
           description: "Deliciously cooked cow skin, tender and seasoned",
-          image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format",
+          image: "/mini.png",
           currency: "₦"
         },
       
       ]
     }
-  ];
+  ])
 
   /*const updateQuantity = (itemId, change) => {
     setCart(prev => {
@@ -212,7 +216,7 @@ const LafunWebsite = () => {
 
 
   function computeTotal(type, price){
-    console.log(price)
+    //console.log(price)
     if(type==="add"){
       setTotal(total + price)
     }else{
@@ -349,12 +353,13 @@ const LafunWebsite = () => {
       }
       {/* Hero Section */}
      <Hero setShowWaitlist={setShowWaitlist} />
-      {/* About Section */}
-     <About />
+  
 
       {/* Menu Section */}
-      <Menu addToCart={addToCart} quantities={quantites} menus={menus} setActiveTab={setActiveTab} activeTab={activeTab} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} />
-
+      <Menu setMenus={setMenus} addToCart={addToCart} quantities={quantites} menus={menus} setActiveTab={setActiveTab} activeTab={activeTab} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} />
+      
+      {/* About Section */}
+     <About />
       {/* Testimonials Section */}
       <Testimonials />
 
