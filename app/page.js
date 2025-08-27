@@ -87,7 +87,7 @@ const LafunWebsite = () => {
       ]
     },
     {
-      name: "Protein Options",
+      name: "Extra Protein",
       items: [
         {
           id: 3,
@@ -123,16 +123,16 @@ const LafunWebsite = () => {
         },
         {
           id: 7,
-          name: "Croaker fish",
-          price: 2000,
+          name: "Croaker Fish",
+          price: 3500,
           description: "Spicy peppered Croaker fish, juicy and well-seasoned, bursting with flavor.",
           image: "/croakerfish.png",
           currency: "₦"
         },
         {
           id: 8,
-          name: "Dried peppered catfish",
-          price: 2000,
+          name: "Dried Peppered Catfish",
+          price: 3500,
           description: "Flavorful dried catfish, richly spiced and coated in hot pepper.",
           image: "/driedpepperedcatfish.png",
           currency: "₦"
