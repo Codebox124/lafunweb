@@ -56,7 +56,7 @@ const LafunWebsite = () => {
           price: 8500,
           description:
             "Lafun, Gbegiri and Ewedu.",
-          proteinOptions:["Beef", "Titus fish", "Goat meat", "Ponmon"],
+          proteinOptions:["Beef", "Titus fish", "Goat meat(ògúnfe)", "Ponmon", "Croaker fish", "Dried peppered catfish"],
           selectedProtein:"",
             image: "/abula.JPG",
           currency: "₦",
@@ -68,7 +68,7 @@ const LafunWebsite = () => {
           price: 8000,
           description:
             "Lafun with Ewedu and Pepper Stew.",
-          proteinOptions:[ "Beef", "Titus fish", "Goat meat", "Ponmon"],
+          proteinOptions:["Beef", "Titus fish", "Goat meat(ògúnfe)", "Ponmon", "Croaker fish", "Dried peppered catfish"],
           selectedProtein:"",
           image: "/ewedu.JPG",
           currency: "₦",
@@ -102,7 +102,7 @@ const LafunWebsite = () => {
           name: "Titus Fish",
           price: 3000,
           description: "Fresh Titus fish, grilled to perfection",
-          image: "https://images.unsplash.com/photo-1700760933848-194ad3408fc4?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          image: "/titus.jpg",
           currency: "₦"
         },
         {
@@ -110,7 +110,7 @@ const LafunWebsite = () => {
           name: "Goat Meat (Ògúnfẹ)",
           price: 4000,
           description: "Succulent goat meat with authentic Nigerian spices",
-          image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop&auto=format",
+          image: "/goatmeat.jpg",
           currency: "₦"
         },
         {
@@ -118,9 +118,26 @@ const LafunWebsite = () => {
           name: "Ponmon",
           price: 2000,
           description: "Deliciously cooked cow skin, tender and seasoned",
-          image: "/mini.png",
+          image: "/ponmon.jpg",
           currency: "₦"
         },
+        {
+          id: 7,
+          name: "Croaker fish",
+          price: 2000,
+          description: "Spicy peppered Croaker fish, juicy and well-seasoned, bursting with flavor.",
+          image: "/croakerfish.png",
+          currency: "₦"
+        },
+        {
+          id: 8,
+          name: "Dried peppered catfish",
+          price: 2000,
+          description: "Flavorful dried catfish, richly spiced and coated in hot pepper.",
+          image: "/driedpepperedcatfish.png",
+          currency: "₦"
+        },
+        
       
       ]
     }
