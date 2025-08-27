@@ -11,7 +11,7 @@ function PickADrinkModal({ setShowDrinkModal, cart, addToCart, addQuantity, subQ
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-2 sm:p-4">
-      <div className={`relative flex flex-col bg-gradient-to-br from-gray-900 to-black rounded-2xl sm:rounded-3xl border border-red-500/30 shadow-2xl shadow-red-600/20 transition-all duration-300 ease-in-out w-full max-w-6xl mx-auto h-[95vh] sm:h-[90vh] p-3 sm:p-6`}>
+      <div className={`relative flex flex-col bg-gradient-to-br from-gray-900 to-black rounded-2xl sm:rounded-3xl border border-red-500/30 shadow-2xl shadow-red-600/20 transition-all duration-300 ease-in-out w-full max-w-6xl mx-auto h-[85vh] sm:h-[90vh] p-3 sm:p-6`}>
 
         {/* Close Button - Fixed positioning */}
         <button
