@@ -14,7 +14,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2000,
           description:
             "33cl",
-          image: "/drinks/vitamilksoyadrink.webp",
+          image: "/vitamilksoyadrink.webp",
           currency: "₦"
         },
         {
