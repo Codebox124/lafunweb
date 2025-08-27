@@ -30,7 +30,7 @@ function Testimonials() {
             className="enhanced-testimonial rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/30 border border-gray-700">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://randomuser.me/api/portraits/women/68.jpg"
+                  src="/aishab.jpg"
                   alt="Customer 1"
                   className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-4 border-2 border-red-500"
                 />
@@ -54,12 +54,12 @@ function Testimonials() {
             className="enhanced-testimonial rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/30 border border-gray-700">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://randomuser.me/api/portraits/men/44.jpg"
+                  src="/rajiroqeeb.jpg"
                   alt="Customer 2"
                   className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-4 border-2 border-red-500"
                 />
                 <div>
-                  <p className="font-bold text-white text-lg sm:text-xl">Kunle A.</p>
+                  <p className="font-bold text-white text-lg sm:text-xl">Roqeeb R.</p>
                   <div className="flex text-yellow-400 text-sm sm:text-base">
                     <Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star fill="currentColor" size={16} /><Star size={16} />
                   </div>
@@ -78,7 +78,7 @@ function Testimonials() {
             className="enhanced-testimonial rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/30 border border-gray-700">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://randomuser.me/api/portraits/women/79.jpg"
+                  src="/chidinmao.jpg"
                   alt="Customer 3"
                   className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-4 border-2 border-red-500"
                 />
