@@ -14,6 +14,8 @@ import FixedOrderButton from './components/FixedOrderButton';
 import PickADrinkModal from './components/PickADrinkModal';
 import Cart from './components/Cart';
 import { useOverContext } from './OverContext';
+import FixedPickADrinkButton from './components/FixedPickADrinkButton';
+import { AnimatePresence } from 'framer-motion';
 
 const LafunWebsite = () => {
   const {cart,
@@ -44,7 +46,7 @@ const LafunWebsite = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menus = [
+  const [menus, setMenus] = useState([
     {
       name: "LÁFÚN  Signature",
       items: [
@@ -53,8 +55,10 @@ const LafunWebsite = () => {
           name: "LÁFÚN  & ABÙLÁ COMBO",
           price: 8500,
           description:
-            "Lafun, Gbegiri and Ewedu. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
-          image: "/abula.JPG",
+            "Lafun, Gbegiri and Ewedu.",
+          proteinOptions:["Beef", "Titus fish", "Goat meat(ògúnfe)", "Ponmon", "Croaker fish", "Dried peppered catfish"],
+          selectedProtein:"",
+            image: "/abula.JPG",
           currency: "₦",
           total:8500
         },
@@ -63,17 +67,19 @@ const LafunWebsite = () => {
           name: "LÁFÚN  WITHOUT GBÈGÌRÌ",
           price: 8000,
           description:
-            "Lafun with Ewedu and Pepper Stew. Protein Options: Beef, Titus fish, Goat meat, Ponmon, Snail",
+            "Lafun with Ewedu and Pepper Stew.",
+          proteinOptions:["Beef", "Titus fish", "Goat meat(ògúnfe)", "Ponmon", "Croaker fish", "Dried peppered catfish"],
+          selectedProtein:"",
           image: "/ewedu.JPG",
           currency: "₦",
           total:8000
         },
         {
           //id: 3,
-          name: "Láfún mini abula combo",
+          name: "LÁFÚN MINI ABÙLÁ COMBO",
           price: 6500,
           description:
-            "“Proteins are fixed” small sizes of ponmon and small sizes of beef",
+            "Proteins are fixed-small sizes of ponmon and small sizes of beef",
           image: "/mini.png",
           currency: "₦",
           total:6500
@@ -81,7 +87,7 @@ const LafunWebsite = () => {
       ]
     },
     {
-      name: "Protein Options",
+      name: "Extra Protein",
       items: [
         {
           id: 3,
@@ -96,7 +102,7 @@ const LafunWebsite = () => {
           name: "Titus Fish",
           price: 3000,
           description: "Fresh Titus fish, grilled to perfection",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&auto=format",
+          image: "/titus.jpg",
           currency: "₦"
         },
         {
@@ -104,7 +110,7 @@ const LafunWebsite = () => {
           name: "Goat Meat (Ògúnfẹ)",
           price: 4000,
           description: "Succulent goat meat with authentic Nigerian spices",
-          image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop&auto=format",
+          image: "/goatmeat.jpg",
           currency: "₦"
         },
         {
@@ -112,13 +118,30 @@ const LafunWebsite = () => {
           name: "Ponmon",
           price: 2000,
           description: "Deliciously cooked cow skin, tender and seasoned",
-          image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format",
+          image: "/ponmon.jpg",
           currency: "₦"
         },
+        {
+          id: 7,
+          name: "Croaker Fish",
+          price: 3500,
+          description: "Spicy peppered Croaker fish, juicy and well-seasoned, bursting with flavor.",
+          image: "/croakerfish.png",
+          currency: "₦"
+        },
+        {
+          id: 8,
+          name: "Dried Peppered Catfish",
+          price: 3500,
+          description: "Flavorful dried catfish, richly spiced and coated in hot pepper.",
+          image: "/driedpepperedcatfish.png",
+          currency: "₦"
+        },
+        
       
       ]
     }
-  ];
+  ])
 
   /*const updateQuantity = (itemId, change) => {
     setCart(prev => {
@@ -210,7 +233,7 @@ const LafunWebsite = () => {
 
 
   function computeTotal(type, price){
-    console.log(price)
+    //console.log(price)
     if(type==="add"){
       setTotal(total + price)
     }else{
@@ -333,7 +356,9 @@ const LafunWebsite = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <NavBar cart={cart} setShowCart={setShowCart} showCart={showCart} scrollY={scrollY} setShowWaitlist={setShowWaitlist} /*itemCount={itemCount}*/ total={total} />
-      {showCart && <Cart addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} setCart={setCart} />}
+     <AnimatePresence>
+       {showCart && <Cart setShowCart={setShowCart} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} setCart={setCart} />}
+     </AnimatePresence>
       {/* Waitlist Modal */}
       {showWaitlist && (
         <WaitList waitlistSubmitted={waitlistSubmitted} waitlistEmail={waitlistEmail} setShowWaitlist={setShowWaitlist} setWaitlistEmail={setWaitlistEmail} handleWaitlistSubmit={handleWaitlistSubmit} />
@@ -345,12 +370,13 @@ const LafunWebsite = () => {
       }
       {/* Hero Section */}
      <Hero setShowWaitlist={setShowWaitlist} />
-      {/* About Section */}
-     <About />
+  
 
       {/* Menu Section */}
-      <Menu addToCart={addToCart} quantities={quantites} menus={menus} setActiveTab={setActiveTab} activeTab={activeTab} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} />
-
+      <Menu setMenus={setMenus} addToCart={addToCart} quantities={quantites} menus={menus} setActiveTab={setActiveTab} activeTab={activeTab} addQuantity={addQuantity} subQuantity={subQuantity} removeItem={removeItem} cart={cart} />
+      
+      {/* About Section */}
+     <About />
       {/* Testimonials Section */}
       <Testimonials />
 
@@ -363,9 +389,16 @@ const LafunWebsite = () => {
       {/*itemCount > 0 && (
         <FixedOrderButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
       )*/}
-      {
+      <AnimatePresence>
+        {
+        cart.length>0 && <FixedPickADrinkButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
+      }
+      </AnimatePresence>
+      <AnimatePresence>
+        {
         cart.length>0 && <FixedOrderButton showDrinkModal={showDrinkModal} setShowDrinkModal={setShowDrinkModal} handlePlaceOrder={handlePlaceOrder} total={total} />
       }
+      </AnimatePresence>
     </div>
   );
 };

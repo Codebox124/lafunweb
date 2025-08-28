@@ -14,7 +14,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2000,
           description:
             "33cl",
-          image: "/drinks/vitamilksoyadrink.webp",
+          image: "/vitamilksoyadrink.webp",
           currency: "₦"
         },
         {
@@ -23,7 +23,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2000,
           description:
             "33cl",
-          image: "/drinks/vitamilkstrawberrydrink.webp",
+          image: "/vitamilkstrawberrydrink.webp",
           currency: "₦"
         },
         {
@@ -32,7 +32,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2000,
           description:
             "33cl",
-          image: "/drinks/vitamilksoyadrink.webp",
+          image: "/vitamilkdoublechocodrink.webp",
           currency: "₦"
         },
 
@@ -47,7 +47,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 700,
           description:
             "33cl",
-          image: "/drinks/spritecan.webp",
+          image: "/spritecan.webp",
           currency: "₦"
         },
         {
@@ -56,7 +56,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 700,
           description:
             "33cl",
-          image: "/drinks/fantacan.webp",
+          image: "/fantacan.webp",
           currency: "₦"
         },
         {
@@ -65,7 +65,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 500,
           description:
             "33cl",
-          image: "/drinks/pepsipet.webp",
+          image: "/pepsipet.webp",
           currency: "₦"
         },
         {
@@ -74,7 +74,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 700,
           description:
             "33cl",
-          image: "/drinks/cocacolacan.webp",
+          image: "/cocacolacan.webp",
           currency: "₦"
         },
         
@@ -89,7 +89,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2500,
           description:
             "1ltr",
-          image: "/drinks/hollandiayoghurtplain.webp",
+          image: "/hollandiayoghurtplain.webp",
           currency: "₦"
         },
         {
@@ -98,7 +98,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2500,
           description:
             "1ltr",
-          image: "/drinks/hollandiayoghurtstrawberry.webp",
+          image: "/hollandiayoghurtstrawberry.webp",
           currency: "₦"
         },
         {
@@ -107,7 +107,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "78cl",
-          image: "/drinks/5aliveberryblastjuice.webp",
+          image: "/5aliveberryblastjuice.webp",
           currency: "₦"
         },
         {
@@ -116,7 +116,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "85cl",
-          image: "/drinks/5alivepulpyjuice.webp",
+          image: "/5alivepulpyjuice.webp",
           currency: "₦"
         },
         {
@@ -125,7 +125,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2500,
           description:
             "1ltr",
-          image: "/drinks/chivita100juice.WEBP",
+          image: "/chivita100juice.webp",
           currency: "₦"
         },
         {
@@ -134,7 +134,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 2000,
           description:
             "1tr",
-          image: "/drinks/chivitaactivejuice.webp",
+          image: "/chivitaactivejuice.webp",
           currency: "₦"
         }
         ]
@@ -148,7 +148,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 850,
           description:
             "33cl",
-          image: "/drinks/climaxcan.webp",
+          image: "/climaxcan.webp",
           currency: "₦"
         },
         {
@@ -157,7 +157,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "33cl",
-          image: "/drinks/powerhorsecan.webp",
+          image: "/powerhorsecan.webp",
           currency: "₦"
         },
         {
@@ -166,7 +166,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "33cl",
-          image: "/drinks/redbullcan.webp",
+          image: "/redbullcan.webp",
           currency: "₦"
         },
         {
@@ -175,7 +175,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "33cl",
-          image: "/drinks/blackbullet.webp",
+          image: "/blackbullet.webp",
           currency: "₦"
         },
         {
@@ -184,7 +184,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1300,
           description:
             "33cl",
-          image: "/drinks/monsterenergydrink.webp",
+          image: "/monsterenergydrink.webp",
           currency: "₦"
         },
         {
@@ -193,7 +193,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1300,
           description:
             "33cl",
-          image: "/drinks/monsterenergyultra.webp",
+          image: "/monsterenergyultra.webp",
           currency: "₦"
         },
         
@@ -208,7 +208,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 900,
           description:
             "33cl",
-          image: "/drinks/maltinacanclassic.webp",
+          image: "/maltinacanclassic.webp",
           currency: "₦"
         },
         {
@@ -217,7 +217,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 700,
           description:
             "33cl",
-          image: "/drinks/maltinapet.webp",
+          image: "/maltinapet.webp",
           currency: "₦"
         },
         {
@@ -226,7 +226,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 700,
           description:
             "33cl",
-          image: "/drinks/amstelmaltapet.webp",
+          image: "/amstelmaltapet.webp",
           currency: "₦"
         },
         {
@@ -235,7 +235,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 900,
           description:
             "33cl",
-          image: "/drinks/maltaguinesscan.webp",
+          image: "/maltaguinesscan.webp",
           currency: "₦"
         },
         ]
@@ -249,7 +249,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1000,
           description:
             "33cl",
-          image: "/drinks/lordsgincocktail.webp",
+          image: "/lordsgincocktail.webp",
           currency: "₦"
         },
         {
@@ -258,7 +258,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1000,
           description:
             "33cl",
-          image: "/drinks/calypsococktailcan.webp",
+          image: "/calypsococktailcan.webp",
           currency: "₦"
         },
         ]
@@ -272,7 +272,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "45cl",
-          image: "/drinks/heinekenbottle.jpg",
+          image: "/heinekenbottle.jpg",
           currency: "₦"
         },
          {
@@ -281,7 +281,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1800,
           description:
             "33cl",
-          image: "/drinks/heinekencan.png",
+          image: "/heinekencan.png",
           currency: "₦"
         },
          {
@@ -290,7 +290,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 1000,
           description:
             "33cl",
-          image: "/drinks/desperadocan.webp",
+          image: "/desperadocan.webp",
           currency: "₦"
         },
         
@@ -305,7 +305,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 300,
           description:
             "",
-          image: "/drinks/mrvwater.webp",
+          image: "/mrvwater.webp",
           currency: "₦"
         },
         {
@@ -314,7 +314,7 @@ function Drinks({setInterest, quantities, cart, addToCart, addQuantity, subQuant
           price: 350,
           description:
             "",
-          image: "/drinks/aquafinawater.jpg",
+          image: "/aquafinawater.jpg",
           currency: "₦"
         },
         ]
