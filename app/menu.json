@@ -41,7 +41,7 @@
         "total": 8000
       },
       {
-        "name": "LÁFÚN MINI ABÙLÁ COMBO",
+        "name": "LÁFÚN MINI ÀBÙLÀ COMBO",
         "price": 6500,
         "description": "Proteins are fixed-small sizes of ponmon and small sizes of beef",
         "image": "/mini.png",
@@ -81,7 +81,7 @@
         "price": 13500,
         "description": "",
         "selectedProtein": "",
-        "image": "/loadedcheesyfries.png",
+        "image": "/loadedcheesyfries.PNG",
         "currency": "₦",
         "total": 13500
       },
