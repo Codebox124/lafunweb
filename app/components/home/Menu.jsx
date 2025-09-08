@@ -64,7 +64,14 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
               ))}
             </div>
           </motion.div>
-
+         
+            {menus[activeTab].name==="Snacks and Parfait" && 
+            <video width="320" height="240" loop autoPlay className='min-w-full object-cover mb-4 h-[300px] rounded-lg'>
+  <source src="/snacksandparfaitvid.MP4" type="video/mp4" />
+  Your browser does not support the video tag.
+  </video>
+            }
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {menus[activeTab].items.map((item, index) => (
              <motion.div
