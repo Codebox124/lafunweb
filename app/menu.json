@@ -49,7 +49,7 @@
         "price": 5000,
         "description": "Two boiled eggs, veggies and minced sausages",
         "selectedProtein": "",
-        "image": "/noodles.JPG",
+        "image": "/noodles.jpg",
         "currency": "₦",
         "total": 5000
       },
@@ -127,7 +127,7 @@
         "name": "Meat Pie (1 pc)",
         "price": 2000,
         "description": "",
-        "image": "/meatpie.png",
+        "image": "/meatpie.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -135,7 +135,7 @@
         "name": "Meat Pie (Box of 10)",
         "price": 18000,
         "description": "",
-        "image": "/meatpie.png",
+        "image": "/meatpie.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -143,7 +143,7 @@
         "name": "Milky Doughnut (Box of 6) ",
         "price": 8000,
         "description": "",
-        "image": "/milkydoughnutsboxof6.png",
+        "image": "/milkydoughnutsboxof6.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -151,7 +151,7 @@
         "name": "Milky Doughnut (Box of 3)",
         "price": 4000,
         "description": "",
-        "image": "/milkydoughnutsboxof3.png",
+        "image": "/milkydoughnutsboxof3.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -159,7 +159,7 @@
         "name": "Sugar Doughnut (1 pc)",
         "price": 900,
         "description": "",
-        "image": "/sugardoughnuts.png",
+        "image": "/sugardoughnuts.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -167,7 +167,7 @@
         "name": "Jam Doughnut (1 pc)",
         "price": 1200,
         "description": "",
-        "image": "/jamdoughnuts.png",
+        "image": "/jamdoughnuts.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -175,7 +175,7 @@
         "name": "Yoghurt Parfait 250ml",
         "price": 4500,
         "description": "",
-        "image": "/yoghurtparfait.png",
+        "image": "/yoghurtparfait.PNG",
         "currency": "₦",
         "snackorparfait":true
       },
@@ -183,7 +183,7 @@
         "name": "Yoghurt Parfait 400ml",
         "price": 6000,
         "description": "",
-        "image": "/yoghurtparfait.png",
+        "image": "/yoghurtparfait.PNG",
         "currency": "₦",
         "snackorparfait":true
       }
