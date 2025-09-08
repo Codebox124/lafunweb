@@ -67,13 +67,12 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
          
             {menus[activeTab].name==="Snacks and Parfait" && 
             <video width="320" height="240" 
+              src="/snacksandparfaitvid.MP4"
               playsinline 
   webkit-playsinline 
   autoplay 
   muted 
   loop className='min-w-full object-cover mb-4 h-[300px] rounded-lg'>
-  <source src="/snacksandparfaitvid.MP4" type="video/mp4" />
-  Your browser does not support the video tag.
   </video>
             }
           
