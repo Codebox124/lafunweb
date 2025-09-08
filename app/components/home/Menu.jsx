@@ -100,13 +100,13 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
         ))}
       </select>
     )}
-    {item.selectedProtein && (
+    {(item.selectedProtein || item.name==="Loaded Cheesy Fries") && (
       <button
       onClick={()=>{setActiveTab(1)}}
         className="cursor-pointer w-full mb-4 px-3 py-2 sm:px-4 sm:py-2.5 bg-gray-800 text-white border border-gray-700 rounded-lg hover:border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm sm:text-base font-semibold"
         aria-label="Add more proteins from Extras section"
       >
-        Want more proteins? Add from our Extras section
+        {item.name==="Loaded Cheesy Fries"?"Want more cheese? Add from our Extras section":"Want more proteins? Add from our Extras section"}
       </button>
     )}
     <div className="flex justify-between items-center mb-4">
