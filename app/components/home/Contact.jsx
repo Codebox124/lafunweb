@@ -2,6 +2,7 @@ import { Clock, MessageCircle, Phone, Users } from 'lucide-react'
 import React from 'react'
 import { motion } from 'framer-motion'
 import { fromBottomToTop, fromLeftToRight, fromRightToLeft, others } from '../animations'
+import { BsWhatsapp } from "react-icons/bs";
 
 function Contact() {
   return (
@@ -42,6 +43,10 @@ function Contact() {
                   <Clock className="w-6 h-6 text-red-500" />
                   <p className="text-white text-lg sm:text-xl">24/7</p>
                 </div>
+                <a href='https://wa.me/2349169360999?text=Hello%20LAFUN%2C%20I%20want%20to%20place%20an%20order' target='_blank' className="flex items-center gap-4 cursor-pointer">
+                  <BsWhatsapp className="w-6 h-6 text-red-500" />
+                  <p className="text-white text-lg sm:text-xl">Reach out to us on <u>Whatsapp!</u> @09169360999</p>
+                </a>
                 <a href='https://www.instagram.com/lafunofficial?igsh=MWJjZ2t1NnJhNmhiOA==' target='_blank' className="flex items-center gap-4 cursor-pointer">
                   <Users className="w-6 h-6 text-red-500" />
                   <p className="text-white text-lg sm:text-xl">Follow us on <u>social media!</u></p>
