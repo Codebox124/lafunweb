@@ -28,7 +28,7 @@ export default function Page() {
     reference: (new Date()).getTime().toString(),
     email: formData.email,
     amount: (total + 1500) * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: 'pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78'
+    publicKey: 'pk_test_fe3583fb926e99e617dcf94997f7daf89c66314d'/*'pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78'*/
   };
 
  
