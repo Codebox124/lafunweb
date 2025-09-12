@@ -309,7 +309,7 @@ export default function Page() {
       (cart.length > 0 && showSuccess)?<div className="w-full gap-4 text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
         <FaCircleCheck className="w-[30px] h-[30px] text-green-400" />
         <h1 className="text-2xl">Order Placed!</h1>
-        <p>You've successfully registered for the waitlist!</p>
+        <p>You've successfully registered for the waitlist!</p> 
       </div>:
       (
         <div className="w-full text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
