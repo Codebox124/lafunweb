@@ -3,52 +3,93 @@
 import { useState } from "react";
 import { useOverContext } from "../OverContext";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { PaystackButton } from 'react-paystack';
+import dynamic from 'next/dynamic';
 import Link from "next/link";
 import { FaCircleCheck } from "react-icons/fa6";
+
+// Dynamically import PaystackButton to avoid SSR issues
+const PaystackButton = dynamic(
+  () => import('react-paystack').then(mod => ({ default: mod.PaystackButton })),
+  {
+    ssr: false,
+    loading: () => (
+      <button className="w-full cursor-pointer bg-gray-400 text-white font-semibold py-3 rounded-xl">
+        Loading Payment...
+      </button>
+    )
+  }
+);
 
 export default function Page() {
   const { cart, formData, setFormData, total } = useOverContext();
   const [showSuccess, setShowSuccess] = useState(false)
-  const [timeToSendMail, setTimeToSendMail] = useState(false)
-  const [orderInfo, setOrderInfo] = useState("")
-   //const publicKey = process.env.PAYSTACK_PUBLIC_KEY
-   const config = {
+  //const publicKey = process.env.PAYSTACK_PUBLIC_KEY
+  const config = {
     reference: (new Date()).getTime().toString(),
     email: formData.email,
-    amount: (total+1500)*100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: 'pk_test_fe3583fb926e99e617dcf94997f7daf89c66314d'
+    amount: (total + 1500) * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey: 'pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78'
   };
 
-  const handlePaystackSuccessAction = (reference) => {
-      // Implementation for whatever you want to do with reference and after success call.
-      //console.log(reference, cart);
-      //setShowSuccess(true)
-      setTimeToSendMail(true)
-      let cartmail = []
-      cart.forEach(item=>{
-        cartmail.push(`${item.quantity}x ${item.name} @${item.currency}${item.price * item.quantity}`)
-      })
-      cartmail = cartmail.join("||")
-      /*console.log("name:", formData.first_name, formData.last_name)
-      console.log("email:" , formData.email)
-      console.log("Number:", formData.phone)
-      console.log("Location:", (formData.location!="Other (Not Listed)"?formData.location:formData.customAddress))*/
-      setOrderInfo(`Cart:${cartmail}, Name:${formData.first_name} ${formData.last_name}, Email:${formData.email}, Number:${formData.phone}, Location:${(formData.location!="Other (Not Listed)"?formData.location:formData.customAddress)}`)
-      console.log(orderInfo)
+ 
+
+  const handlePaystackSuccessAction = async (reference) => {
+    console.log(reference);
+
+    // Prepare order data for Google Sheets
+    const orderData = {
+      orderRef: reference.reference,
+      customerName: `${formData.first_name} ${formData.last_name}`,
+      email: formData.email,
+      phone: formData.phone,
+      location: formData.location,
+      customAddress: formData.customAddress || '',
+      orderItems: cart.map(item =>
+        `${item.quantity}x ${item.name} with ${item.selectedProtein || 'no protein'} - ₦${item.price * item.quantity}`
+      ).join('\n'),
+      totalAmount: `₦${total + 1500}`,
+      paymentReference: reference.reference
     };
 
-    const handlePaystackCloseAction = () => {
-      // implementation for  whatever you want to do when the Paystack dialog closed.
-      console.log('closed')
+    try {
+      // Send to your Google Apps Script Web App
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxfBV6p9_swroDjtUf7__pQCcaIBfYOdGLsfvuKXkr45S6CqMGQg7ZzuO2Wsg_rwJr5Ew/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (response.ok) {
+        console.log('Order saved to Google Sheets successfully!');
+        setShowSuccess(true);
+      } else {
+        console.error('Google Sheets error:', await response.text());
+        setShowSuccess(true); // Still show success to user
+      }
+    } catch (error) {
+      console.error('Error sending to Google Sheets:', error);
+      setShowSuccess(true); // Still show success to user
     }
+  };
 
-    const componentProps = {
-        ...config,
-        text: 'Paystack Button Implementation',
-        onSuccess: (reference) => handlePaystackSuccessAction(reference),
-        onClose: handlePaystackCloseAction,
-    };
+  // Optional: Add this to your environment variables (.env.local)
+  // NEXT_PUBLIC_GOOGLE_SHEETS_URL=your_web_app_url_here
+
+  // Then use: process.env.NEXT_PUBLIC_GOOGLE_SHEETS_URL
+
+  const handlePaystackCloseAction = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log('closed')
+  }
+
+  const componentProps = {
+    ...config,
+    text: 'Paystack Button Implementation',
+    onSuccess: (reference) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -57,11 +98,11 @@ export default function Page() {
     });
   };
 
-  /*const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", { ...formData, cart });
-    // Later you’ll integrate Paystack/Flutterwave here
-  };*/
+    // Later you'll integrate Paystack/Flutterwave here
+  };
 
   const locations = [
     {
@@ -116,8 +157,6 @@ export default function Page() {
 
 
 
- 
-
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">
       {(cart.length > 0 && !showSuccess) ? (
@@ -128,7 +167,7 @@ export default function Page() {
             <ul className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-2">
               {cart.map((item, index) => (
                 <li key={index} className="text-black text-sm">
-                  {item.quantity}x {item.name} @{item.currency}{item.price * item.quantity}
+                  {item.quantity}x {item.name} {!item.snackorparfait && `with ${item.selectedProtein ? item.selectedProtein : "no protein"}`} @{item.currency}{item.price * item.quantity}
                 </li>
               ))}
             </ul>
@@ -138,16 +177,11 @@ export default function Page() {
             Checkout
           </h2>
           <p className="text-black text-center mb-8 text-lg">
-            {
-              !timeToSendMail?"Please provide your details to complete your waitlist registration.":
-              "Please do not refresh or leave this page. Click the button below to finalize your order"
-            }
+            Please provide your details to complete your waitlist registration.
           </p>
 
-          {
-            !timeToSendMail?
-            <form onSubmit={(e)=>{e.preventDefault();}}/*onSubmit={handleSubmit}*/ className="space-y-6">
-            
+          <form onSubmit={handleSubmit} className="space-y-6">
+
             {/* First Name */}
             <div>
               <label
@@ -197,12 +231,12 @@ export default function Page() {
                 Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Enter your full name"
+                placeholder="Enter your email"
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-black focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all duration-200 ease-in-out"
                 required
               />
@@ -283,41 +317,38 @@ export default function Page() {
 
             {/* Submit Button */}
             <PaystackButton
-            
-            disabled={!(formData.first_name && formData.last_name && formData.email && formData.phone && (formData.location || formData.customAddress))}
-            className="w-full cursor-pointer disabled:bg-gray-600 disabled:bg-none bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            {...componentProps}
-            text="Make Payment"
-            />
-            
-          </form>:
-          
-          <form action="https://formsubmit.co/anosv814@gmail.com" method="POST">     
-            <textarea value={orderInfo} className="hidden" name="message" id="message">
 
-            </textarea>
-            <button className="w-full cursor-pointer disabled:bg-gray-600 disabled:bg-none bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Finish Order</button>
+              disabled={!(formData.first_name && formData.last_name && formData.email && formData.phone && (formData.location || formData.customAddress))}
+              className="w-full cursor-pointer disabled:bg-gray-600 disabled:bg-none bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              {...componentProps}
+              text="Finalize Registration"
+            />
+            {/*<button
+              type="submit"
+              className="w-full cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            >
+              Proceed to Payment
+            </button>*/}
           </form>
-          }
         </div>
-      ) : 
-      (cart.length > 0 && showSuccess)?<div className="w-full gap-4 text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
-        <FaCircleCheck className="w-[30px] h-[30px] text-green-400" />
-        <h1 className="text-2xl">Order Placed!</h1>
-        <p>You've successfully registered for the waitlist!</p> 
-      </div>:
-      (
-        <div className="w-full text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
-          <MdOutlineShoppingCart className="w-[30px] h-[30px] mb-3" />
-          <p className="text-xl">Add something first</p>
-          <Link
-            href="/#menu"
-            className="w-full flex items-center justify-center mt-5 cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
-            Menu
-          </Link>
-        </div>
-      )}
+      ) :
+        (cart.length > 0 && showSuccess) ? <div className="w-full gap-4 text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
+          <FaCircleCheck className="w-[30px] h-[30px] text-green-400" />
+          <h1 className="text-2xl">Order Placed!</h1>
+          <p>You've successfully registered for the waitlist!</p>
+        </div> :
+          (
+            <div className="w-full text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
+              <MdOutlineShoppingCart className="w-[30px] h-[30px] mb-3" />
+              <p className="text-xl">Your cart is empty</p>
+              <Link
+                href="/#menu"
+                className="w-full flex items-center justify-center mt-5 cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              >
+                Menu
+              </Link>
+            </div>
+          )}
     </div>
   );
 }
