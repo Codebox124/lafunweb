@@ -66,6 +66,7 @@ function Contact() {
                   <label htmlFor="name" className="block text-gray-300 text-lg font-semibold mb-2">Name</label>
                   <input
                   required
+                  name='name'
                     type="text"
                     id="name"
                     className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
@@ -76,6 +77,7 @@ function Contact() {
                   <label htmlFor="email" className="block text-gray-300 text-lg font-semibold mb-2">Email</label>
                   <input
                   required
+                  name='email'
                     type="email"
                     id="email"
                     className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"
@@ -86,6 +88,7 @@ function Contact() {
                   <label htmlFor="message" className="block text-gray-300 text-lg font-semibold mb-2">Message</label>
                   <textarea
                   required
+                  name='message'
                     id="message"
                     rows="5"
                     className="enhanced-input w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-red-500 focus:outline-none transition-all"

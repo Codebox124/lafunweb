@@ -305,10 +305,9 @@ export default function Page() {
             
           </form>:
           
-          <form target="_blank" action="https://formsubmit.co/anosv814@gmail.com" method="POST">     
-            <textarea value={orderInfo} className="hidden" name="message" id="message">
+          <form target="_blank" action="https://formsubmit.co/houseoflafun.co@gmail.com" method="POST">     
+            <textarea value={orderInfo} className="text-black hidden" name="message" id="message" />
 
-            </textarea>
             <button type="submit" className="w-full cursor-pointer disabled:bg-gray-600 disabled:bg-none bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Finish Order</button>
           </form>
           }
