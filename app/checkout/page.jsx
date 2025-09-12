@@ -3,9 +3,22 @@
 import { useState } from "react";
 import { useOverContext } from "../OverContext";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { PaystackButton } from 'react-paystack';
+import dynamic from 'next/dynamic';
 import Link from "next/link";
 import { FaCircleCheck } from "react-icons/fa6";
+
+// Dynamically import PaystackButton to avoid SSR issues
+const PaystackButton = dynamic(
+  () => import('react-paystack').then(mod => ({ default: mod.PaystackButton })),
+  {
+    ssr: false,
+    loading: () => (
+      <button className="w-full cursor-pointer bg-gray-400 text-white font-semibold py-3 rounded-xl">
+        Loading Payment...
+      </button>
+    )
+  }
+);
 
 export default function Page() {
   const { cart, formData, setFormData, total } = useOverContext();
