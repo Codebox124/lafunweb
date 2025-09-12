@@ -43,10 +43,7 @@ export default function Page() {
         cartmail.push(`${item.quantity}x ${item.name} @${item.currency}${item.price * item.quantity}`)
       })
       cartmail = cartmail.join("||")
-      /*console.log("name:", formData.first_name, formData.last_name)
-      console.log("email:" , formData.email)
-      console.log("Number:", formData.phone)
-      console.log("Location:", (formData.location!="Other (Not Listed)"?formData.location:formData.customAddress))*/
+     
       setOrderInfo(`Cart:${cartmail}, Name:${formData.first_name} ${formData.last_name}, Email:${formData.email}, Number:${formData.phone}, Location:${(formData.location!="Other (Not Listed)"?formData.location:formData.customAddress)}`)
       console.log(orderInfo)
     };
