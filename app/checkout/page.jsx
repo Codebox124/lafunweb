@@ -6,7 +6,9 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import dynamic from 'next/dynamic';
 import Link from "next/link";
 import { FaCircleCheck } from "react-icons/fa6";
-
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 // Dynamically import PaystackButton to avoid SSR issues
 const PaystackButton = dynamic(
   () => import('react-paystack').then(mod => ({ default: mod.PaystackButton })),
@@ -21,10 +23,13 @@ const PaystackButton = dynamic(
 );
 
 export default function Page() {
+  const form = useRef();
   const { cart, formData, setFormData, total } = useOverContext();
   const [showSuccess, setShowSuccess] = useState(false)
   const [timeToSendMail, setTimeToSendMail] = useState(false)
   const [orderInfo, setOrderInfo] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [showError, setShowError] = useState(false)
    //const publicKey = process.env.PAYSTACK_PUBLIC_KEY
    const config = {
     reference: (new Date()).getTime().toString(),
@@ -72,6 +77,30 @@ export default function Page() {
     console.log("Form submitted:", { ...formData, cart });
     // Later you’ll integrate Paystack/Flutterwave here
   };*/
+
+  const sendEmail = (e) => {
+
+    
+    
+   e.preventDefault();
+      setIsLoading(true)
+    emailjs
+      .sendForm('service_w4i1im3', 'template_nrbhq1a', form.current, {
+        publicKey: 'gt0sc5sFLclXr-haP',
+      })
+      .then(
+        () => {
+          setIsLoading(false)
+          setShowSuccess(true)
+          console.log('SUCCESS!');
+        },
+        (error) => {
+          setIsLoading(false)
+          setShowError(true)
+          console.log('FAILED...', error.text);
+        },
+      );
+  };
 
   const locations = [
     {
@@ -130,7 +159,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">
-      {(cart.length > 0 && !showSuccess) ? (
+      {(cart.length > 0 && !showSuccess && !isLoading) ? (
         <div className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl">
           {/* Cart Section */}
           <div className="mb-8">
@@ -153,6 +182,11 @@ export default function Page() {
               "Please do not refresh or leave this page. Click the button below to finalize your order"
             }
           </p>
+          { showError &&
+            <p className="text-black text-center mb-8 text-lg">
+              Failed to finalize order, please try again
+            </p>
+          }
 
           {
             !timeToSendMail?
@@ -302,7 +336,8 @@ export default function Page() {
             
           </form>:
           
-          <form target="_blank" action="https://formsubmit.co/houseoflafun.co@gmail.com" method="POST">     
+          <form ref={form} onSubmit={sendEmail}> 
+            <input type="text" className="text-black hidden" name="name" id="name" value={`${formData.first_name} ${formData.last_name}`} />    
             <textarea value={orderInfo} className="text-black hidden" name="message" id="message" />
 
             <button type="submit" className="w-full cursor-pointer disabled:bg-gray-600 disabled:bg-none bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Finish Order</button>
@@ -310,6 +345,10 @@ export default function Page() {
           }
         </div>
       ) : 
+      (cart.length>0 && isLoading)? <div className="w-full flex flex-col items-center justify-center text-center max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl">
+        <p className="text-black mb-8 text-lg">Please wait...</p>
+        <AiOutlineLoading3Quarters className="animate-spin text-black min-w-[50px] min-h-[50px]" />
+      </div>:
       (cart.length > 0 && showSuccess)?<div className="w-full gap-4 text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
         <FaCircleCheck className="w-[30px] h-[30px] text-green-400" />
         <h1 className="text-2xl">Order Placed!</h1>
