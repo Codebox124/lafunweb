@@ -289,12 +289,7 @@ export default function Page() {
             {...componentProps}
             text="Make Payment"
             />
-            {/*<button
-              type="submit"
-              className="w-full cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            >
-              Proceed to Payment
-            </button>*/}
+            
           </form>:
           
           <form action="https://formsubmit.co/anosv814@gmail.com" method="POST">     
