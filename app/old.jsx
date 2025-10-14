@@ -4,7 +4,7 @@ const [menus, setMenus] = useState([
       items: [
         {
           //id: 1,
-          name: "LÁFÚN  & ÀBÙLÀ COMBO",
+          name: "LÁFÚN     ddd & ÀBÙLÀ COMBO",
           price: 8500,
           description:
             "Lafun, Gbegiri and Ewedu.",
