@@ -1,0 +1,268 @@
+[
+  {
+    "name": "LÁFÚN Signature",
+    "items": [
+      {
+        "name": "LÁFÚN & ÀBÙLÀ COMBO",
+        "price": 8500,
+        "description": "Lafun, Gbegiri and Ewedu.",
+        "proteinOptions": [
+          "Beef",
+          "Titus fish",
+          "Goat meat(ògúnfe)",
+          "Ponmon",
+          "Croaker fish",
+          "Dried peppered catfish",
+          "Chicken",
+          "Turkey"
+        ],
+        "selectedProtein": "",
+        "image": "/abula.JPG",
+        "currency": "₦",
+        "total": 8500
+      },
+      {
+        "name": "LÁFÚN WITHOUT GBÈGÌRÌ",
+        "price": 8000,
+        "description": "Lafun with Ewedu and Pepper Stew.",
+        "proteinOptions": [
+          "Beef",
+          "Titus fish",
+          "Goat meat(ògúnfe)",
+          "Ponmon",
+          "Croaker fish",
+          "Dried peppered catfish",
+          "Chicken",
+          "Turkey"
+        ],
+        "selectedProtein": "",
+        "image": "/ewedu.JPG",
+        "currency": "₦",
+        "total": 8000
+      },
+      {
+        "name": "LÁFÚN MINI ÀBÙLÀ COMBO",
+        "price": 6500,
+        "description": "Proteins are fixed-small sizes of ponmon and small sizes of beef",
+        "image": "/mini.png",
+        "currency": "₦",
+        "total": 6500
+      },
+      {
+        "name": "Noodles",
+        "price": 5000,
+        "description": "Two boiled eggs, veggies and minced sausages",
+        "selectedProtein": "",
+        "image": "/noodles.jpg",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Jollof rice",
+        "price": 8500,
+        "description": "",
+        "proteinOptions": [
+          "Beef",
+          "Titus fish",
+          "Goat meat(ògúnfe)",
+          "Ponmon",
+          "Croaker fish",
+          "Dried peppered catfish",
+          "Chicken",
+          "Turkey"
+        ],
+        "selectedProtein": "",
+        "image": "/jollofrice.JPG",
+        "currency": "₦",
+        "total": 8500
+      },
+      {
+        "name": "Loaded Cheesy Fries",
+        "price": 13500,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/loadedcheesyfries.PNG",
+        "currency": "₦",
+        "total": 13500
+      },
+      {
+        "name": "Potato porridge/pottage",
+        "price": 5000,
+        "description": "",
+        "proteinOptions": [
+          "Shredded beef",
+          "Shredded fish"
+        ],
+        "selectedProtein": "",
+        "image": "/potatoporridge.JPG",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Fried rice",
+        "price": 8500,
+        "description": "",
+        "proteinOptions": [
+          "Beef",
+          "Titus fish",
+          "Goat meat(ògúnfe)",
+          "Ponmon",
+          "Croaker fish",
+          "Dried peppered catfish",
+          "Chicken",
+          "Turkey"
+        ],
+        "selectedProtein": "",
+        "image": "/friedrice.JPG",
+        "currency": "₦",
+        "total": 8500
+      },
+      {
+        "name": "Beans and plantain",
+        "price": 6000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/beansandplantain.JPG",
+        "currency": "₦",
+        "total": 6000
+      }
+    ]
+  },
+  {
+    "name": "Extra Protein",
+    "items": [
+      {
+        "name": "Beef (Ẹran)",
+        "price": 2500,
+        "description": "Premium tender beef pieces, perfectly seasoned",
+        "image": "/asorted.JPG",
+        "currency": "₦"
+      },
+      {
+        "name": "Titus Fish",
+        "price": 3000,
+        "description": "Fresh Titus fish, grilled to perfection",
+        "image": "/titus.jpg",
+        "currency": "₦"
+      },
+      {
+        "name": "Goat Meat (Ògúnfẹ)",
+        "price": 4000,
+        "description": "Succulent goat meat with authentic Nigerian spices",
+        "image": "/goatmeat.jpg",
+        "currency": "₦"
+      },
+      {
+        "name": "Ponmon",
+        "price": 2000,
+        "description": "Deliciously cooked cow skin, tender and seasoned",
+        "image": "/ponmon.jpg",
+        "currency": "₦"
+      },
+      {
+        "name": "Croaker Fish",
+        "price": 3500,
+        "description": "Spicy peppered Croaker fish, juicy and well-seasoned, bursting with flavor.",
+        "image": "/croakerfish.png",
+        "currency": "₦"
+      },
+      {
+        "name": "Dried Peppered Catfish",
+        "price": 3500,
+        "description": "Flavorful dried catfish, richly spiced and coated in hot pepper.",
+        "image": "/driedpepperedcatfish.png",
+        "currency": "₦"
+      },
+       {
+        "name": "Extra Cheese",
+        "price": 3000,
+        "description": "",
+        "image": "/extracheese.JPG",
+        "currency": "₦"
+      },
+      {
+        "name": "Chicken",
+        "price": 3000,
+        "description": "",
+        "image": "/chicken.PNG",
+        "currency": "₦"
+      },
+      {
+        "name": "Turkey",
+        "price": 3500,
+        "description": "",
+        "image": "/turkey.JPG",
+        "currency": "₦"
+      }
+    ]
+  },
+  {
+    "name": "Snacks and Parfait",
+    "items": [
+      {
+        "name": "Meat Pie (1 pc)",
+        "price": 2000,
+        "description": "",
+        "image": "/meatpie.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Meat Pie (Box of 10)",
+        "price": 18000,
+        "description": "",
+        "image": "/meatpie.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Milky Doughnut (Box of 6) ",
+        "price": 8000,
+        "description": "",
+        "image": "/milkydoughnutsboxof6.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Milky Doughnut (Box of 3)",
+        "price": 4000,
+        "description": "",
+        "image": "/milkydoughnutsboxof3.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Sugar Doughnut (1 pc)",
+        "price": 900,
+        "description": "",
+        "image": "/sugardoughnuts.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Jam Doughnut (1 pc)",
+        "price": 1200,
+        "description": "",
+        "image": "/jamdoughnuts.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Yoghurt Parfait 250ml",
+        "price": 4500,
+        "description": "",
+        "image": "/yoghurtparfait.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      },
+      {
+        "name": "Yoghurt Parfait 400ml",
+        "price": 6000,
+        "description": "",
+        "image": "/yoghurtparfait.PNG",
+        "currency": "₦",
+        "snackorparfait":true
+      }
+    ]
+  }
+]
