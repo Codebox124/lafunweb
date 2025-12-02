@@ -1,5 +1,5 @@
-import { Minus, Plus, ShoppingCart } from 'lucide-react'
-import React from 'react'
+import { Minus, Plus, ShoppingCart, X, Check, Beef, Cake } from "lucide-react";
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeIn, fromBottomToTop, others } from '../animations'
 
@@ -26,17 +26,37 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
     setMenus(newMenus)
   }
 
+  const [showExtras, setShowExtras] = useState(false)
+  const [showSnacks, setShowSnacks] = useState(false)
+  const [menuItemForProtein, setMenuItemForProtein] = useState("")
   return (
-    <section id="menu" className="relative py-32 lg:py-40 bg-gradient-to-b from-black via-gray-950 to-black overflow-hidden">
-        {/* Ultra-modern animated gradient background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] bg-gradient-to-br from-red-500/10 via-orange-500/5 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-gradient-to-br from-orange-500/10 via-red-500/5 to-transparent rounded-full blur-3xl"></div>
+    <section
+        id="menu"
+        className="relative py-24 lg:py-32 bg-gradient-to-b from-amber-50 via-orange-50 to-red-50 overflow-hidden"
+      >
+
+        {
+          showExtras && 
+          <ExtrasModal removeItem={removeItem} subQuantity={subQuantity} addQuantity={addQuantity} addToCart={addToCart} setShowExtras={setShowExtras} itemName={menuItemForProtein} menus={menus} activeTab={1} quantities={quantities} />
+        }
+        {
+          showSnacks && 
+          <SnacksModal removeItem={removeItem} subQuantity={subQuantity} addQuantity={addQuantity} addToCart={addToCart} setShowSnacks={setShowSnacks} itemName={menuItemForProtein} menus={menus} activeTab={2} quantities={quantities} />
+        }
+         <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] bg-gradient-to-br from-orange-200/30 via-red-200/20 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-gradient-to-br from-red-200/30 via-orange-200/20 to-transparent rounded-full blur-3xl"></div>
         </div>
-        
-        {/* Modern grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        ></div>
+
+        {/* Modern grid pattern 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-        
+        */}
         <div className="container-modern relative z-10">
           {/* Header Section - Enhanced */}
           <motion.div
@@ -45,7 +65,7 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
           transition={others.transition}
           viewport={others.viewport}
           className="max-w-4xl mx-auto text-center mb-20">
-            <motion.div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-red-500/10 via-orange-500/10 to-red-500/10 border border-red-500/30 rounded-full mb-8 backdrop-blur-xl shadow-lg shadow-red-500/10">
+            {/*<motion.div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-red-500/10 via-orange-500/10 to-red-500/10 border border-red-500/30 rounded-full mb-8 backdrop-blur-xl shadow-lg shadow-red-500/10">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-gradient-to-r from-red-500 to-orange-500"></span>
@@ -54,21 +74,28 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
                 Authentic Nigerian Cuisine
               </span>
               <ShoppingCart className="w-4 h-4 text-orange-400" />
-            </motion.div>
+            </motion.div>*/}
             
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-8 display-font leading-tight tracking-tighter">
-              Explore Our <br/>
-              <span className="inline-block bg-gradient-to-r from-red-400 via-orange-400 to-red-500 bg-clip-text text-transparent">
-                Delicious Dishes
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight">
+              LÁFÚN
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-600 to-red-600">
+                Signature Collection
               </span>
             </h2>
             
-            <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
-              Authentic Nigerian cuisine prepared with the finest ingredients and traditional recipes
+            <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto font-medium">
+              Every dish crafted with love, tradition, and the finest
+              ingredients
             </p>
+
+            {/*<p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
+              Authentic Nigerian cuisine prepared with the finest ingredients and traditional recipes
+            </p>*/}
           </motion.div>
 
-          {/* Category Tabs - Ultra Modern */}
+          
+
+          {/* Category Tabs - Ultra Modern 
           <motion.div
           initial={fadeIn.initial}
           whileInView={fadeIn.whileInView}
@@ -93,7 +120,8 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
               ))}
             </div>
           </motion.div>
-         
+         */}
+
             {menus[activeTab].name==="Snacks and Parfait" && 
             <div className="relative mb-16 max-w-5xl mx-auto group">
               <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-orange-600/30 rounded-3xl blur-3xl group-hover:blur-2xl transition-all"></div>
@@ -110,7 +138,9 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
             </div>
             }
           
-          <div className="modern-grid">
+          <div className="flex gap-10 flex-row overflow-x-auto h-[fit-content] overflow-y-hidden md:flex-row md:flex-wrap items-start">
+
+          
             {menus[activeTab].items.map((item, index) => (
              <motion.div
   initial={fromBottomToTop.initial}
@@ -118,45 +148,43 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
   transition={{ ...others.transition, delay: 0.03 * index }}
   viewport={others.viewport}
   key={index}
-  className="group relative bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-transparent rounded-3xl overflow-hidden border border-white/[0.15] hover:border-gradient-to-r hover:from-red-500/50 hover:to-orange-500/50 transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_20px_60px_-15px_rgba(239,68,68,0.3)] backdrop-blur-xl"
+  className="/*group*/ flex-none w-[85%] md:w-[30%] min-h-[567px] h-[fit-content] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-orange-100 hover:border-orange-300 flex flex-col"
 >
   {/* Image Section */}
-  <div className="relative overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-orange-600/10 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-    <img
-      src={item.image}
-      alt={item.name}
-      className="w-full h-64 object-cover object-center transform group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 ease-out"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-    
-    {/* Floating price tag - redesigned */}
-    <div className="absolute -bottom-4 right-6 z-20">
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl blur-lg opacity-60"></div>
-        <div className="relative bg-gradient-to-r from-red-600 to-orange-600 px-6 py-3 rounded-2xl shadow-2xl border border-white/30">
-          <span className="text-white font-bold text-2xl tracking-tight">{item.currency}{item.price.toLocaleString()}</span>
+  <div className="relative overflow-hidden aspect-square flex-shrink-0">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+        />
+        <div className="absolute bottom-4 right-4">
+          <div className="bg-white/95 backdrop-blur-sm px-5 py-2 rounded-2xl shadow-xl border-2 border-orange-200">
+            <span className="text-gray-900 font-black text-xl">
+              {item.currency}
+              {item.price.toLocaleString()}
+            </span>
+          </div>
         </div>
-      </div>
-    </div>
-    
-    {/* Trending badge */}
-    <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-      <span className="text-yellow-400 text-sm">★</span>
-      <span className="text-white text-xs font-semibold">Popular</span>
-    </div>
+        <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
+          ★ Popular
+        </div>
   </div>
   {/* Content Section */}
   <div className="pt-10 pb-7 px-7">
-    <h3 className="text-2xl font-bold text-white mb-3 leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-orange-500 group-hover:bg-clip-text transition-all duration-300">{item.name}</h3>
-    <p className="text-gray-400 text-sm mb-7 leading-relaxed line-clamp-2">{item.description}</p>
+   <h3 className="text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors">
+          {item.name}
+        </h3>
+        <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2">
+          {item.description}
+        </p>
     
     {/* Protein Selection */}
     {item.proteinOptions && (
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-1 h-4 bg-gradient-to-b from-red-500 to-orange-500 rounded-full"></div>
-          <label className="text-xs text-gray-300 font-semibold uppercase tracking-wider">Select Protein</label>
+          <label className="text-xs text-gray-700 font-bold uppercase tracking-wider mb-2 block">
+              Select Protein
+            </label>
         </div>
         <select
           disabled={quantities[item.name]}
@@ -164,7 +192,7 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
           name="proteins"
           id="proteins"
           value={item.selectedProtein}
-          className="w-full disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer px-5 py-4 bg-gradient-to-r from-white/[0.08] to-white/[0.05] text-white border border-white/20 rounded-2xl focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 focus:bg-white/[0.12] outline-none transition-all duration-300 text-base font-medium backdrop-blur-sm hover:bg-white/[0.1] hover:border-red-500/30 hover:scale-[1.02]"
+          className="w-full text-black cursor-pointer px-4 py-3 bg-orange-50 text-gray-900 border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300 text-sm font-semibold hover:border-orange-300"
         >
           <option value="">Choose your protein...</option>
           {item.proteinOptions.map((opt, index) => (
@@ -179,7 +207,7 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
     {/* Extra protein CTA */}
     {(item.selectedProtein || item.name==="Loaded Cheesy Fries") && (
       <button
-      onClick={()=>{setActiveTab(1)}}
+      onClick={()=>{setShowExtras(true); setMenuItemForProtein(item.name)}}
         className="cursor-pointer w-full mb-6 px-5 py-3 bg-gradient-to-r from-orange-500/15 to-orange-600/10 text-orange-400 border border-orange-500/30 rounded-2xl hover:border-orange-500/50 hover:from-orange-500/20 hover:to-orange-600/15 hover:scale-[1.02] transition-all duration-300 text-sm font-semibold flex items-center justify-center gap-2"
         aria-label="Add more proteins from Extras section"
       >
@@ -187,6 +215,19 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
         {item.name==="Loaded Cheesy Fries"?"Want extra cheese?":"Want extra proteins?"}
       </button>
     )}
+
+    {(item.selectedProtein || item.name==="Loaded Cheesy Fries") && (
+      <button
+      onClick={()=>{setShowSnacks(true); setMenuItemForProtein(item.name)}}
+        className="cursor-pointer w-full mb-6 px-5 py-3 bg-gradient-to-r from-orange-500/15 to-orange-600/10 text-orange-400 border border-orange-500/30 rounded-2xl hover:border-orange-500/50 hover:from-orange-500/20 hover:to-orange-600/15 hover:scale-[1.02] transition-all duration-300 text-sm font-semibold flex items-center justify-center gap-2"
+        aria-label="Add more proteins from Extras section"
+      >
+        <span className="text-base">+</span>
+        Want Extra Snacks
+      </button>
+    )}
+
+    
     
     {/* Divider */}
     <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
@@ -194,9 +235,11 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
     {/* Quantity & Add to Cart Section */}
     <div className="space-y-4">
       {/* Quantity Control - Inline Modern */}
-      <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
-        <span className="text-sm text-gray-300 font-semibold">Quantity</span>
-        <div className="flex items-center gap-4">
+      
+      {
+        quantities[item.name] && <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
+        <span className="text-sm text-gray-700 font-bold">Quantity</span>
+        <div className="flex items-center gap-3">
           <button
             onClick={() => {
               if (quantities[item.name] === 1) {
@@ -205,28 +248,29 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
                 subQuantity(item);
               }
             }}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/10 text-white hover:bg-red-600 hover:scale-110 transition-all disabled:opacity-20 disabled:hover:bg-white/10 disabled:hover:scale-100 border border-white/10"
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-red-500 hover:text-white transition-all disabled:opacity-30 border border-orange-200 font-bold shadow-sm"
             disabled={!quantities[item.name]}
           >
             <Minus className="w-4 h-4" />
           </button>
-          <span className="text-2xl font-bold text-white min-w-[3rem] text-center tabular-nums">
+          <span className="text-2xl font-black text-gray-900 min-w-[3rem] text-center">
             {quantities[item.name] ? quantities[item.name] : 0}
           </span>
           <button
             onClick={() => addQuantity(item)}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-r from-red-600 to-orange-600 text-white hover:from-red-500 hover:to-orange-500 hover:scale-110 transition-all shadow-lg shadow-red-600/30"
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-green-500 hover:text-white transition-all shadow-sm border border-orange-200 font-bold"
           >
             <Plus className="w-4 h-4" />
           </button>
         </div>
       </div>
+      }
       
       {/* Add to Cart Button - Premium */}
       <button
         onClick={() => addToCart(item)}
         disabled={quantities[item.name]}
-        className="relative w-full group/btn overflow-hidden bg-gradient-to-r from-red-600 via-orange-600 to-red-600 bg-size-200 disabled:from-gray-700/40 disabled:to-gray-600/40 disabled:opacity-30 hover:bg-right-bottom text-white py-5 rounded-2xl font-bold transition-all duration-500 flex items-center justify-center gap-3 shadow-[0_8px_30px_rgb(239,68,68,0.3)] hover:shadow-[0_8px_40px_rgb(239,68,68,0.5)] disabled:shadow-none text-base hover:-translate-y-1 border border-white/10 hover:border-white/20"
+        className="w-full bg-gradient-to-r from-orange-500 to-red-500 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none text-base hover:-translate-y-0.5 disabled:translate-y-0 border-2 border-transparent hover:border-orange-200 disabled:cursor-not-allowed"
       >
         <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform duration-300" />
         <span>{quantities[item.name] ? '✓ Added to Cart' : 'Add to Cart'}</span>
@@ -243,3 +287,246 @@ function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantit
 
 export default Menu
 
+
+
+
+
+
+
+function ExtrasModal({activeTab, menus, quantities, itemName, setShowExtras, removeItem, subQuantity, addQuantity, addToCart}){
+  return <div className="fixed inset-0 z-200 backdrop-blur-[20px] flex items-center justify-center ">
+    <div className="w-[85vw] h-[85vh] bg-white p-4 flex flex-col">
+      <div className="flex w-full justify-between items-center">
+        <h1 className="text-black font-extrabold text-2xl mb-4">Extra Protein for {itemName}</h1>
+        <X onClick={()=>setShowExtras(false)} className="text-3xl text-black cursor-pointer " />
+      </div>
+      {/*<div className="flex gap-10 flex-col md:flex-row md:flex-wrap overflow-y-auto   items-center justify-center">*/}
+      <div className="flex gap-10 flex-row overflow-x-auto overflow-y-hidden md:overflow-y-auto md:flex-row md:flex-wrap items-center">
+
+          
+            {menus[activeTab].items.map((item, index) => (
+             <motion.div
+  initial={fromBottomToTop.initial}
+  whileInView={fromBottomToTop.whileInView}
+  transition={{ ...others.transition, delay: 0.03 * index }}
+  viewport={others.viewport}
+  key={index}
+  className="/*group*/ flex-none w-[85%] md:w-[30%] h-[fit-content] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-orange-100 hover:border-orange-300 flex flex-col"
+>
+  {/* Image Section */}
+  <div className="relative overflow-hidden aspect-square flex-shrink-0">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+        />
+        <div className="absolute bottom-4 right-4">
+          <div className="bg-white/95 backdrop-blur-sm px-5 py-2 rounded-2xl shadow-xl border-2 border-orange-200">
+            <span className="text-gray-900 font-black text-xl">
+              {item.currency}
+              {item.price.toLocaleString()}
+            </span>
+          </div>
+        </div>
+        <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
+          ★ Popular
+        </div>
+  </div>
+  {/* Content Section */}
+  <div className="pt-10 pb-7 px-7">
+   <h3 className="text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors">
+          {item.name}
+        </h3>
+        <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2">
+          {item.description}
+        </p>
+    
+    {/* Protein Selection */}
+    {item.proteinOptions && (
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <label className="text-xs text-gray-700 font-bold uppercase tracking-wider mb-2 block">
+              Select Protein
+            </label>
+        </div>
+      </div>
+    )}
+   
+
+    
+    
+    {/* Divider */}
+    <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
+    
+    {/* Quantity & Add to Cart Section */}
+    <div className="space-y-4">
+      {/* Quantity Control - Inline Modern */}
+      {
+        quantities[item.name] && <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
+        <span className="text-sm text-gray-700 font-bold">Quantity</span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              if (quantities[item.name] === 1) {
+                removeItem(item);
+              } else {
+                subQuantity(item);
+              }
+            }}
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-red-500 hover:text-white transition-all disabled:opacity-30 border border-orange-200 font-bold shadow-sm"
+            disabled={!quantities[item.name]}
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <span className="text-2xl font-black text-gray-900 min-w-[3rem] text-center">
+            {quantities[item.name] ? quantities[item.name] : 0}
+          </span>
+          <button
+            onClick={() => addQuantity(item)}
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-green-500 hover:text-white transition-all shadow-sm border border-orange-200 font-bold"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      }
+      
+      {/* Add to Cart Button - Premium */}
+      <button
+        onClick={() => addToCart(item)}
+        disabled={quantities[item.name]}
+        className="w-full bg-gradient-to-r from-orange-500 to-red-500 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none text-base hover:-translate-y-0.5 disabled:translate-y-0 border-2 border-transparent hover:border-orange-200 disabled:cursor-not-allowed"
+      >
+        <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform duration-300" />
+        <span>{quantities[item.name] ? '✓ Added to Cart' : 'Add to Cart'}</span>
+      </button>
+    </div>
+  </div>
+</motion.div>
+            ))}
+          </div>
+          <button onClick={()=>{setShowExtras(false)}} className="w-full p-3 rounded-lg text-xl cursor-pointer bg-black text-white">Done Adding</button>
+    </div>
+  </div> 
+        
+}
+
+
+
+
+function SnacksModal({activeTab, menus, quantities, itemName, setShowSnacks, removeItem, subQuantity, addQuantity, addToCart}){
+  return <div className="fixed inset-0 z-200 backdrop-blur-[20px] flex items-center justify-center ">
+    <div className="w-[85vw] h-[85vh] bg-white p-4 flex flex-col">
+      <div className="flex w-full justify-between items-center">
+        <h1 className="text-black font-extrabold text-2xl mb-4">Extra Snacks for {itemName}</h1>
+        <X onClick={()=>setShowSnacks(false)} className="text-3xl text-black cursor-pointer " />
+      </div>
+      <div className="flex gap-10 flex-row overflow-x-auto overflow-y-hidden md:overflow-y-auto md:flex-row md:flex-wrap items-center">
+
+          
+            {menus[activeTab].items.map((item, index) => (
+             <motion.div
+  initial={fromBottomToTop.initial}
+  whileInView={fromBottomToTop.whileInView}
+  transition={{ ...others.transition, delay: 0.03 * index }}
+  viewport={others.viewport}
+  key={index}
+  className="/*group*/ flex-none w-[85%] md:w-[30%] h-[fit-content] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-orange-100 hover:border-orange-300 flex flex-col"
+>
+  {/* Image Section */}
+  <div className="relative overflow-hidden aspect-square flex-shrink-0">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+        />
+        <div className="absolute bottom-4 right-4">
+          <div className="bg-white/95 backdrop-blur-sm px-5 py-2 rounded-2xl shadow-xl border-2 border-orange-200">
+            <span className="text-gray-900 font-black text-xl">
+              {item.currency}
+              {item.price.toLocaleString()}
+            </span>
+          </div>
+        </div>
+        <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
+          ★ Popular
+        </div>
+  </div>
+  {/* Content Section */}
+  <div className="pt-10 pb-7 px-7">
+   <h3 className="text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors">
+          {item.name}
+        </h3>
+        <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2">
+          {item.description}
+        </p>
+    
+    {/* Protein Selection */}
+    {item.proteinOptions && (
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <label className="text-xs text-gray-700 font-bold uppercase tracking-wider mb-2 block">
+              Select Protein
+            </label>
+        </div>
+      </div>
+    )}
+   
+
+    
+    
+    {/* Divider */}
+    <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
+    
+    {/* Quantity & Add to Cart Section */}
+    <div className="space-y-4">
+      {/* Quantity Control - Inline Modern */}
+       {
+        quantities[item.name] && <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
+        <span className="text-sm text-gray-700 font-bold">Quantity</span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              if (quantities[item.name] === 1) {
+                removeItem(item);
+              } else {
+                subQuantity(item);
+              }
+            }}
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-red-500 hover:text-white transition-all disabled:opacity-30 border border-orange-200 font-bold shadow-sm"
+            disabled={!quantities[item.name]}
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <span className="text-2xl font-black text-gray-900 min-w-[3rem] text-center">
+            {quantities[item.name] ? quantities[item.name] : 0}
+          </span>
+          <button
+            onClick={() => addQuantity(item)}
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-green-500 hover:text-white transition-all shadow-sm border border-orange-200 font-bold"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      }
+      
+      {/* Add to Cart Button - Premium */}
+      <button
+        onClick={() => addToCart(item)}
+        disabled={quantities[item.name]}
+        className="w-full bg-gradient-to-r from-orange-500 to-red-500 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none text-base hover:-translate-y-0.5 disabled:translate-y-0 border-2 border-transparent hover:border-orange-200 disabled:cursor-not-allowed"
+      >
+        <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform duration-300" />
+        <span>{quantities[item.name] ? '✓ Added to Cart' : 'Add to Cart'}</span>
+      </button>
+    </div>
+  </div>
+</motion.div>
+            ))}
+          </div>
+          <button onClick={()=>{setShowSnacks(false)}} className="w-full p-3 rounded-lg text-xl cursor-pointer bg-black text-white">Done Adding</button>
+    </div>
+  </div> 
+        
+}
