@@ -87,13 +87,13 @@ function Hero({ setShowWaitlist }) {
             Order Now 🍲
           </a>
 
-          <button
+          {/* <button
             onClick={() => setShowWaitlist(true)}
             className="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-white hover:border-red-500 hover:bg-white/10 text-white font-bold rounded-full px-10 py-4 text-lg transition-all duration-300 hover:scale-105 w-full sm:w-auto"
           >
             <Bell className="w-5 h-5" />
             Join Waitlist
-          </button>
+          </button> */}
         </motion.div>
       </motion.div>
     </section>
