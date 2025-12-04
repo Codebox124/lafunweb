@@ -1,532 +1,305 @@
-import { Minus, Plus, ShoppingCart, X, Check, Beef, Cake } from "lucide-react";
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { fadeIn, fromBottomToTop, others } from '../animations'
+import { Minus, Plus, ShoppingCart } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
 
-function Menu({menus, setMenus, setActiveTab, activeTab, addQuantity, subQuantity, removeItem, cart, quantities, addToCart}) {
-  
-  function handleProteinOption(ITEM, chosen){
-    const newMenuItems = menus[0].items.map(item=>{
-      if(ITEM.name===item.name){
-        return {...item,  selectedProtein:chosen}
-      }else{
-        return item
+function Menu({
+  menus,
+  setMenus,
+  setActiveTab,
+  activeTab,
+  addQuantity,
+  subQuantity,
+  removeItem,
+  quantities,
+  addToCart,
+}) {
+  function handleProteinOption(ITEM, chosen) {
+    const newMenuItems = menus[activeTab].items.map((item) => {
+      if (ITEM.name === item.name) {
+        return { ...item, selectedProtein: chosen };
       }
-    })
+      return item;
+    });
 
-    
-    const newMenus = menus.map((item, index)=>{
-      if(index===0){
-        return {...item, items:newMenuItems}
-      }else{
-        return item
+    const newMenus = menus.map((menu, index) => {
+      if (index === activeTab) {
+        return { ...menu, items: newMenuItems };
       }
-    })
-    console.log(newMenus)
-    setMenus(newMenus)
+      return menu;
+    });
+
+    setMenus(newMenus);
   }
 
-  const [showExtras, setShowExtras] = useState(false)
-  const [showSnacks, setShowSnacks] = useState(false)
-  const [menuItemForProtein, setMenuItemForProtein] = useState("")
   return (
     <section
-        id="menu"
-        className="relative py-24 lg:py-32 bg-gradient-to-b from-amber-50 via-orange-50 to-red-50 overflow-hidden"
-      >
+      id="menu"
+      className="relative py-32 lg:py-40 bg-[#F5F3EF] overflow-hidden"
+    >
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-[length:4rem_4rem] [background-image:radial-gradient(#1C1917_1px,transparent_1px)]"></div>
+      </div>
 
-        {
-          showExtras && 
-          <ExtrasModal removeItem={removeItem} subQuantity={subQuantity} addQuantity={addQuantity} addToCart={addToCart} setShowExtras={setShowExtras} itemName={menuItemForProtein} menus={menus} activeTab={1} quantities={quantities} />
-        }
-        {
-          showSnacks && 
-          <SnacksModal removeItem={removeItem} subQuantity={subQuantity} addQuantity={addQuantity} addToCart={addToCart} setShowSnacks={setShowSnacks} itemName={menuItemForProtein} menus={menus} activeTab={2} quantities={quantities} />
-        }
-         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] bg-gradient-to-br from-orange-200/30 via-red-200/20 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-gradient-to-br from-red-200/30 via-orange-200/20 to-transparent rounded-full blur-3xl"></div>
-        </div>
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        ></div>
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="max-w-4xl mx-auto text-center mb-20"
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[#1C1917] mb-8 leading-tight tracking-tighter">
+            Explore Our <br />
+            <span className="inline-block text-[#CF0106] border-b-8 border-b-[#CF0106]/30 px-2 leading-none">
+              Delicious Dishes
+            </span>
+          </h2>
 
-        {/* Modern grid pattern 
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-        */}
-        <div className="container-modern relative z-10">
-          {/* Header Section - Enhanced */}
-          <motion.div
-          initial={fromBottomToTop.initial}
-          whileInView={fromBottomToTop.whileInView}
-          transition={others.transition}
-          viewport={others.viewport}
-          className="max-w-4xl mx-auto text-center mb-20">
-            {/*<motion.div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-red-500/10 via-orange-500/10 to-red-500/10 border border-red-500/30 rounded-full mb-8 backdrop-blur-xl shadow-lg shadow-red-500/10">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-gradient-to-r from-red-500 to-orange-500"></span>
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-red-400 text-sm font-black tracking-wide">
-                Authentic Nigerian Cuisine
-              </span>
-              <ShoppingCart className="w-4 h-4 text-orange-400" />
-            </motion.div>*/}
-            
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight">
-              LÁFÚN
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-600 to-red-600">
-                Signature Collection
-              </span>
-            </h2>
-            
-            <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto font-medium">
-              Every dish crafted with love, tradition, and the finest
-              ingredients
-            </p>
+          <p className="text-lg text-[#1C1917]/80 leading-relaxed max-w-2xl mx-auto">
+            Authentic Nigerian cuisine prepared with the finest ingredients and
+            traditional recipes.
+          </p>
+        </motion.div>
 
-            {/*<p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
-              Authentic Nigerian cuisine prepared with the finest ingredients and traditional recipes
-            </p>*/}
-          </motion.div>
-
-          
-
-          {/* Category Tabs - Ultra Modern 
-          <motion.div
-          initial={fadeIn.initial}
-          whileInView={fadeIn.whileInView}
-          transition={others.fadeInTransition}
-          viewport={others.viewport}
-          className="flex justify-center mb-20">
-            <div className="inline-flex flex-wrap items-center justify-center gap-4 p-3 bg-gradient-to-r from-white/10 to-white/5 rounded-3xl border border-white/20 backdrop-blur-2xl shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="mb-20"
+        >
+          <div className="lg:hidden overflow-x-auto pb-2">
+            <div className="flex items-center gap-3 px-5">
               {menus.map((menu, index) => (
                 <button
                   key={menu.name}
                   onClick={() => setActiveTab(index)}
-                  className={`relative px-8 py-4 rounded-2xl text-base font-black transition-all duration-500 whitespace-nowrap ${activeTab === index
-                      ? 'bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white shadow-2xl shadow-red-600/50 scale-110'
-                      : 'text-gray-400 hover:text-white hover:bg-white/10 hover:scale-105'
-                    }`}
+                  className={`relative px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wide transition-all duration-300 whitespace-nowrap border ${
+                    activeTab === index
+                      ? "bg-[#CF0106] text-white border-[#CF0106] shadow-md shadow-[#CF0106]/30 flex-shrink-0"
+                      : "text-[#1C1917]/80 hover:text-[#1C1917] bg-white border-transparent hover:border-[#1C1917]/20 flex-shrink-0"
+                  }`}
                 >
-                  {activeTab === index && (
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-600 to-orange-600 blur-xl opacity-60 -z-10 animate-pulse"></div>
-                  )}
                   {menu.name}
                 </button>
               ))}
             </div>
-          </motion.div>
-         */}
+          </div>
 
-            {menus[activeTab].name==="Snacks and Parfait" && 
-            <div className="relative mb-16 max-w-5xl mx-auto group">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-orange-600/30 rounded-3xl blur-3xl group-hover:blur-2xl transition-all"></div>
-              <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl">
-                <video width="320" height="240" loop autoPlay muted className='w-full object-cover h-[400px]'>
-                  <source src="/snacksandparfaitvid.MP4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
-                <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20">
-                  <p className="text-white font-bold text-lg">Snacks & Parfait Showcase</p>
-                </div>
+          <div className="hidden lg:flex justify-center">
+            <div className="inline-flex items-center justify-center gap-3 p-2 bg-white border border-[#1C1917] rounded-full shadow-lg">
+              {menus.map((menu, index) => (
+                <button
+                  key={menu.name}
+                  onClick={() => setActiveTab(index)}
+                  className={`relative px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wide transition-all duration-300 whitespace-nowrap border ${
+                    activeTab === index
+                      ? "bg-[#CF0106] text-white border-[#CF0106] shadow-md shadow-[#CF0106]/30"
+                      : "text-[#1C1917]/80 hover:text-[#1C1917] bg-white border-transparent hover:border-[#1C1917]/20"
+                  }`}
+                >
+                  {menu.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {menus[activeTab].name === "Snacks and Parfait" && (
+          <div className="relative mb-16 max-w-5xl mx-auto group">
+            <div className="relative rounded-2xl overflow-hidden border-8 border-[#1C1917] shadow-xl">
+              <video
+                width="320"
+                height="240"
+                loop
+                autoPlay
+                muted
+                playsInline
+                className="w-full object-cover h-[400px]"
+              >
+                <source src="/snacksandparfaitvid.MP4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-[#1C1917]/20">
+                <p className="text-[#1C1917] font-bold text-sm">
+                  Snacks & Parfait Showcase
+                </p>
               </div>
             </div>
-            }
-          
-          <div className="flex gap-10 flex-row overflow-x-auto h-[fit-content] overflow-y-hidden md:flex-row md:flex-wrap items-start">
+          </div>
+        )}
 
-          
-            {menus[activeTab].items.map((item, index) => (
-             <motion.div
-  initial={fromBottomToTop.initial}
-  whileInView={fromBottomToTop.whileInView}
-  transition={{ ...others.transition, delay: 0.03 * index }}
-  viewport={others.viewport}
-  key={index}
-  className="/*group*/ flex-none w-[85%] md:w-[30%] min-h-[567px] h-[fit-content] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-orange-100 hover:border-orange-300 flex flex-col"
->
-  {/* Image Section */}
-  <div className="relative overflow-hidden aspect-square flex-shrink-0">
-        <img
-          src={item.image}
-          alt={item.name}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute bottom-4 right-4">
-          <div className="bg-white/95 backdrop-blur-sm px-5 py-2 rounded-2xl shadow-xl border-2 border-orange-200">
-            <span className="text-gray-900 font-black text-xl">
-              {item.currency}
-              {item.price.toLocaleString()}
+        <div className="relative">
+          <div className="flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide">
+            <div className="flex gap-8 px-4">
+              {menus[activeTab].items.map((item, index) => {
+                const quantity = quantities[item.name] || 0;
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.05 * index }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    key={index}
+                    className="group relative bg-white rounded-xl overflow-hidden border-2 border-[#1C1917] shadow-[8px_8px_0_#1C1917] transition-all duration-300 hover:shadow-[12px_12px_0_#CF0106] flex-shrink-0 w-[300px] md:w-[350px] snap-start"
+                  >
+                    <div className="relative overflow-hidden aspect-square">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-all duration-500 ease-out"
+                      />
+
+                      <div className="absolute top-4 right-4 z-20">
+                        <div className="bg-[#1C1917] px-4 py-2 shadow-lg border-2 border-white">
+                          <span className="text-white font-black text-xl tracking-tighter tabular-nums">
+                            {item.currency}
+                            {item.price.toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="absolute bottom-0 left-0 bg-[#CF0106] px-3 py-1.5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <span className="text-white text-xs font-black uppercase">
+                          Popular Dish
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="pt-6 pb-6 px-6">
+                      <h3 className="text-2xl font-bold text-[#1C1917] mb-3 leading-tight border-b border-[#1C1917]/20 pb-2">
+                        {item.name}
+                      </h3>
+                      <p className="text-[#1C1917]/70 text-sm mb-6 leading-relaxed line-clamp-2">
+                        {item.description}
+                      </p>
+
+                      {item.proteinOptions && (
+                        <div className="mb-6">
+                          <label className="block text-xs text-[#1C1917] font-semibold uppercase tracking-widest mb-2">
+                            Select Protein
+                          </label>
+                          <select
+                            disabled={quantity > 0}
+                            onChange={(e) =>
+                              handleProteinOption(item, e.target.value)
+                            }
+                            name="proteins"
+                            id={`proteins-${item.name}`}
+                            value={item.selectedProtein || ""}
+                            className="w-full disabled:cursor-not-allowed disabled:bg-gray-200 cursor-pointer px-4 py-3 bg-white text-[#1C1917] border border-[#1C1917]/30 rounded-lg focus:ring-2 focus:ring-[#CF0106] focus:border-[#CF0106] outline-none transition-all duration-300 text-sm font-medium hover:border-[#1C1917]"
+                          >
+                            <option value="" disabled>
+                              Choose your protein...
+                            </option>
+                            {item.proteinOptions.map((opt, i) => (
+                              <option key={i} value={opt}>
+                                {opt}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+
+                      {(item.selectedProtein ||
+                        item.name === "Loaded Cheesy Fries") && (
+                        <button
+                          onClick={() => setActiveTab(1)}
+                          className="cursor-pointer w-full mb-6 px-4 py-3 bg-[#1C1917]/10 text-[#1C1917] border border-[#1C1917]/20 rounded-lg hover:bg-[#CF0106]/10 hover:text-[#CF0106] hover:border-[#CF0106]/50 transition-all duration-300 text-sm font-bold flex items-center justify-center gap-2"
+                          aria-label="Add more proteins from Extras section"
+                        >
+                          <span className="text-lg">+</span>
+                          {item.name === "Loaded Cheesy Fries"
+                            ? "Want extra cheese?"
+                            : "Add Extra Proteins/Sides?"}
+                        </button>
+                      )}
+
+                      <div className="h-px bg-[#1C1917]/10 mb-6"></div>
+
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between p-3 bg-gray-100 border border-[#1C1917]/10 rounded-lg">
+                          <span className="text-sm text-[#1C1917] font-bold">
+                            QTY:
+                          </span>
+                          <div className="flex items-center gap-3">
+                            <button
+                              onClick={() => {
+                                if (quantity === 1) {
+                                  removeItem(item);
+                                } else {
+                                  subQuantity(item);
+                                }
+                              }}
+                              className="w-8 h-8 flex items-center justify-center rounded-md bg-white text-[#1C1917] hover:bg-gray-200 transition-all disabled:opacity-40 disabled:hover:bg-white border border-[#1C1917]/20"
+                              disabled={!quantity}
+                            >
+                              <Minus className="w-4 h-4" />
+                            </button>
+                            <span className="text-xl font-black text-[#1C1917] min-w-[3rem] text-center tabular-nums">
+                              {quantity}
+                            </span>
+                            <button
+                              onClick={() => addQuantity(item)}
+                              className="w-8 h-8 flex items-center justify-center rounded-md bg-[#CF0106] text-white hover:bg-[#A00105] transition-all shadow-md shadow-[#CF0106]/30"
+                            >
+                              <Plus className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => addToCart(item)}
+                          disabled={quantity > 0}
+                          className="w-full group/btn py-3 rounded-lg font-bold transition-all duration-300 flex items-center justify-center gap-3 text-base border-2 border-[#1C1917] disabled:border-gray-300 disabled:shadow-none disabled:bg-gray-200 disabled:text-[#1C1917]/50"
+                          style={{
+                            backgroundColor:
+                              quantity > 0 ? "#E5E7EB" : "#1C1917",
+                            color: quantity > 0 ? "#1C1917" : "#FFFFFF",
+                            boxShadow:
+                              quantity > 0 ? "none" : "4px 4px 0 #CF0106",
+                            transform:
+                              quantity > 0
+                                ? "translate(0, 0)"
+                                : "translate(-4px, -4px)",
+                          }}
+                        >
+                          <ShoppingCart className="w-5 h-5 transition-transform duration-300" />
+                          <span>
+                            {quantity > 0 ? "✓ Added to Cart" : "Add to Cart"}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="lg:hidden flex justify-center items-center gap-2 mt-4">
+            <div className="h-1 w-8 bg-[#1C1917]/20 rounded-full"></div>
+            <div className="h-1 w-8 bg-[#CF0106] rounded-full"></div>
+            <div className="h-1 w-8 bg-[#1C1917]/20 rounded-full"></div>
+            <span className="text-xs text-[#1C1917]/60 ml-2">
+              ← Scroll to explore →
             </span>
           </div>
         </div>
-        <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
-          ★ Popular
-        </div>
-  </div>
-  {/* Content Section */}
-  <div className="pt-10 pb-7 px-7">
-   <h3 className="text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors">
-          {item.name}
-        </h3>
-        <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2">
-          {item.description}
-        </p>
-    
-    {/* Protein Selection */}
-    {item.proteinOptions && (
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <label className="text-xs text-gray-700 font-bold uppercase tracking-wider mb-2 block">
-              Select Protein
-            </label>
-        </div>
-        <select
-          disabled={quantities[item.name]}
-          onChange={(e) => {handleProteinOption(item, e.target.value)}}
-          name="proteins"
-          id="proteins"
-          value={item.selectedProtein}
-          className="w-full text-black cursor-pointer px-4 py-3 bg-orange-50 text-gray-900 border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300 text-sm font-semibold hover:border-orange-300"
-        >
-          <option value="">Choose your protein...</option>
-          {item.proteinOptions.map((opt, index) => (
-            <option key={index} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
       </div>
-    )}
-    
-    {/* Extra protein CTA */}
-    {(item.selectedProtein || item.name==="Loaded Cheesy Fries") && (
-      <button
-      onClick={()=>{setShowExtras(true); setMenuItemForProtein(item.name)}}
-        className="cursor-pointer w-full mb-6 px-5 py-3 bg-gradient-to-r from-orange-500/15 to-orange-600/10 text-orange-400 border border-orange-500/30 rounded-2xl hover:border-orange-500/50 hover:from-orange-500/20 hover:to-orange-600/15 hover:scale-[1.02] transition-all duration-300 text-sm font-semibold flex items-center justify-center gap-2"
-        aria-label="Add more proteins from Extras section"
-      >
-        <span className="text-base">+</span>
-        {item.name==="Loaded Cheesy Fries"?"Want extra cheese?":"Want extra proteins?"}
-      </button>
-    )}
 
-    {(item.selectedProtein || item.name==="Loaded Cheesy Fries") && (
-      <button
-      onClick={()=>{setShowSnacks(true); setMenuItemForProtein(item.name)}}
-        className="cursor-pointer w-full mb-6 px-5 py-3 bg-gradient-to-r from-orange-500/15 to-orange-600/10 text-orange-400 border border-orange-500/30 rounded-2xl hover:border-orange-500/50 hover:from-orange-500/20 hover:to-orange-600/15 hover:scale-[1.02] transition-all duration-300 text-sm font-semibold flex items-center justify-center gap-2"
-        aria-label="Add more proteins from Extras section"
-      >
-        <span className="text-base">+</span>
-        Want Extra Snacks
-      </button>
-    )}
-
-    
-    
-    {/* Divider */}
-    <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
-    
-    {/* Quantity & Add to Cart Section */}
-    <div className="space-y-4">
-      {/* Quantity Control - Inline Modern */}
-      
-      {
-        quantities[item.name] && <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
-        <span className="text-sm text-gray-700 font-bold">Quantity</span>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              if (quantities[item.name] === 1) {
-                removeItem(item);
-              } else {
-                subQuantity(item);
-              }
-            }}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-red-500 hover:text-white transition-all disabled:opacity-30 border border-orange-200 font-bold shadow-sm"
-            disabled={!quantities[item.name]}
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <span className="text-2xl font-black text-gray-900 min-w-[3rem] text-center">
-            {quantities[item.name] ? quantities[item.name] : 0}
-          </span>
-          <button
-            onClick={() => addQuantity(item)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-green-500 hover:text-white transition-all shadow-sm border border-orange-200 font-bold"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-      }
-      
-      {/* Add to Cart Button - Premium */}
-      <button
-        onClick={() => addToCart(item)}
-        disabled={quantities[item.name]}
-        className="w-full bg-gradient-to-r from-orange-500 to-red-500 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none text-base hover:-translate-y-0.5 disabled:translate-y-0 border-2 border-transparent hover:border-orange-200 disabled:cursor-not-allowed"
-      >
-        <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform duration-300" />
-        <span>{quantities[item.name] ? '✓ Added to Cart' : 'Add to Cart'}</span>
-      </button>
-    </div>
-  </div>
-</motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-  )
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none; /* Chrome, Safari and Opera */
+        }
+      `}</style>
+    </section>
+  );
 }
 
-export default Menu
-
-
-
-
-
-
-
-function ExtrasModal({activeTab, menus, quantities, itemName, setShowExtras, removeItem, subQuantity, addQuantity, addToCart}){
-  return <div className="fixed inset-0 z-200 backdrop-blur-[20px] flex items-center justify-center ">
-    <div className="w-[85vw] h-[85vh] bg-white p-4 flex flex-col">
-      <div className="flex w-full justify-between items-center">
-        <h1 className="text-black font-extrabold text-2xl mb-4">Extra Protein for {itemName}</h1>
-        <X onClick={()=>setShowExtras(false)} className="text-3xl text-black cursor-pointer " />
-      </div>
-      {/*<div className="flex gap-10 flex-col md:flex-row md:flex-wrap overflow-y-auto   items-center justify-center">*/}
-      <div className="flex gap-10 flex-row overflow-x-auto overflow-y-hidden md:overflow-y-auto md:flex-row md:flex-wrap items-center">
-
-          
-            {menus[activeTab].items.map((item, index) => (
-             <motion.div
-  initial={fromBottomToTop.initial}
-  whileInView={fromBottomToTop.whileInView}
-  transition={{ ...others.transition, delay: 0.03 * index }}
-  viewport={others.viewport}
-  key={index}
-  className="/*group*/ flex-none w-[85%] md:w-[30%] h-[fit-content] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-orange-100 hover:border-orange-300 flex flex-col"
->
-  {/* Image Section */}
-  <div className="relative overflow-hidden aspect-square flex-shrink-0">
-        <img
-          src={item.image}
-          alt={item.name}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute bottom-4 right-4">
-          <div className="bg-white/95 backdrop-blur-sm px-5 py-2 rounded-2xl shadow-xl border-2 border-orange-200">
-            <span className="text-gray-900 font-black text-xl">
-              {item.currency}
-              {item.price.toLocaleString()}
-            </span>
-          </div>
-        </div>
-        <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
-          ★ Popular
-        </div>
-  </div>
-  {/* Content Section */}
-  <div className="pt-10 pb-7 px-7">
-   <h3 className="text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors">
-          {item.name}
-        </h3>
-        <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2">
-          {item.description}
-        </p>
-    
-    {/* Protein Selection */}
-    {item.proteinOptions && (
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <label className="text-xs text-gray-700 font-bold uppercase tracking-wider mb-2 block">
-              Select Protein
-            </label>
-        </div>
-      </div>
-    )}
-   
-
-    
-    
-    {/* Divider */}
-    <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
-    
-    {/* Quantity & Add to Cart Section */}
-    <div className="space-y-4">
-      {/* Quantity Control - Inline Modern */}
-      {
-        quantities[item.name] && <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
-        <span className="text-sm text-gray-700 font-bold">Quantity</span>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              if (quantities[item.name] === 1) {
-                removeItem(item);
-              } else {
-                subQuantity(item);
-              }
-            }}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-red-500 hover:text-white transition-all disabled:opacity-30 border border-orange-200 font-bold shadow-sm"
-            disabled={!quantities[item.name]}
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <span className="text-2xl font-black text-gray-900 min-w-[3rem] text-center">
-            {quantities[item.name] ? quantities[item.name] : 0}
-          </span>
-          <button
-            onClick={() => addQuantity(item)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-green-500 hover:text-white transition-all shadow-sm border border-orange-200 font-bold"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-      }
-      
-      {/* Add to Cart Button - Premium */}
-      <button
-        onClick={() => addToCart(item)}
-        disabled={quantities[item.name]}
-        className="w-full bg-gradient-to-r from-orange-500 to-red-500 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none text-base hover:-translate-y-0.5 disabled:translate-y-0 border-2 border-transparent hover:border-orange-200 disabled:cursor-not-allowed"
-      >
-        <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform duration-300" />
-        <span>{quantities[item.name] ? '✓ Added to Cart' : 'Add to Cart'}</span>
-      </button>
-    </div>
-  </div>
-</motion.div>
-            ))}
-          </div>
-          <button onClick={()=>{setShowExtras(false)}} className="w-full p-3 rounded-lg text-xl cursor-pointer bg-black text-white">Done Adding</button>
-    </div>
-  </div> 
-        
-}
-
-
-
-
-function SnacksModal({activeTab, menus, quantities, itemName, setShowSnacks, removeItem, subQuantity, addQuantity, addToCart}){
-  return <div className="fixed inset-0 z-200 backdrop-blur-[20px] flex items-center justify-center ">
-    <div className="w-[85vw] h-[85vh] bg-white p-4 flex flex-col">
-      <div className="flex w-full justify-between items-center">
-        <h1 className="text-black font-extrabold text-2xl mb-4">Extra Snacks for {itemName}</h1>
-        <X onClick={()=>setShowSnacks(false)} className="text-3xl text-black cursor-pointer " />
-      </div>
-      <div className="flex gap-10 flex-row overflow-x-auto overflow-y-hidden md:overflow-y-auto md:flex-row md:flex-wrap items-center">
-
-          
-            {menus[activeTab].items.map((item, index) => (
-             <motion.div
-  initial={fromBottomToTop.initial}
-  whileInView={fromBottomToTop.whileInView}
-  transition={{ ...others.transition, delay: 0.03 * index }}
-  viewport={others.viewport}
-  key={index}
-  className="/*group*/ flex-none w-[85%] md:w-[30%] h-[fit-content] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-orange-100 hover:border-orange-300 flex flex-col"
->
-  {/* Image Section */}
-  <div className="relative overflow-hidden aspect-square flex-shrink-0">
-        <img
-          src={item.image}
-          alt={item.name}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute bottom-4 right-4">
-          <div className="bg-white/95 backdrop-blur-sm px-5 py-2 rounded-2xl shadow-xl border-2 border-orange-200">
-            <span className="text-gray-900 font-black text-xl">
-              {item.currency}
-              {item.price.toLocaleString()}
-            </span>
-          </div>
-        </div>
-        <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
-          ★ Popular
-        </div>
-  </div>
-  {/* Content Section */}
-  <div className="pt-10 pb-7 px-7">
-   <h3 className="text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors">
-          {item.name}
-        </h3>
-        <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2">
-          {item.description}
-        </p>
-    
-    {/* Protein Selection */}
-    {item.proteinOptions && (
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <label className="text-xs text-gray-700 font-bold uppercase tracking-wider mb-2 block">
-              Select Protein
-            </label>
-        </div>
-      </div>
-    )}
-   
-
-    
-    
-    {/* Divider */}
-    <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
-    
-    {/* Quantity & Add to Cart Section */}
-    <div className="space-y-4">
-      {/* Quantity Control - Inline Modern */}
-       {
-        quantities[item.name] && <div className="flex items-center justify-between p-4 bg-white/[0.04] border border-white/10 rounded-2xl">
-        <span className="text-sm text-gray-700 font-bold">Quantity</span>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              if (quantities[item.name] === 1) {
-                removeItem(item);
-              } else {
-                subQuantity(item);
-              }
-            }}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-red-500 hover:text-white transition-all disabled:opacity-30 border border-orange-200 font-bold shadow-sm"
-            disabled={!quantities[item.name]}
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <span className="text-2xl font-black text-gray-900 min-w-[3rem] text-center">
-            {quantities[item.name] ? quantities[item.name] : 0}
-          </span>
-          <button
-            onClick={() => addQuantity(item)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white text-gray-900 hover:bg-green-500 hover:text-white transition-all shadow-sm border border-orange-200 font-bold"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-      }
-      
-      {/* Add to Cart Button - Premium */}
-      <button
-        onClick={() => addToCart(item)}
-        disabled={quantities[item.name]}
-        className="w-full bg-gradient-to-r from-orange-500 to-red-500 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none text-base hover:-translate-y-0.5 disabled:translate-y-0 border-2 border-transparent hover:border-orange-200 disabled:cursor-not-allowed"
-      >
-        <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform duration-300" />
-        <span>{quantities[item.name] ? '✓ Added to Cart' : 'Add to Cart'}</span>
-      </button>
-    </div>
-  </div>
-</motion.div>
-            ))}
-          </div>
-          <button onClick={()=>{setShowSnacks(false)}} className="w-full p-3 rounded-lg text-xl cursor-pointer bg-black text-white">Done Adding</button>
-    </div>
-  </div> 
-        
-}
+export default Menu;
