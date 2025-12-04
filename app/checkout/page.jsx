@@ -1,125 +1,163 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useOverContext } from "../OverContext";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import dynamic from 'next/dynamic';
+import { MdOutlineShoppingCart, MdlockOutline } from "react-icons/md";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { FaCircleCheck } from "react-icons/fa6";
-import React, { useRef } from 'react';
-import emailjs from '@emailjs/browser';
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaCircleCheck, FaShieldHalved } from "react-icons/fa6";
+import {
+  ArrowRight,
+  AlertCircle,
+  ShoppingBag,
+  Loader2,
+  MapPin,
+  Mail,
+  Phone,
+  User,
+} from "lucide-react";
+import emailjs from "@emailjs/browser";
+
 // Dynamically import PaystackButton to avoid SSR issues
 const PaystackButton = dynamic(
-  () => import('react-paystack').then(mod => ({ default: mod.PaystackButton })),
+  () =>
+    import("react-paystack").then((mod) => ({ default: mod.PaystackButton })),
   {
     ssr: false,
     loading: () => (
-      <button className="w-full cursor-pointer bg-gray-400 text-white font-semibold py-3 rounded-xl">
-        Loading Payment...
-      </button>
-    )
+      <div className="w-full h-14 bg-[#1C1917]/10 animate-pulse rounded-xl"></div>
+    ),
   }
 );
 
 export default function Page() {
   const form = useRef();
   const { cart, formData, setFormData, total } = useOverContext();
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [timeToSendMail, setTimeToSendMail] = useState(false)
-  const [orderInfo, setOrderInfo] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [showError, setShowError] = useState(false)
-   //const publicKey = process.env.PAYSTACK_PUBLIC_KEY
-   const config = {
-    reference: (new Date()).getTime().toString(),
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [timeToSendMail, setTimeToSendMail] = useState(false);
+  const [orderInfo, setOrderInfo] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  // Constants
+  const deliveryFee = 1500;
+  const totalAmountDue = total + deliveryFee;
+  const config = {
+    reference: new Date().getTime().toString(),
     email: formData.email,
-    amount: (total+1500)*100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: 'pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78'
+    amount: totalAmountDue * 100, // Amount in Kobo
+    publicKey: "pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78",
   };
 
   const handlePaystackSuccessAction = async (reference) => {
-      // Save order to database
-      try {
-        setTimeToSendMail(true)
-        
-        // Prepare order data
-        const orderData = {
-          customer: {
-            firstName: formData.first_name,
-            lastName: formData.last_name,
-            email: formData.email,
-            phone: formData.phone,
-          },
-          delivery: {
-            location: formData.location !== "Other (Not Listed)" ? formData.location : formData.customAddress,
-            customAddress: formData.location === "Other (Not Listed)" ? formData.customAddress : '',
-            fee: 1500,
-          },
-          items: cart.map(item => ({
-            name: item.name,
-            quantity: item.quantity,
-            price: item.price,
-            currency: item.currency,
-            image: item.image,
-            selectedProtein: item.selectedProtein,
-          })),
-          subtotal: total,
-          deliveryFee: 1500,
-          total: total + 1500,
-          payment: {
-            method: 'paystack',
-            reference: reference.reference,
-            status: 'paid',
-          },
-        };
+    try {
+      setTimeToSendMail(true);
 
-        // Save to database
-        const response = await fetch('/api/orders', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData),
+      const orderData = {
+        customer: {
+          firstName: formData.first_name,
+          lastName: formData.last_name,
+          email: formData.email,
+          phone: formData.phone,
+        },
+        delivery: {
+          location:
+            formData.location !== "Other (Not Listed)"
+              ? formData.location
+              : formData.customAddress,
+          customAddress:
+            formData.location === "Other (Not Listed)"
+              ? formData.customAddress
+              : "",
+          fee: 1500,
+        },
+        items: cart.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+          currency: item.currency,
+          image: item.image,
+          selectedProtein: item.selectedProtein,
+        })),
+        subtotal: total,
+        deliveryFee: 1500,
+        total: total + 1500,
+        payment: {
+          method: "paystack",
+          reference: reference.reference,
+          status: "paid",
+        },
+      };
+
+      // Save to database
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        console.log("Order saved:", result.order.orderNumber);
+
+        let cartmail = [];
+        cart.forEach((item) => {
+          cartmail.push(
+            `${item.quantity}x ${item.name} @${item.currency}${
+              item.price * item.quantity
+            }`
+          );
         });
+        cartmail = cartmail.join("||");
 
-        const result = await response.json();
-        
-        if (result.success) {
-          console.log('Order saved:', result.order.orderNumber);
-          
-          // Prepare email data
-          let cartmail = []
-          cart.forEach(item=>{
-            cartmail.push(`${item.quantity}x ${item.name} @${item.currency}${item.price * item.quantity}`)
-          })
-          cartmail = cartmail.join("||")
-         
-          setOrderInfo(`Order #${result.order.orderNumber} | Cart:${cartmail}, Name:${formData.first_name} ${formData.last_name}, Email:${formData.email}, Number:${formData.phone}, Location:${(formData.location!="Other (Not Listed)"?formData.location:formData.customAddress)}`)
-        }
-      } catch (error) {
-        console.error('Error saving order:', error);
-        // Still proceed with email even if database save fails
-        setTimeToSendMail(true)
-        let cartmail = []
-        cart.forEach(item=>{
-          cartmail.push(`${item.quantity}x ${item.name} @${item.currency}${item.price * item.quantity}`)
-        })
-        cartmail = cartmail.join("||")
-       
-        setOrderInfo(`Cart:${cartmail}, Name:${formData.first_name} ${formData.last_name}, Email:${formData.email}, Number:${formData.phone}, Location:${(formData.location!="Other (Not Listed)"?formData.location:formData.customAddress)}`)
+        setOrderInfo(
+          `Order #${result.order.orderNumber} | Cart:${cartmail}, Name:${
+            formData.first_name
+          } ${formData.last_name}, Email:${formData.email}, Number:${
+            formData.phone
+          }, Location:${
+            formData.location != "Other (Not Listed)"
+              ? formData.location
+              : formData.customAddress
+          }`
+        );
       }
-    };
+    } catch (error) {
+      console.error("Error saving order:", error);
+      setTimeToSendMail(true);
+      let cartmail = [];
+      cart.forEach((item) => {
+        cartmail.push(
+          `${item.quantity}x ${item.name} @${item.currency}${
+            item.price * item.quantity
+          }`
+        );
+      });
+      cartmail = cartmail.join("||");
 
-    const handlePaystackCloseAction = () => {
-      // implementation for  whatever you want to do when the Paystack dialog closed.
-      console.log('closed')
+      setOrderInfo(
+        `Cart:${cartmail}, Name:${formData.first_name} ${
+          formData.last_name
+        }, Email:${formData.email}, Number:${formData.phone}, Location:${
+          formData.location != "Other (Not Listed)"
+            ? formData.location
+            : formData.customAddress
+        }`
+      );
     }
+  };
 
-    const componentProps = {
-        ...config,
-        text: 'Paystack Button Implementation',
-        onSuccess: (reference) => handlePaystackSuccessAction(reference),
-        onClose: handlePaystackCloseAction,
-    };
+  const handlePaystackCloseAction = () => {
+    console.log("closed");
+  };
+
+  const componentProps = {
+    ...config,
+    text: "Paystack Button Implementation",
+    onSuccess: (reference) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -128,33 +166,24 @@ export default function Page() {
     });
   };
 
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", { ...formData, cart });
-    // Later you’ll integrate Paystack/Flutterwave here
-  };*/
-
   const sendEmail = (e) => {
-
-    
-    
-   e.preventDefault();
-      setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
     emailjs
-      .sendForm('service_w4i1im3', 'template_nrbhq1a', form.current, {
-        publicKey: 'gt0sc5sFLclXr-haP',
+      .sendForm("service_w4i1im3", "template_nrbhq1a", form.current, {
+        publicKey: "gt0sc5sFLclXr-haP",
       })
       .then(
         () => {
-          setIsLoading(false)
-          setShowSuccess(true)
-          console.log('SUCCESS!');
+          setIsLoading(false);
+          setShowSuccess(true);
+          console.log("SUCCESS!");
         },
         (error) => {
-          setIsLoading(false)
-          setShowError(true)
-          console.log('FAILED...', error.text);
-        },
+          setIsLoading(false);
+          setShowError(true);
+          console.log("FAILED...", error.text);
+        }
       );
   };
 
@@ -209,264 +238,355 @@ export default function Page() {
     },
   ];
 
+  // Helper logic for form validation
+  const isFormValid =
+    formData.first_name &&
+    formData.last_name &&
+    formData.email &&
+    formData.phone &&
+    (formData.location || formData.customAddress);
 
-
- 
+  // --- RENDER SECTION ---
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 flex items-center justify-center px-4 py-12 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-red-500/10 via-orange-500/5 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-orange-500/10 via-red-500/5 to-transparent rounded-full blur-3xl"></div>
-      </div>
+    <div className="min-h-screen bg-[#F5F3EF] flex items-center justify-center px-4 py-12 lg:py-20 relative overflow-hidden text-[#1C1917]">
+      {/* Background Texture - Clean & Minimal */}
+      <div
+        className="absolute inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>
 
-      {(cart.length > 0 && !showSuccess && !isLoading) ? (
-        <div className="w-full max-w-2xl relative z-10">
-          {/* Modern glassmorphism card */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-75 transition-all duration-500"></div>
-            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-[3rem] p-10 border border-white/20 shadow-2xl">
-              
-              {/* Cart Section - Modern */}
-              <div className="mb-10">
-                <h3 className="text-2xl font-black text-white mb-6 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                    <MdOutlineShoppingCart className="w-6 h-6 text-white" />
-                  </div>
-                  Your Order
-                </h3>
-                <div className="bg-white/5 border border-white/20 rounded-3xl p-6 backdrop-blur-sm space-y-3">
-                  {cart.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center text-white py-3 border-b border-white/10 last:border-0">
-                      <span className="font-medium">
-                        <span className="text-red-400 font-black">{item.quantity}x</span> {item.name}
+      {/* Logic Switching: 1. Main Checkout | 2. Loading | 3. Success | 4. Empty */}
+
+      {cart.length > 0 && !showSuccess && !isLoading ? (
+        <div className="w-full max-w-6xl relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* LEFT COLUMN: Order Summary (The Receipt) */}
+          <div className="lg:col-span-5 lg:order-2">
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-[#1C1917]/5 sticky top-8">
+              <div className="flex items-center gap-3 mb-6 pb-6 border-b border-dashed border-[#1C1917]/20">
+                <div className="w-10 h-10 bg-[#CF0106] rounded-full flex items-center justify-center text-white">
+                  <ShoppingBag className="w-5 h-5" />
+                </div>
+                <h3 className="font-display font-black text-2xl">Your Order</h3>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                {cart.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-start text-sm"
+                  >
+                    <div className="flex gap-3">
+                      <span className="font-bold text-[#CF0106]">
+                        {item.quantity}x
                       </span>
-                      <span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
-                        {item.currency}{item.price * item.quantity}
-                      </span>
+                      <div>
+                        <span className="font-bold text-[#1C1917] block">
+                          {item.name}
+                        </span>
+                        {item.selectedProtein && (
+                          <span className="text-[#1C1917]/50 text-xs">
+                            {item.selectedProtein}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  ))}
+                    <span className="font-bold text-[#1C1917]">
+                      {item.currency}
+                      {(item.price * item.quantity).toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-3 py-6 border-t border-dashed border-[#1C1917]/20">
+                <div className="flex justify-between text-[#1C1917]/70">
+                  <span>Subtotal</span>
+                  <span>₦{total.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-[#1C1917]/70">
+                  <span>Delivery Fee</span>
+                  <span>₦{deliveryFee.toLocaleString()}</span>
                 </div>
               </div>
 
-              <div className="mb-8">
-                <h2 className="text-4xl sm:text-5xl font-black text-white mb-4 text-center tracking-tighter">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-red-500">
-                    Checkout
-                  </span>
-                </h2>
-                <p className="text-gray-300 text-center text-lg leading-relaxed">
-                  {
-                    !timeToSendMail
-                      ? "Complete your details to finalize your order"
-                      : "Please do not refresh or leave this page. Click the button below to finalize your order"
-                  }
+              <div className="flex justify-between items-center pt-6 border-t border-[#1C1917] mb-2">
+                <span className="font-display font-bold text-xl">
+                  Total Due
+                </span>
+                <span className="font-display font-black text-3xl text-[#CF0106]">
+                  ₦{totalAmountDue.toLocaleString()}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: Form & Logic */}
+          <div className="lg:col-span-7 lg:order-1">
+            <div className="mb-8">
+              <h2 className="font-display font-black text-4xl lg:text-5xl mb-4 leading-tight">
+                Secure <br />
+                <span className="text-[#CF0106]">Checkout.</span>
+              </h2>
+              <p className="text-[#1C1917]/70 text-lg">
+                {timeToSendMail
+                  ? "Payment Successful! Please finalize below."
+                  : "Enter your delivery details to proceed."}
+              </p>
+            </div>
+
+            {showError && (
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-red-600" />
+                <p className="text-red-700 font-medium">
+                  Something went wrong. Please try again.
                 </p>
-                {showError && (
-                  <div className="mt-4 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl">
-                    <p className="text-red-400 text-center font-semibold">
-                      Failed to finalize order, please try again
-                    </p>
-                  </div>
-                )}
-              </div>
-
-          {
-            !timeToSendMail?
-            <form onSubmit={(e)=>{e.preventDefault();}} className="space-y-6">
-            
-            {/* Name Fields - Side by side */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="first_name" className="block text-sm font-bold text-white mb-3">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="first_name"
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleChange}
-                  placeholder="John"
-                  className="w-full px-6 py-4 bg-white/5 border-2 border-white/20 rounded-2xl text-white placeholder:text-gray-500 focus:border-red-500 focus:bg-white/10 focus:outline-none transition-all backdrop-blur-sm hover:border-white/30"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="last_name" className="block text-sm font-bold text-white mb-3">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="last_name"
-                  name="last_name"
-                  value={formData.last_name}
-                  onChange={handleChange}
-                  placeholder="Doe"
-                  className="w-full px-6 py-4 bg-white/5 border-2 border-white/20 rounded-2xl text-white placeholder:text-gray-500 focus:border-red-500 focus:bg-white/10 focus:outline-none transition-all backdrop-blur-sm hover:border-white/30"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-bold text-white mb-3">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="john@example.com"
-                className="w-full px-6 py-4 bg-white/5 border-2 border-white/20 rounded-2xl text-white placeholder:text-gray-500 focus:border-red-500 focus:bg-white/10 focus:outline-none transition-all backdrop-blur-sm hover:border-white/30"
-                required
-              />
-            </div>
-
-            {/* Phone Number */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-bold text-white mb-3">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="+234 801 234 5678"
-                className="w-full px-6 py-4 bg-white/5 border-2 border-white/20 rounded-2xl text-white placeholder:text-gray-500 focus:border-red-500 focus:bg-white/10 focus:outline-none transition-all backdrop-blur-sm hover:border-white/30"
-                required
-              />
-            </div>
-
-            {/* Location Dropdown */}
-            <div>
-              <label htmlFor="location" className="block text-sm font-bold text-white mb-3">
-                Delivery Location
-              </label>
-              <select
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                className="w-full px-6 py-4 bg-white/5 border-2 border-white/20 rounded-2xl text-white focus:border-red-500 focus:bg-white/10 focus:outline-none transition-all backdrop-blur-sm hover:border-white/30 cursor-pointer"
-                required
-              >
-                <option value="" disabled>
-                  Select your location
-                </option>
-                {locations.map((group) => (
-                  <optgroup key={group.group} label={group.group}>
-                    {group.areas.map((area) => (
-                      <option key={area.name} value={area.name}>
-                        {area.name} – {area.price}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
-            </div>
-
-            {/* Custom Address (Conditional) */}
-            {formData.location === "Other (Not Listed)" && (
-              <div>
-                <label htmlFor="customAddress" className="block text-sm font-bold text-white mb-3">
-                  Your Exact Location
-                </label>
-                <textarea
-                  id="customAddress"
-                  name="customAddress"
-                  value={formData.customAddress}
-                  onChange={handleChange}
-                  placeholder="Enter your detailed delivery address..."
-                  className="w-full px-6 py-4 bg-white/5 border-2 border-white/20 rounded-2xl text-white placeholder:text-gray-500 focus:border-red-500 focus:bg-white/10 focus:outline-none transition-all resize-none backdrop-blur-sm hover:border-white/30"
-                  rows="4"
-                  required
-                />
               </div>
             )}
 
-            {/* Submit Button - Ultra Modern */}
-            <PaystackButton
-            
-            disabled={!(formData.first_name && formData.last_name && formData.email && formData.phone && (formData.location || formData.customAddress))}
-            className="group relative w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 bg-size-200 hover:bg-right-bottom text-white font-black py-5 rounded-2xl transition-all duration-500 shadow-2xl shadow-red-600/40 hover:shadow-red-600/60 hover:-translate-y-1 hover:scale-105 overflow-hidden"
-            {...componentProps}
-            text="Make Payment 💳"
-            />
-            
-          </form>:
-          
-          <form ref={form} onSubmit={sendEmail} className="space-y-6"> 
-            <input type="text" className="hidden" name="name" id="name" value={`${formData.first_name} ${formData.last_name}`} />    
-            <textarea value={orderInfo} className="hidden" name="message" id="message" readOnly />
+            {/* STEP 1: PAYMENT DETAILS FORM */}
+            {!timeToSendMail ? (
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+                {/* Personal Info */}
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]/60">
+                        First Name
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1C1917]/30" />
+                        <input
+                          type="text"
+                          name="first_name"
+                          value={formData.first_name}
+                          onChange={handleChange}
+                          placeholder="John"
+                          required
+                          className="w-full pl-12 pr-4 py-4 bg-white border border-[#1C1917]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#CF0106] transition-all font-medium text-[#1C1917]"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]/60">
+                        Last Name
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1C1917]/30" />
+                        <input
+                          type="text"
+                          name="last_name"
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          placeholder="Doe"
+                          required
+                          className="w-full pl-12 pr-4 py-4 bg-white border border-[#1C1917]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#CF0106] transition-all font-medium text-[#1C1917]"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-            <button type="submit" className="group relative w-full cursor-pointer bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 bg-size-200 hover:bg-right-bottom text-white font-black py-5 rounded-2xl transition-all duration-500 shadow-2xl shadow-green-600/40 hover:shadow-green-600/60 hover:-translate-y-1 overflow-hidden">
-              <span className="relative z-10 flex items-center justify-center gap-3">
-                <FaCircleCheck className="w-5 h-5" />
-                Finalize Order
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </button>
-          </form>
-          }
-            </div>
-          </div>
-        </div>
-      ) : 
-      (cart.length>0 && isLoading)? 
-      <div className="w-full flex flex-col items-center justify-center text-center max-w-lg relative z-10">
-        <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-[3rem] blur-2xl"></div>
-          <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/20 flex flex-col items-center">
-            <p className="text-white mb-8 text-xl font-bold">Processing your order...</p>
-            <AiOutlineLoading3Quarters className="animate-spin text-red-500 w-16 h-16" />
-          </div>
-        </div>
-      </div>:
-      (cart.length > 0 && showSuccess)?
-      <div className="w-full max-w-lg relative z-10">
-        <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-br from-green-500/30 to-emerald-500/30 rounded-[3rem] blur-2xl animate-pulse"></div>
-          <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/20 flex flex-col items-center text-center gap-6">
-            <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-2xl">
-              <FaCircleCheck className="w-12 h-12 text-white" />
-            </div>
-            <h1 className="text-4xl font-black text-white">Order Placed!</h1>
-            <p className="text-gray-300 text-lg leading-relaxed">Your order has been successfully placed. We'll get started on it right away!</p>
-            <Link
-              href="/"
-              className="mt-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-black py-4 px-10 rounded-2xl hover:scale-105 transition-all duration-300 shadow-xl"
-            >
-              Back to Home
-            </Link>
-          </div>
-        </div>
-      </div>:
-      (
-        <div className="w-full max-w-lg relative z-10">
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-[3rem] blur-2xl"></div>
-            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/20 flex flex-col items-center text-center gap-6">
-              <div className="w-24 h-24 bg-gradient-to-br from-white/10 to-white/5 rounded-full flex items-center justify-center border border-white/20">
-                <MdOutlineShoppingCart className="w-12 h-12 text-gray-400" />
-              </div>
-              <h2 className="text-3xl font-black text-white">Cart is Empty</h2>
-              <p className="text-gray-400 text-lg">Add some delicious items to your cart first!</p>
-              <Link
-                href="/#menu"
-                className="mt-4 group relative bg-gradient-to-r from-red-600 via-orange-600 to-red-600 bg-size-200 hover:bg-right-bottom text-white font-black py-4 px-10 rounded-2xl transition-all duration-500 shadow-2xl shadow-red-600/40 hover:shadow-red-600/60 hover:scale-105 overflow-hidden"
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]/60">
+                        Email Address
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1C1917]/30" />
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="john@example.com"
+                          required
+                          className="w-full pl-12 pr-4 py-4 bg-white border border-[#1C1917]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#CF0106] transition-all font-medium text-[#1C1917]"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]/60">
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1C1917]/30" />
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="+234 801 234 5678"
+                          required
+                          className="w-full pl-12 pr-4 py-4 bg-white border border-[#1C1917]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#CF0106] transition-all font-medium text-[#1C1917]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Location Info */}
+                <div className="space-y-4 pt-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]/60">
+                      Delivery Location
+                    </label>
+                    <div className="relative">
+                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1C1917]/30" />
+                      <select
+                        name="location"
+                        value={formData.location}
+                        onChange={handleChange}
+                        required
+                        className="w-full pl-12 pr-4 py-4 bg-white border border-[#1C1917]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#CF0106] transition-all font-medium text-[#1C1917] appearance-none cursor-pointer"
+                      >
+                        <option value="" disabled>
+                          Select your location
+                        </option>
+                        {locations.map((group) => (
+                          <optgroup key={group.group} label={group.group}>
+                            {group.areas.map((area) => (
+                              <option key={area.name} value={area.name}>
+                                {area.name} – {area.price}
+                              </option>
+                            ))}
+                          </optgroup>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {formData.location === "Other (Not Listed)" && (
+                    <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                      <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]/60">
+                        Exact Address
+                      </label>
+                      <textarea
+                        name="customAddress"
+                        value={formData.customAddress}
+                        onChange={handleChange}
+                        placeholder="Enter your detailed address..."
+                        required
+                        rows="3"
+                        className="w-full px-4 py-4 bg-white border border-[#1C1917]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#CF0106] transition-all font-medium text-[#1C1917] resize-none"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Pay Button */}
+                <div className="pt-6">
+                  <PaystackButton
+                    disabled={!isFormValid}
+                    className="w-full bg-[#CF0106] hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black py-5 rounded-xl shadow-xl shadow-red-600/20 transition-all flex items-center justify-center gap-3 text-lg"
+                    {...componentProps}
+                    text={
+                      <span className="flex items-center gap-2">
+                        <FaShieldHalved /> Pay Securely
+                      </span>
+                    }
+                  />
+                  <p className="text-center text-xs text-[#1C1917]/40 mt-4 flex items-center justify-center gap-1">
+                    <FaShieldHalved /> Secured by Paystack
+                  </p>
+                </div>
+              </form>
+            ) : (
+              /* STEP 2: FINALIZE ORDER (EMAIL) */
+              <form
+                ref={form}
+                onSubmit={sendEmail}
+                className="bg-green-50 border border-green-200 p-8 rounded-2xl space-y-6 text-center"
               >
-                <span className="relative z-10">Browse Menu</span>
-              </Link>
-            </div>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto text-green-600">
+                  <FaCircleCheck className="w-8 h-8" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-black text-green-800 mb-2">
+                    Payment Confirmed!
+                  </h3>
+                  <p className="text-green-700">
+                    Almost there. Click below to send your order to the kitchen.
+                  </p>
+                </div>
+
+                {/* Hidden Inputs for EmailJS */}
+                <input
+                  type="text"
+                  className="hidden"
+                  name="name"
+                  value={`${formData.first_name} ${formData.last_name}`}
+                  readOnly
+                />
+                <textarea
+                  value={orderInfo}
+                  className="hidden"
+                  name="message"
+                  readOnly
+                />
+
+                <button
+                  type="submit"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-5 rounded-xl shadow-xl shadow-green-600/20 transition-all flex items-center justify-center gap-3 text-lg"
+                >
+                  Finalize Order
+                </button>
+              </form>
+            )}
           </div>
+        </div>
+      ) : cart.length > 0 && isLoading ? (
+        // LOADING STATE
+        <div className="relative z-10 flex flex-col items-center justify-center text-center">
+          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl mb-6">
+            <Loader2 className="w-10 h-10 text-[#CF0106] animate-spin" />
+          </div>
+          <h2 className="font-display font-black text-3xl mb-2 text-[#1C1917]">
+            Processing...
+          </h2>
+          <p className="text-[#1C1917]/60">
+            Please wait while we secure your order.
+          </p>
+        </div>
+      ) : cart.length > 0 && showSuccess ? (
+        // SUCCESS STATE
+        <div className="relative z-10 max-w-lg w-full bg-white p-10 rounded-3xl shadow-2xl text-center border border-[#1C1917]/5">
+          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
+            <FaCircleCheck className="w-12 h-12" />
+          </div>
+          <h1 className="font-display font-black text-4xl mb-4 text-[#1C1917]">
+            Order Placed!
+          </h1>
+          <p className="text-[#1C1917]/60 text-lg mb-8">
+            Your order has been successfully placed. We are preparing it with
+            love!
+          </p>
+          <Link
+            href="/"
+            className="inline-block w-full bg-[#1C1917] text-white font-bold py-4 rounded-xl hover:bg-black transition-all"
+          >
+            Back to Home
+          </Link>
+        </div>
+      ) : (
+        // EMPTY CART STATE
+        <div className="relative z-10 flex flex-col items-center justify-center text-center">
+          <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-xl mb-8 border border-[#1C1917]/5">
+            <ShoppingBag className="w-12 h-12 text-[#1C1917]/30" />
+          </div>
+          <h2 className="font-display font-black text-4xl mb-4 text-[#1C1917]">
+            Cart is Empty
+          </h2>
+          <p className="text-[#1C1917]/60 text-lg mb-8 max-w-md">
+            Looks like you haven't added any delicious food yet.
+          </p>
+          <Link
+            href="/#menu"
+            className="inline-flex items-center gap-2 bg-[#CF0106] text-white font-bold py-4 px-10 rounded-xl hover:bg-red-700 transition-all shadow-lg shadow-red-600/20"
+          >
+            Browse Menu <ArrowRight className="w-5 h-5" />
+          </Link>
         </div>
       )}
     </div>
