@@ -105,29 +105,87 @@ function Menu({
           </div>
         </motion.div>
 
-        {menus[activeTab].name === "Snacks and Parfait" && (
-          <div className="relative mb-16 max-w-5xl mx-auto group">
-            <div className="relative rounded-2xl overflow-hidden border-8 border-[#1C1917] shadow-xl">
-              <video
-                width="320"
-                height="240"
-                loop
-                autoPlay
-                muted
-                playsInline
-                className="w-full object-cover h-[400px]"
-              >
-                <source src="/snacksandparfaitvid.MP4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
-              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-[#1C1917]/20">
-                <p className="text-[#1C1917] font-bold text-sm">
-                  Snacks & Parfait Showcase
-                </p>
+        {menus[activeTab].name === "LÁFÚN Signature" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-16 max-w-4xl mx-auto"
+          >
+            <div className="bg-[#CF0106] rounded-xl p-6 md:p-8 border-4 border-[#1C1917] shadow-[8px_8px_0_#1C1917]">
+              <div className="flex items-start gap-4">
+                <div>
+                  <h3 className="text-white font-black text-xl md:text-2xl mb-2">
+                    Preparation Time
+                  </h3>
+                  <p className="text-white/90 text-base md:text-lg leading-relaxed">
+                    Each meal takes{" "}
+                    <span className="font-bold">60 minutes</span> for the Lafun
+                    signature meals
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
+        )}
+
+        {menus[activeTab].name === "Snacks and Parfait" && (
+          <>
+            <div className="relative mb-8 max-w-5xl mx-auto group">
+              <div className="relative rounded-2xl overflow-hidden border-8 border-[#1C1917] shadow-xl">
+                <video
+                  width="320"
+                  height="240"
+                  loop
+                  autoPlay
+                  muted
+                  playsInline
+                  className="w-full object-cover h-[400px]"
+                >
+                  <source src="/snacksandparfaitvid.MP4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-[#1C1917]/20">
+                  <p className="text-[#1C1917] font-bold text-sm">
+                    Snacks & Parfait Showcase
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-16 max-w-4xl mx-auto"
+            >
+              <div className="bg-[#1C1917] rounded-xl p-6 md:p-8 border-4 border-[#CF0106] shadow-[8px_8px_0_#CF0106]">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-white font-black text-xl md:text-2xl mb-3">
+                      Next-Day Delivery
+                    </h3>
+                    <p className="text-white/90 text-base md:text-lg leading-relaxed mb-3">
+                      To keep our pastry production smooth and organized, we
+                      operate strictly on a next-day delivery system.
+                    </p>
+                    <p className="text-white/90 text-base md:text-lg leading-relaxed mb-3">
+                      Kindly place your snack orders{" "}
+                      <span className="font-bold text-[#CF0106] bg-white px-2 py-0.5 rounded">
+                        16–24 hours in advance
+                      </span>{" "}
+                      of your preferred delivery time.
+                    </p>
+                    <p className="text-white font-bold text-base md:text-lg italic">
+                      The wait is totally worth it na when you chop am you go
+                      know. 😋
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
 
         <div className="relative">
