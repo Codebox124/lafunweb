@@ -71,14 +71,14 @@ function NavBar({
                 </a>
               </li>
               <li>
-                <button
+                {/* <button
                   onClick={() => setShowWaitlist(true)}
                   className="group relative px-5 py-2.5 bg-gradient-to-r from-white/5 to-white/[0.02] border border-white/20 hover:border-red-500/50 text-white rounded-xl transition-all duration-300 flex items-center gap-2 text-sm font-bold backdrop-blur-xl hover:scale-105 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-orange-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <Bell className="w-4 h-4 relative z-10 group-hover:animate-bounce" />
                   <span className="relative z-10">Waitlist</span>
-                </button>
+                </button> */}
               </li>
             </ul>
           </div>

@@ -29,6 +29,12 @@ function Hero({ setShowWaitlist }) {
         />
       </div>
 
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-float"></div>
+        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-orange-500 rounded-full animate-float animation-delay-2000"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-pink-500 rounded-full animate-float animation-delay-4000"></div>
+      </div>
+
       <motion.div
         className="relative z-10 text-center max-w-4xl px-6"
         variants={containerVariants}
@@ -87,15 +93,68 @@ function Hero({ setShowWaitlist }) {
             Order Now 🍲
           </a>
 
-          <button
+          {/* <button
             onClick={() => setShowWaitlist(true)}
             className="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-white hover:border-red-500 hover:bg-white/10 text-white font-bold rounded-full px-10 py-4 text-lg transition-all duration-300 hover:scale-105 w-full sm:w-auto"
           >
             <Bell className="w-5 h-5" />
             Join Waitlist
-          </button>
+          </button> */}
         </motion.div>
       </motion.div>
+      <style jsx>{`
+        @keyframes blob {
+          0%,
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+        }
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        @keyframes pulse-slow {
+          0%,
+          100% {
+            opacity: 0.5;
+          }
+          50% {
+            opacity: 0.8;
+          }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 3s ease-in-out infinite;
+        }
+        .bg-size-200 {
+          background-size: 200%;
+        }
+        .hover\\:bg-right-bottom:hover {
+          background-position: right bottom;
+        }
+      `}</style>
     </section>
   );
 }

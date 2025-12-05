@@ -107,9 +107,12 @@ function Testimonials() {
             <h3 className="font-display text-2xl font-bold">
               Taste the hype yourself.
             </h3>
-            <button className="text-sm font-bold uppercase tracking-widest border-b border-white/30 pb-1 hover:border-white transition-colors">
+            <a
+              href="#menu"
+              className="text-sm font-bold uppercase tracking-widest border-b border-white/30 pb-1 hover:border-white transition-colors"
+            >
               Order Now
-            </button>
+            </a>
           </div>
         </div>
       </div>
