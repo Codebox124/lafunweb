@@ -28,7 +28,7 @@ function NavBar({
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-400 ${
-        scrollY > 50 ? "py-0 bg-black shadow-2xl" : "py-5 bg-transparent"
+        scrollY > 50 ? "py-0 bg-black shadow-2xl" : "py-3 bg-transparent"
       }`}
     >
       <div className="container-modern">
@@ -37,7 +37,7 @@ function NavBar({
           <div className="flex-shrink-0 relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-orange-600/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <img
-              className="md:w-[150px] w-[100px] relative z-10 transition-all duration-500 hover:scale-110 drop-shadow-2xl"
+              className="md:w-[90px] w-[90px] relative z-10 transition-all duration-500 hover:scale-110 drop-shadow-2xl"
               src="/logo.png"
               alt="LÁFÚN Logo"
             />
@@ -132,7 +132,7 @@ function NavBar({
                 <span className="menu-item-inner">Contact</span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <button
                 onClick={() => {
                   setShowWaitlist(true);
@@ -143,7 +143,7 @@ function NavBar({
                 <Bell className="w-5 h-5" />
                 <span>Join Waitlist</span>
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
@@ -201,7 +201,7 @@ function NavBar({
           height: 0;
           overflow: hidden;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          margin-top: 20px;
+          margin-top: -10px;
         }
 
         .main_list.show_list {

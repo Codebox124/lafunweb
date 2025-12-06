@@ -69,12 +69,12 @@ function Menu({
           className="mb-20"
         >
           <div className="lg:hidden overflow-x-auto pb-2">
-            <div className="flex items-center gap-3 px-5">
+            <div className="flex items-center gap-3 px-0">
               {menus.map((menu, index) => (
                 <button
                   key={menu.name}
                   onClick={() => setActiveTab(index)}
-                  className={`relative px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wide transition-all duration-300 whitespace-nowrap border ${
+                  className={`relative px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wide transition-all duration-300 border w-1/3 ${
                     activeTab === index
                       ? "bg-[#CF0106] text-white border-[#CF0106] shadow-md shadow-[#CF0106]/30 flex-shrink-0"
                       : "text-[#1C1917]/80 hover:text-[#1C1917] bg-white border-transparent hover:border-[#1C1917]/20 flex-shrink-0"
@@ -132,7 +132,7 @@ function Menu({
         {menus[activeTab].name === "Snacks and Parfait" && (
           <>
             <div className="relative mb-8 max-w-5xl mx-auto group">
-              <div className="relative rounded-2xl overflow-hidden border-8 border-[#1C1917] shadow-xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
                 <video
                   width="320"
                   height="240"
@@ -160,24 +160,24 @@ function Menu({
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-16 max-w-4xl mx-auto"
             >
-              <div className="bg-[#1C1917] rounded-xl p-6 md:p-8 border-4 border-[#CF0106] shadow-[8px_8px_0_#CF0106]">
+              <div className="rounded-xl p-6 md:p-8 ">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-white font-black text-xl md:text-2xl mb-3">
+                  <div className="flex-1 text-black">
+                    <h3 className="font-black text-xl md:text-2xl mb-3">
                       Next-Day Delivery
                     </h3>
-                    <p className="text-white/90 text-base md:text-lg leading-relaxed mb-3">
+                    <p className="text-[#1C1917] text-base md:text-lg leading-relaxed mb-3">
                       To keep our pastry production smooth and organized, we
                       operate strictly on a next-day delivery system.
                     </p>
-                    <p className="text-white/90 text-base md:text-lg leading-relaxed mb-3">
+                    <p className="[#1C1917] text-base md:text-lg leading-relaxed mb-3">
                       Kindly place your snack orders{" "}
-                      <span className="font-bold text-[#CF0106] bg-white px-2 py-0.5 rounded">
+                      <span className="font-bold text-[#CF0106]">
                         16–24 hours in advance
                       </span>{" "}
                       of your preferred delivery time.
                     </p>
-                    <p className="text-white font-bold text-base md:text-lg italic">
+                    <p className="text-[#1C1917] font-bold text-base md:text-lg italic">
                       The wait is totally worth it na when you chop am you go
                       know. 😋
                     </p>
@@ -200,7 +200,7 @@ function Menu({
                     transition={{ duration: 0.4, delay: 0.05 * index }}
                     viewport={{ once: true, amount: 0.1 }}
                     key={index}
-                    className="group relative bg-white rounded-xl overflow-hidden border-2 border-[#1C1917] shadow-[8px_8px_0_#1C1917] transition-all duration-300 hover:shadow-[12px_12px_0_#CF0106] flex-shrink-0 w-[300px] md:w-[350px] snap-start"
+                    className="group relative bg-white rounded-xl overflow-hidden border-2 border-[#1C1917] shadow-[4px_4px_0_#1C1917] transition-all duration-300 hover:shadow-[8px_8px_0_#CF0106] flex-shrink-0 w-[300px] md:w-[350px] snap-start"
                   >
                     <div className="relative overflow-hidden aspect-square">
                       <img
@@ -210,8 +210,8 @@ function Menu({
                       />
 
                       <div className="absolute top-4 right-4 z-20">
-                        <div className="bg-[#1C1917] px-4 py-2 shadow-lg border-2 border-white">
-                          <span className="text-white font-black text-xl tracking-tighter tabular-nums">
+                        <div className="bg-white px-4 py-2 shadow-lg border border-[#CF0106] rounded-lg">
+                          <span className="text-[#1C1917] font-black text-xl tracking-tighter tabular-nums">
                             {item.currency}
                             {item.price.toLocaleString()}
                           </span>
