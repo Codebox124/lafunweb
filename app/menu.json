@@ -19,7 +19,7 @@
         "selectedProtein": "",
         "image": "/abula.JPG",
         "currency": "₦",
-        "total": 8500
+        "total": 6800
       },
       {
         "name": "LÁFÚN (NO GBÈGÌRÌ)",
@@ -38,7 +38,7 @@
         "selectedProtein": "",
         "image": "/ewedu.JPG",
         "currency": "₦",
-        "total": 8000
+        "total": 6500
       },
       {
         "name": "MINI ÀBÙLÀ COMBO",
@@ -46,16 +46,25 @@
         "description": "Proteins are fixed-small sizes of ponmon and small sizes of beef",
         "image": "/mini.png",
         "currency": "₦",
-        "total": 6500
+        "total": 4500
       },
       {
-        "name": "Noodles",
-        "price": 5000,
-        "description": "Two boiled eggs, veggies and minced sausages",
+        "name": "Spicy Noodles",
+        "price": 3500,
+        "description": "One sausage, one boiled egg",
         "selectedProtein": "",
         "image": "/noodles.jpg",
         "currency": "₦",
-        "total": 5000
+        "total": 3500
+      },
+      {
+        "name": "Spicy Noodles - Deluxe",
+        "price": 6500,
+        "description": "Sausage, chicken, boiled egg",
+        "selectedProtein": "",
+        "image": "/noodles.jpg",
+        "currency": "₦",
+        "total": 6500
       },
       {
         "name": "Jollof rice",
@@ -74,7 +83,7 @@
         "selectedProtein": "",
         "image": "/jollofrice.JPG",
         "currency": "₦",
-        "total": 8500
+        "total": 6500
       },
       {
         "name": "Loaded Cheesy Fries",
@@ -112,7 +121,7 @@
         "selectedProtein": "",
         "image": "/friedrice.JPG",
         "currency": "₦",
-        "total": 8500
+        "total": 8000
       },
       {
         "name": "Beans and plantain",
