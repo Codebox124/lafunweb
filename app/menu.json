@@ -3,8 +3,8 @@
     "name": "LÁFÚN Signature",
     "items": [
       {
-        "name": "LÁFÚN & ÀBÙLÀ COMBO",
-        "price": 8500,
+        "name": "LÁFÚN SIGNATURE SWALLOW",
+        "price": 6800,
         "description": "Lafun, Gbegiri and Ewedu.",
         "proteinOptions": [
           "Beef",
@@ -22,8 +22,8 @@
         "total": 8500
       },
       {
-        "name": "LÁFÚN WITHOUT GBÈGÌRÌ",
-        "price": 8000,
+        "name": "LÁFÚN (NO GBÈGÌRÌ)",
+        "price": 6500,
         "description": "Lafun with Ewedu and Pepper Stew.",
         "proteinOptions": [
           "Beef",
@@ -41,8 +41,8 @@
         "total": 8000
       },
       {
-        "name": "LÁFÚN MINI ÀBÙLÀ COMBO",
-        "price": 6500,
+        "name": "MINI ÀBÙLÀ COMBO",
+        "price": 4500,
         "description": "Proteins are fixed-small sizes of ponmon and small sizes of beef",
         "image": "/mini.png",
         "currency": "₦",
@@ -59,7 +59,7 @@
       },
       {
         "name": "Jollof rice",
-        "price": 8500,
+        "price": 6500,
         "description": "",
         "proteinOptions": [
           "Beef",
@@ -86,13 +86,10 @@
         "total": 13500
       },
       {
-        "name": "Potato porridge/pottage",
+        "name": "Potato pottage",
         "price": 5000,
         "description": "",
-        "proteinOptions": [
-          "Shredded beef",
-          "Shredded fish"
-        ],
+        "proteinOptions": ["Shredded beef", "Shredded fish"],
         "selectedProtein": "",
         "image": "/potatoporridge.JPG",
         "currency": "₦",
@@ -100,7 +97,7 @@
       },
       {
         "name": "Fried rice",
-        "price": 8500,
+        "price": 8000,
         "description": "",
         "proteinOptions": [
           "Beef",
@@ -173,7 +170,7 @@
         "image": "/driedpepperedcatfish.png",
         "currency": "₦"
       },
-       {
+      {
         "name": "Extra Cheese",
         "price": 3000,
         "description": "",
@@ -205,7 +202,7 @@
         "description": "",
         "image": "/meatpie.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Meat Pie (Box of 10)",
@@ -213,7 +210,7 @@
         "description": "",
         "image": "/meatpie.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Milky Doughnut (Box of 6) ",
@@ -221,7 +218,7 @@
         "description": "",
         "image": "/milkydoughnutsboxof6.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Milky Doughnut (Box of 3)",
@@ -229,7 +226,7 @@
         "description": "",
         "image": "/milkydoughnutsboxof3.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Sugar Doughnut (1 pc)",
@@ -237,7 +234,7 @@
         "description": "",
         "image": "/sugardoughnuts.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Jam Doughnut (1 pc)",
@@ -245,7 +242,7 @@
         "description": "",
         "image": "/jamdoughnuts.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Yoghurt Parfait 250ml",
@@ -253,7 +250,7 @@
         "description": "",
         "image": "/yoghurtparfait.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       },
       {
         "name": "Yoghurt Parfait 400ml",
@@ -261,7 +258,7 @@
         "description": "",
         "image": "/yoghurtparfait.PNG",
         "currency": "₦",
-        "snackorparfait":true
+        "snackorparfait": true
       }
     ]
   }

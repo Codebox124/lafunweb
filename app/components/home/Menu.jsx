@@ -68,13 +68,13 @@ function Menu({
           viewport={{ once: true, amount: 0.2 }}
           className="mb-20"
         >
-          <div className="lg:hidden overflow-x-auto pb-2">
-            <div className="flex items-center gap-3 px-0">
+          <div className="lg:hidden pb-0">
+            <div className="flex items-center gap-3 px-4 justify-center">
               {menus.map((menu, index) => (
                 <button
                   key={menu.name}
                   onClick={() => setActiveTab(index)}
-                  className={`relative px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wide transition-all duration-300 border w-1/3 ${
+                  className={`relative px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wide transition-all duration-300 border flex-1 ${
                     activeTab === index
                       ? "bg-[#CF0106] text-white border-[#CF0106] shadow-md shadow-[#CF0106]/30 flex-shrink-0"
                       : "text-[#1C1917]/80 hover:text-[#1C1917] bg-white border-transparent hover:border-[#1C1917]/20 flex-shrink-0"
