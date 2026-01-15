@@ -131,6 +131,69 @@
         "image": "/beansandplantain.JPG",
         "currency": "₦",
         "total": 6000
+      },
+      {
+        "name": "LO Signature Spaghetti",
+        "price": 7000,
+        "description": "Comes with infused veggies and shredded beef",
+        "selectedProtein": "",
+        "image": "/LO_signature_spaghetti.JPG",
+        "currency": "₦",
+        "total": 7000
+      },
+      {
+        "name": "Peppered Chicken and Chips",
+        "price": 8500,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/Peppered_chicken_and_chips.JPG",
+        "currency": "₦",
+        "total": 8500
+      },
+      {
+        "name": "Asun Rice",
+        "price": 7500,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/asun_rice.JPEG",
+        "currency": "₦",
+        "total": 7500
+      },
+      {
+        "name": "Fried Plantain and Egg",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/fried_plantain_and_egg.JPG",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Boiled Plantain and Egg",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/boiled_plantain_and_egg_sauce.WEBP",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Peppered Ponmo, Plantain and Chips",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/peppered_ponmo_plantain_and_chips.JPG",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Peppered Chicken",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/Peppered_chicken_and_chips.JPG",
+        "currency": "₦",
+        "total": 5000
       }
     ]
   },
