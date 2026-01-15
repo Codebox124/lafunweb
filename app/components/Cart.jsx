@@ -13,7 +13,7 @@ function Cart({
 }) {
   // Helper to calculate total price
   const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.total * item.quantity,
     0
   );
 
@@ -90,11 +90,11 @@ function Cart({
                     <div className="mb-4">
                       <p className="text-xl font-black text-[#CF0106]">
                         {item.currency}
-                        {(item.price * item.quantity).toLocaleString()}
+                        {(item.total * item.quantity).toLocaleString()}
                       </p>
                       <p className="text-xs text-[#1C1917]/50 font-medium">
                         {item.currency}
-                        {item.price.toLocaleString()} each
+                        {item.total.toLocaleString()} each
                       </p>
                     </div>
 

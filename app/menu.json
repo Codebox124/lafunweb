@@ -5,7 +5,7 @@
       {
         "name": "LÁFÚN SIGNATURE SWALLOW",
         "price": 6800,
-        "description": "Lafun, Gbegiri and Ewedu.",
+        "description": "A wrap of lafun, gbegiri and ewedu, one beef and one ponmon",
         "proteinOptions": [
           "Beef",
           "Titus fish",
@@ -24,7 +24,7 @@
       {
         "name": "LÁFÚN (NO GBÈGÌRÌ)",
         "price": 6500,
-        "description": "Lafun with Ewedu and Pepper Stew.",
+        "description": "A wrap of lafun, ewedu, one beef and one ponmon",
         "proteinOptions": [
           "Beef",
           "Titus fish",
@@ -60,16 +60,16 @@
       {
         "name": "Spicy Noodles - Deluxe",
         "price": 6500,
-        "description": "Sausage, chicken, boiled egg",
+        "description": "Comes with boiled egg, sausage, mini-chicken wing and veggies",
         "selectedProtein": "",
         "image": "/noodles.jpg",
         "currency": "₦",
         "total": 6500
       },
       {
-        "name": "Jollof rice",
-        "price": 6500,
-        "description": "",
+        "name": "Smokey jollof rice",
+        "price": 7000,
+        "description": "Comes with chicken, additional ₦2500 for Turkey",
         "proteinOptions": [
           "Beef",
           "Titus fish",
@@ -83,31 +83,31 @@
         "selectedProtein": "",
         "image": "/jollofrice.JPG",
         "currency": "₦",
-        "total": 6500
+        "total": 7000
       },
       {
         "name": "Loaded Cheesy Fries",
-        "price": 13500,
-        "description": "",
+        "price": 14500,
+        "description": "Cheese, chicken, beef and fries",
         "selectedProtein": "",
         "image": "/loadedcheesyfries.PNG",
         "currency": "₦",
-        "total": 13500
+        "total": 14500
       },
       {
-        "name": "Potato pottage",
-        "price": 5000,
+        "name": "Potato pottage (Asaro)",
+        "price": 6000,
         "description": "",
         "proteinOptions": ["Shredded beef", "Shredded fish"],
         "selectedProtein": "",
         "image": "/potatoporridge.JPG",
         "currency": "₦",
-        "total": 5000
+        "total": 6000
       },
       {
-        "name": "Fried rice",
+        "name": "Loaded fried rice",
         "price": 8000,
-        "description": "",
+        "description": "Comes with chicken, additional ₦2500 for Turkey",
         "proteinOptions": [
           "Beef",
           "Titus fish",
@@ -124,13 +124,76 @@
         "total": 8000
       },
       {
-        "name": "Beans and plantain",
+        "name": "Beans and fried plantain",
         "price": 6000,
         "description": "",
         "selectedProtein": "",
         "image": "/beansandplantain.JPG",
         "currency": "₦",
         "total": 6000
+      },
+      {
+        "name": "LO Signature Spaghetti",
+        "price": 7000,
+        "description": "Comes with infused veggies and shredded beef",
+        "selectedProtein": "",
+        "image": "/LO_signature_spaghetti.JPG",
+        "currency": "₦",
+        "total": 7000
+      },
+      {
+        "name": "Peppered Chicken and Chips",
+        "price": 8500,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/Peppered_chicken_and_chips.JPG",
+        "currency": "₦",
+        "total": 8500
+      },
+      {
+        "name": "Asun Rice",
+        "price": 7500,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/asun_rice.JPEG",
+        "currency": "₦",
+        "total": 7500
+      },
+      {
+        "name": "Fried Plantain and Egg",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/fried_plantain_and_egg.JPG",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Boiled Plantain and Egg",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/boiled_plantain_and_egg_sauce.WEBP",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Peppered Ponmo, Plantain and Chips",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/peppered_ponmo_plantain_and_chips.JPG",
+        "currency": "₦",
+        "total": 5000
+      },
+      {
+        "name": "Peppered Chicken",
+        "price": 5000,
+        "description": "",
+        "selectedProtein": "",
+        "image": "/Peppered_chicken_and_chips.JPG",
+        "currency": "₦",
+        "total": 5000
       }
     ]
   },

@@ -16,7 +16,16 @@ function Menu({
   function handleProteinOption(ITEM, chosen) {
     const newMenuItems = menus[activeTab].items.map((item) => {
       if (ITEM.name === item.name) {
-        return { ...item, selectedProtein: chosen };
+        let newTotal = item.price;
+        if (
+          (item.name === "Loaded fried rice" ||
+            item.name === "Smokey jollof rice") &&
+          chosen === "Turkey"
+        ) {
+          newTotal = item.price + 2500;
+        }
+        // console.log("Updated total:", newTotal, "for", item.name);
+        return { ...item, selectedProtein: chosen, total: newTotal };
       }
       return item;
     });
@@ -213,7 +222,7 @@ function Menu({
                         <div className="bg-white px-4 py-2 shadow-lg border border-[#CF0106] rounded-lg">
                           <span className="text-[#1C1917] font-black text-xl tracking-tighter tabular-nums">
                             {item.currency}
-                            {item.price.toLocaleString()}
+                            {item.total.toLocaleString()}
                           </span>
                         </div>
                       </div>

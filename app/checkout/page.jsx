@@ -74,7 +74,7 @@ export default function Page() {
         items: cart.map((item) => ({
           name: item.name,
           quantity: item.quantity,
-          price: item.price,
+          price: item.total,
           currency: item.currency,
           image: item.image,
           selectedProtein: item.selectedProtein,
@@ -105,7 +105,7 @@ export default function Page() {
         cart.forEach((item) => {
           cartmail.push(
             `${item.quantity}x ${item.name} @${item.currency}${
-              item.price * item.quantity
+              item.total * item.quantity
             }`
           );
         });
@@ -130,7 +130,7 @@ export default function Page() {
       cart.forEach((item) => {
         cartmail.push(
           `${item.quantity}x ${item.name} @${item.currency}${
-            item.price * item.quantity
+            item.total * item.quantity
           }`
         );
       });
@@ -295,7 +295,7 @@ export default function Page() {
                     </div>
                     <span className="font-bold text-[#1C1917]">
                       {item.currency}
-                      {(item.price * item.quantity).toLocaleString()}
+                      {(item.total * item.quantity).toLocaleString()}
                     </span>
                   </div>
                 ))}

@@ -3,35 +3,34 @@
 import { useState } from "react";
 import { useOverContext } from "../OverContext";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { FaCircleCheck } from "react-icons/fa6";
 
 // Dynamically import PaystackButton to avoid SSR issues
 const PaystackButton = dynamic(
-  () => import('react-paystack').then(mod => ({ default: mod.PaystackButton })),
+  () =>
+    import("react-paystack").then((mod) => ({ default: mod.PaystackButton })),
   {
     ssr: false,
     loading: () => (
       <button className="w-full cursor-pointer bg-gray-400 text-white font-semibold py-3 rounded-xl">
         Loading Payment...
       </button>
-    )
+    ),
   }
 );
-
 export default function Page() {
   const { cart, formData, setFormData, total } = useOverContext();
-  const [showSuccess, setShowSuccess] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false);
   //const publicKey = process.env.PAYSTACK_PUBLIC_KEY
   const config = {
-    reference: (new Date()).getTime().toString(),
+    reference: new Date().getTime().toString(),
     email: formData.email,
     amount: (total + 1500) * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: 'pk_test_fe3583fb926e99e617dcf94997f7daf89c66314d'/*'pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78'*/
+    publicKey:
+      "pk_test_fe3583fb926e99e617dcf94997f7daf89c66314d" /*'pk_live_cfabb69ee22f69d494916efa2c70e198f464ef78'*/,
   };
-
- 
 
   const handlePaystackSuccessAction = async (reference) => {
     console.log(reference);
@@ -43,33 +42,41 @@ export default function Page() {
       email: formData.email,
       phone: formData.phone,
       location: formData.location,
-      customAddress: formData.customAddress || '',
-      orderItems: cart.map(item =>
-        `${item.quantity}x ${item.name} with ${item.selectedProtein || 'no protein'} - ₦${item.price * item.quantity}`
-      ).join('\n'),
+      customAddress: formData.customAddress || "",
+      orderItems: cart
+        .map(
+          (item) =>
+            `${item.quantity}x ${item.name} with ${
+              item.selectedProtein || "no protein"
+            } - ₦${item.price * item.quantity}`
+        )
+        .join("\n"),
       totalAmount: `₦${total + 1500}`,
-      paymentReference: reference.reference
+      paymentReference: reference.reference,
     };
 
     try {
       // Send to your Google Apps Script Web App
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxfBV6p9_swroDjtUf7__pQCcaIBfYOdGLsfvuKXkr45S6CqMGQg7ZzuO2Wsg_rwJr5Ew/exec', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData)
-      });
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxfBV6p9_swroDjtUf7__pQCcaIBfYOdGLsfvuKXkr45S6CqMGQg7ZzuO2Wsg_rwJr5Ew/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        }
+      );
 
       if (response.ok) {
-        console.log('Order saved to Google Sheets successfully!');
+        console.log("Order saved to Google Sheets successfully!");
         setShowSuccess(true);
       } else {
-        console.error('Google Sheets error:', await response.text());
+        console.error("Google Sheets error:", await response.text());
         setShowSuccess(true); // Still show success to user
       }
     } catch (error) {
-      console.error('Error sending to Google Sheets:', error);
+      console.error("Error sending to Google Sheets:", error);
       setShowSuccess(true); // Still show success to user
     }
   };
@@ -81,12 +88,12 @@ export default function Page() {
 
   const handlePaystackCloseAction = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log('closed')
-  }
+    console.log("closed");
+  };
 
   const componentProps = {
     ...config,
-    text: 'Paystack Button Implementation',
+    text: "Paystack Button Implementation",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
@@ -155,11 +162,9 @@ export default function Page() {
     },
   ];
 
-
-
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">
-      {(cart.length > 0 && !showSuccess) ? (
+      {cart.length > 0 && !showSuccess ? (
         <div className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl">
           {/* Cart Section */}
           <div className="mb-8">
@@ -167,7 +172,13 @@ export default function Page() {
             <ul className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-2">
               {cart.map((item, index) => (
                 <li key={index} className="text-black text-sm">
-                  {item.quantity}x {item.name} {!item.snackorparfait && `with ${item.selectedProtein ? item.selectedProtein : "no protein"}`} @{item.currency}{item.price * item.quantity}
+                  {item.quantity}x {item.name}{" "}
+                  {!item.snackorparfait &&
+                    `with ${
+                      item.selectedProtein ? item.selectedProtein : "no protein"
+                    }`}{" "}
+                  @{item.currency}
+                  {item.price * item.quantity}
                 </li>
               ))}
             </ul>
@@ -181,7 +192,6 @@ export default function Page() {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-
             {/* First Name */}
             <div>
               <label
@@ -317,8 +327,15 @@ export default function Page() {
 
             {/* Submit Button */}
             <PaystackButton
-
-              disabled={!(formData.first_name && formData.last_name && formData.email && formData.phone && (formData.location || formData.customAddress))}
+              disabled={
+                !(
+                  formData.first_name &&
+                  formData.last_name &&
+                  formData.email &&
+                  formData.phone &&
+                  (formData.location || formData.customAddress)
+                )
+              }
               className="w-full cursor-pointer disabled:bg-gray-600 disabled:bg-none bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
               {...componentProps}
               text="Finalize Registration"
@@ -331,24 +348,24 @@ export default function Page() {
             </button>*/}
           </form>
         </div>
-      ) :
-        (cart.length > 0 && showSuccess) ? <div className="w-full gap-4 text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
+      ) : cart.length > 0 && showSuccess ? (
+        <div className="w-full gap-4 text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
           <FaCircleCheck className="w-[30px] h-[30px] text-green-400" />
           <h1 className="text-2xl">Order Placed!</h1>
           <p>You've successfully registered for the waitlist!</p>
-        </div> :
-          (
-            <div className="w-full text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
-              <MdOutlineShoppingCart className="w-[30px] h-[30px] mb-3" />
-              <p className="text-xl">Your cart is empty</p>
-              <Link
-                href="/#menu"
-                className="w-full flex items-center justify-center mt-5 cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-              >
-                Menu
-              </Link>
-            </div>
-          )}
+        </div>
+      ) : (
+        <div className="w-full text-gray-500 max-w-lg bg-white shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-xl flex flex-col items-center justify-center">
+          <MdOutlineShoppingCart className="w-[30px] h-[30px] mb-3" />
+          <p className="text-xl">Your cart is empty</p>
+          <Link
+            href="/#menu"
+            className="w-full flex items-center justify-center mt-5 cursor-pointer bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-700 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          >
+            Menu
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
